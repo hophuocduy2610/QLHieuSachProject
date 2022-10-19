@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <Pane prefHeight="64.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="466.0" layoutY="13.0" text="Quản lý sách" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+               <effect>
+                  <Glow />
+               </effect>
+            </Pane>
+         </top>
+         <center>
+            <BorderPane prefHeight="553.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+               <top>
+                  <Pane prefHeight="218.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="212.0" startX="-212.00001525878906" startY="-7.62939453125E-6" />
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="211.0" startX="-212.00001525878906" startY="-7.62939453125E-6" />
+                        <Label layoutX="8.0" layoutY="31.0" text="Mã sách:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="9.0" layoutY="68.0" text="Tên sách:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="9.0" layoutY="105.0" text="Ngày nhập:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="336.0" layoutY="62.0" text="Giá bán:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="335.0" layoutY="26.0" text="Giá nhập:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="336.0" layoutY="98.0" text="Nhà xuất bản:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="106.0" layoutY="105.0" promptText="0938123456" />
+                        <Label layoutX="9.0" layoutY="1.0" text="Thông tin sách" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="141.0" text="Số lượng:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="337.0" layoutY="138.0" text="Năm xuất bản:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="337.0" layoutY="174.0" text="Tác giả:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="468.0" layoutY="25.0" promptText="0938123456" />
+                        <TextField layoutX="468.0" layoutY="62.0" promptText="0938123456" />
+                        <TextField layoutX="468.0" layoutY="100.0" promptText="0938123456" />
+                        <TextField layoutX="106.0" layoutY="143.0" promptText="0938123456" />
+                        <TextField layoutX="105.0" layoutY="68.0" promptText="0938123456" />
+                        <TextField layoutX="105.0" layoutY="31.0" promptText="0938123456" />
+                        <TextField layoutX="469.0" layoutY="138.0" promptText="0938123456" />
+                        <TextField layoutX="468.0" layoutY="175.0" promptText="0938123456" />
+                        <Label layoutX="668.0" layoutY="74.0" text="Hình ảnh:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="769.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button layoutX="979.0" layoutY="88.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="92.0" style="-fx-background-color: #2E8BC0;" text="Thêm ảnh" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="10.0" layoutY="179.0" text="Loại sách:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="105.0" layoutY="181.0" promptText="0938123456" />
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="447.0" startX="-212.00001525878906" startY="-7.62939453125E-6" />
+                     </children>
+                  </Pane>
+               </top>
+               <right>
+                  <Pane prefHeight="256.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TableView layoutX="1.0" layoutY="1.0" prefHeight="226.0" prefWidth="1080.0">
+                           <columns>
+                              <TableColumn prefWidth="30.0" text="STT" />
+                              <TableColumn prefWidth="82.0" text="Mã sách" />
+                              <TableColumn prefWidth="160.0" text="Tên sách" />
+                              <TableColumn prefWidth="90.0" text="Ngày nhập" />
+                              <TableColumn prefWidth="60.0" text="Số lượng" />
+                              <TableColumn minWidth="0.0" prefWidth="120.0" text="Nhà xuất bản" />
+                              <TableColumn prefWidth="120.0" text="Tác giả" />
+                              <TableColumn prefWidth="110.0" text="Loại sách" />
+                              <TableColumn prefWidth="100.0" text="Giá nhập" />
+                              <TableColumn prefWidth="100.0" text="Giá bán" />
+                              <TableColumn prefWidth="105.0" text="Hành động" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+               </right>
+               <bottom>
+                  <Pane prefHeight="146.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="10.0" layoutY="1.0" text="Tìm kiếm" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="32.0" text="Tìm theo:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="S123" />
+                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #2E8BC0;" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../image/icon-search.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <RadioButton layoutX="121.0" layoutY="37.0" mnemonicParsing="false" text="Mã sách" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton layoutX="268.0" layoutY="37.0" mnemonicParsing="false" text="Tên sách" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton layoutX="419.0" layoutY="37.0" mnemonicParsing="false" text="Tác giả" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </RadioButton>
+                        <Label layoutX="11.0" layoutY="64.0" text="Nhập thông tin tìm kiếm:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="572.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" style="-fx-background-color: #2E8BC0;" text="Thêm sách" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="742.0" layoutY="32.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" style="-fx-background-color: #2E8BC0;" text="Làm mới" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="909.0" layoutY="32.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" style="-fx-background-color: #2E8BC0;" text="Thoát" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+               </bottom>
+            </BorderPane>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

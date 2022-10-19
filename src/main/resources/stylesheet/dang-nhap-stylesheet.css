@@ -1,0 +1,18 @@
+.textfield{
+    -fx-background-color:transparent;
+    -fx-text-inner-color:#fff;
+    -fx-border-color:#fff;
+    -fx-border-width:0px 0px .4px 0px;
+    -fx-font-size:13px;
+}
+
+.textfield:focused{
+    -fx-border-width:0px 0px 1px 0px;
+}
+.login-btn{
+    -fx-background-color:#2E8BC0;
+    -fx-background-radius:8;
+}
+.login-btn:hover{
+    -fx-background-color:#60A3D9;
+}

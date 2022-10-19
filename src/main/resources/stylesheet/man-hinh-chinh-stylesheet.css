@@ -1,0 +1,22 @@
+.user-icon{
+    vertical-align:middle;
+}
+
+.lblMenu{
+    -fx-background-color:#2E8BC0;
+}
+.btnMenu{
+    -fx-background-color:#0C2D48;
+}
+.btnMenu:hover{
+    -fx-background-color:#2E8BC0;
+}
+.btnMenu:focused{
+    -fx-background-color:#2E8BC0;
+}
+.btnSignOut{
+    -fx-background-color:#2E8BC0;
+}
+.btnSignOut:hover{
+    -fx-background-color:#60A3D9;
+}
