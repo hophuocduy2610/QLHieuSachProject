@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.LapHoaDonController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
@@ -24,7 +24,12 @@
                         <Font name="System Bold" size="27.0" />
                      </font>
                   </Label>
-                  <Label layoutX="889.0" layoutY="55.0" text="Ngày bán 10-10-2002" textFill="WHITE">
+                  <Label layoutX="889.0" layoutY="55.0" text="Ngày bán" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblNgayBan" layoutX="974.0" layoutY="54.0" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -40,8 +45,8 @@
                <top>
                   <Pane prefHeight="106.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="212.0" startX="-212.00001525878906" startY="-7.62939453125E-6" />
-                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="102.0" startX="-212.00001525878906" startY="-7.62939453125E-6" />
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="212.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="102.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
                         <Label layoutX="8.0" layoutY="2.0" text="Mã khách hàng:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
@@ -72,19 +77,44 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="131.0" layoutY="65.0" promptText="0938123456" />
-                        <Button layoutX="293.0" layoutY="59.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #2E8BC0;" textFill="WHITE">
+                        <TextField fx:id="txtSDTKH" layoutX="131.0" layoutY="65.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/lap-hoa-don-stylesheet.css" />
+                        <Button fx:id="btnTimKH" layoutX="302.0" layoutY="68.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#timKH" prefHeight="25.0" prefWidth="30.0" stylesheets="@../../../stylesheet/lap-hoa-don-stylesheet.css" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="18.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/icon-search.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
+                        <Label fx:id="lblMaKH" layoutX="143.0" layoutY="3.0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTenKhachHang" layoutX="150.0" layoutY="34.0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblMaNV" layoutX="674.0" layoutY="4.0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTenNV" layoutX="679.0" layoutY="34.0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblChucVu" layoutX="630.0" layoutY="63.0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </top>
@@ -96,7 +126,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Line endX="-113.0" endY="-67.5000228881836" layoutX="112.0" layoutY="63.0" startX="-112.0" startY="407.66668701171875" />
+                        <Line endX="-113.0" endY="-67.5000228881836" layoutX="112.0" layoutY="63.0" startX="-112.0" startY="407.66668701171875" stroke="WHITE" />
                         <TableView layoutX="1.0" layoutY="53.0" prefHeight="200.0" prefWidth="539.0">
                           <columns>
                             <TableColumn prefWidth="45.0" text="STT" />
@@ -108,12 +138,12 @@
                               <TableColumn prefWidth="32.0" />
                           </columns>
                         </TableView>
-                        <Button layoutX="27.0" layoutY="274.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="101.0" style="-fx-background-color: #2E8BC0;" text="Thanh toán" textFill="WHITE">
+                        <Button layoutX="27.0" layoutY="274.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="101.0" stylesheets="@../../../stylesheet/lap-hoa-don-stylesheet.css" text="Thanh toán" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="210.0" layoutY="274.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #2E8BC0;" text="Hủy hóa đơn" textFill="WHITE">
+                        <Button layoutX="210.0" layoutY="274.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/lap-hoa-don-stylesheet.css" text="Hủy hóa đơn" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -123,7 +153,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button layoutX="399.0" layoutY="273.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #2E8BC0;" text="In hóa đơn" textFill="WHITE">
+                        <Button layoutX="399.0" layoutY="273.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/lap-hoa-don-stylesheet.css" text="In hóa đơn" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -144,19 +174,7 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="90.0" layoutY="34.0" promptText="S123" />
-                        <Button layoutX="249.0" layoutY="30.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #2E8BC0;" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../image/icon-search.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <TextField layoutX="90.0" layoutY="34.0" promptText="S123" styleClass="textfield" stylesheets="@../../../stylesheet/lap-hoa-don-stylesheet.css" />
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../image/tren-duong-bang.png" />
@@ -181,6 +199,18 @@
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
+                        </Button>
+                        <Button layoutX="260.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" stylesheets="@../../../stylesheet/lap-hoa-don-stylesheet.css" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../image/icon-search.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
                      </children>
                   </Pane>
