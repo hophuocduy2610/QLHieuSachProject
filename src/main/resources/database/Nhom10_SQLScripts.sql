@@ -17,6 +17,7 @@ GO
 CREATE TABLE TaiKhoan(
    taiKhoan NVARCHAR(50) primary key foreign key references NhanVien(maNV),
    matKhau NVARCHAR(50) NOT NULL,
+   loaiTK NVARCHAR(50) NOT NULL
 )
 GO
  CREATE TABLE KhachHang(
@@ -93,7 +94,7 @@ Alter Table CTHoaDon add constraint CTHD_FK foreign key (maHoaDon) references Ho
 Alter Table CTHoaDon add constraint CTHDS_FK foreign key (maSach) references Sach (maSach)
 
 --Thêm tài khoản
-INSERT INTO TaiKhoan (taiKhoan, matKhau) VALUES ('QL001','admin')
+INSERT INTO TaiKhoan (taiKhoan, matKhau, loaiTK) VALUES ('QL001','admin', N'Quản lý')
 --Thêm nhân viên
 INSERT INTO NhanVien (maNV, tenNV, diaChi, namSinh, sdt, CMND, phai, chucVu) VALUES ('QL001', N'Hồ Phước Duy', N'1 Quang Trung, 11, Gò Vấp, TPHCM', '2000-10-26', '0123456789', '01234567891', N'Nam', N'Quản lý')
 

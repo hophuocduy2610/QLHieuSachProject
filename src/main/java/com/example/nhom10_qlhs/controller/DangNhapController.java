@@ -1,6 +1,7 @@
 package com.example.nhom10_qlhs.controller;
 
 import com.example.nhom10_qlhs.FxmlLoader;
+import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class DangNhapController implements Initializable {
+public class DangNhapController implements Initializable{
 
     @FXML
     private Button btnDangNhap;
@@ -43,7 +44,6 @@ public class DangNhapController implements Initializable {
             prepare.setString(1, txtTaiKhoan.getText());
             prepare.setString(2, txtMatKhau.getText());
             result = prepare.executeQuery();
-
             Alert alert;
 
             if (txtTaiKhoan.getText().isEmpty() || txtMatKhau.getText().isEmpty()) {
@@ -55,6 +55,8 @@ public class DangNhapController implements Initializable {
                 alert.showAndWait();
             } else {
                 if (result.next()) {
+                    GetData.taiKhoan = txtTaiKhoan.getText();
+                    GetData.chucVu = result.getString("loaiTK");
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Message");
                     alert.setHeaderText(null);
