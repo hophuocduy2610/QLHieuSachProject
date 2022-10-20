@@ -3,8 +3,12 @@ package com.example.nhom10_qlhs.controller;
 import com.example.nhom10_qlhs.FxmlLoader;
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -52,7 +56,7 @@ public class LapHoaDonController implements Initializable {
     private PreparedStatement prepare;
     private Statement statement;
     private ResultSet result;
-    public void timKH(){
+    public void timKH(ActionEvent actionEvent){
         String sql = "SELECT * FROM KhachHang WHERE sdt = ?";
         try {
             connect = ConnectDB.connect();
@@ -76,7 +80,17 @@ public class LapHoaDonController implements Initializable {
                     alert.setTitle("Error");
                     alert.setHeaderText(null);
                     alert.setContentText("Không tìm thấy khách hàng");
-                    alert.showAndWait();
+                    if(!alert.showAndWait().isEmpty()){
+                        Stage stage = new Stage();
+                        GetData.sdtKH = txtSDTKH.getText();
+                        FxmlLoader fxmlLoader = new FxmlLoader();
+                        BorderPane manHinhChinhPane = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
+                        BorderPane view = fxmlLoader.getBorderPane("quan-ly-khach-hang-gui");
+                        manHinhChinhPane.setCenter(view);
+                        stage.setScene(new Scene(manHinhChinhPane));
+                        stage.show();
+                        btnTimKH.getScene().getWindow().hide();
+                    }
                 }
             }
 
@@ -87,7 +101,6 @@ public class LapHoaDonController implements Initializable {
     public void loadThongTinNhanVien(){
         String sql = "SELECT * FROM NhanVien WHERE maNV = ?";
         try {
-            System.out.println(GetData.taiKhoan);
             connect = ConnectDB.connect();
             prepare = connect.prepareStatement(sql);
             prepare.setString(1, GetData.taiKhoan);

@@ -97,4 +97,5 @@ Alter Table CTHoaDon add constraint CTHDS_FK foreign key (maSach) references Sac
 INSERT INTO TaiKhoan (taiKhoan, matKhau, loaiTK) VALUES ('QL001','admin', N'Quản lý')
 --Thêm nhân viên
 INSERT INTO NhanVien (maNV, tenNV, diaChi, namSinh, sdt, CMND, phai, chucVu) VALUES ('QL001', N'Hồ Phước Duy', N'1 Quang Trung, 11, Gò Vấp, TPHCM', '2000-10-26', '0123456789', '01234567891', N'Nam', N'Quản lý')
-
+--Thêm khách hàng
+INSERT INTO KhachHang (maKH, tenKH, diaChi, sdt, email, phai) VALUES ('KH001',N'Nguyễn Văn Tú', N'2 Nguyễn Văn Bảo, 10, Gò Vấp, TPHCM', '0123446798', 'tu@gmail.com', 'Nam')

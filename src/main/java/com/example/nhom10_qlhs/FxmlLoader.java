@@ -6,7 +6,7 @@ import javafx.scene.layout.BorderPane;
 import java.net.URL;
 
 public class FxmlLoader {
-    private BorderPane view;
+    private static BorderPane view;
     public BorderPane getBorderPane(String filename){
         try {
             URL fileUrl = DangNhapMain.class.getResource(filename + ".fxml");
