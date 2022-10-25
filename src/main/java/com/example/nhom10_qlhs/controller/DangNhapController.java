@@ -57,11 +57,6 @@ public class DangNhapController implements Initializable{
                 if (result.next()) {
                     GetData.taiKhoan = txtTaiKhoan.getText();
                     GetData.chucVu = result.getString("loaiTK");
-                    alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Đăng nhập thành công");
-                    alert.showAndWait();
                     //Ẩn form đăng nhập
                     btnDangNhap.getScene().getWindow().hide();
                     //Hiển thị màn hình chính

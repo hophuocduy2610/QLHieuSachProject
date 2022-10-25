@@ -7,4 +7,5 @@ public class GetData {
     public static String chucVu;
     public static String sdtKH;
     public static ObservableList<String> phais;
+    public static String diaChi;
 }

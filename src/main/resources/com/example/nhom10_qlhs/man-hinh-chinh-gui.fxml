@@ -19,7 +19,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
                <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="USER" size="5em" />
+                  <FontAwesomeIcon  fill="WHITE" glyphName="USER" size="5em" />
                </graphic>
                <padding>
                   <Insets top="10.0" />

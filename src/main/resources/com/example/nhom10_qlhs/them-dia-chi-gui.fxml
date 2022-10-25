@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="500.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="pnBorderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="500.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.DiaChiController">
    <top>
       <Pane prefHeight="63.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
@@ -27,32 +27,32 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField layoutX="219.0" layoutY="26.0" prefHeight="30.0" prefWidth="164.0" promptText="0938123456" />
+            <TextField fx:id="txtSoNha" layoutX="219.0" layoutY="19.0" prefHeight="30.0" prefWidth="164.0" promptText="1/2/3" styleClass="textfield" stylesheets="@../../../stylesheet/them-dia-chi-stylesheet.css" />
             <Label layoutX="116.0" layoutY="79.0" text="Đường:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField layoutX="219.0" layoutY="77.0" prefHeight="30.0" prefWidth="164.0" promptText="0938123456" />
+            <TextField fx:id="txtDuong" layoutX="219.0" layoutY="69.0" prefHeight="30.0" prefWidth="164.0" promptText="Nguyễn Văn Bảo" styleClass="textfield" stylesheets="@../../../stylesheet/them-dia-chi-stylesheet.css" />
             <Label layoutX="116.0" layoutY="132.0" text="Phường:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField layoutX="219.0" layoutY="130.0" prefHeight="30.0" prefWidth="164.0" promptText="0938123456" />
+            <TextField fx:id="txtPhuong" layoutX="220.0" layoutY="121.0" prefHeight="30.0" prefWidth="164.0" promptText="17" styleClass="textfield" stylesheets="@../../../stylesheet/them-dia-chi-stylesheet.css" />
             <Label layoutX="116.0" layoutY="186.0" text="Quận:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField layoutX="219.0" layoutY="184.0" prefHeight="30.0" prefWidth="164.0" promptText="0938123456" />
+            <TextField fx:id="txtQuan" layoutX="219.0" layoutY="175.0" prefHeight="30.0" prefWidth="164.0" promptText="Gò Vấp" styleClass="textfield" stylesheets="@../../../stylesheet/them-dia-chi-stylesheet.css" />
             <Label layoutX="116.0" layoutY="240.0" text="Thành phố:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField layoutX="219.0" layoutY="238.0" prefHeight="30.0" prefWidth="164.0" promptText="0938123456" />
-            <Button layoutX="193.0" layoutY="300.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #2E8BC0;" text="Thêm" textFill="WHITE">
+            <TextField fx:id="txtThanhPho" layoutX="219.0" layoutY="229.0" prefHeight="30.0" prefWidth="164.0" promptText="HCM" styleClass="textfield" stylesheets="@../../../stylesheet/them-dia-chi-stylesheet.css" />
+            <Button fx:id="btnThem" layoutX="193.0" layoutY="300.0" mnemonicParsing="false" onAction="#sendDataToTextFieldDiaChi" prefHeight="32.0" prefWidth="115.0" stylesheets="@../../../stylesheet/them-dia-chi-stylesheet.css" text="Thêm" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

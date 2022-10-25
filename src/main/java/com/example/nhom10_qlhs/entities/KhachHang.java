@@ -1,5 +1,7 @@
 package com.example.nhom10_qlhs.entities;
 
+import java.util.Date;
+
 public class KhachHang {
     private String maKH;
     private String tenKH;
@@ -7,6 +9,7 @@ public class KhachHang {
     private String sdt;
     private String email;
     private String phai;
+    private Date namSinh;
 
     public KhachHang() {
     }
@@ -15,13 +18,14 @@ public class KhachHang {
         this.maKH = maKH;
     }
 
-    public KhachHang(String maKH, String tenKH, String diaChi, String sdt, String email, String phai) {
+    public KhachHang(String maKH, String tenKH, String diaChi, String sdt, String email, String phai, Date namSinh) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.diaChi = diaChi;
         this.sdt = sdt;
         this.email = email;
         this.phai = phai;
+        this.namSinh = namSinh;
     }
 
     public String getMaKH() {

@@ -6,6 +6,7 @@ module com.example.nhom10_qlhs {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires fontawesomefx;
 
     opens com.example.nhom10_qlhs to javafx.fxml;
     exports com.example.nhom10_qlhs;

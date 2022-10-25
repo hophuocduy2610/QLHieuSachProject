@@ -75,43 +75,44 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtDiaChi" layoutX="518.0" layoutY="38.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
+                        <TextField fx:id="txtDiaChi" layoutX="518.0" layoutY="38.0" promptText="1 Quang Trung, 11, Gò Vấp, TPHCM" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
                         <TextField fx:id="txtEmail" layoutX="517.0" layoutY="76.0" promptText="man@gmail.com" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
                         <TextField fx:id="txtTenKH" layoutX="148.0" layoutY="74.0" promptText="Nguyễn Văn Phúc" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <TextField fx:id="txtMaKH" layoutX="148.0" layoutY="36.0" promptText="KH001" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
                         <Label layoutX="12.0" layoutY="150.0" text="Phái:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
                         <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="447.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
-                        <Button layoutX="690.0" layoutY="33.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Thêm địa chỉ" textFill="WHITE">
+                        <Button fx:id="btnThemDiaChi" layoutX="690.0" layoutY="33.0" mnemonicParsing="false" onAction="#hienFormThemDiaChi" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Thêm địa chỉ" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
                         <TextField fx:id="txtSoDT" layoutX="517.0" layoutY="113.0" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <ComboBox fx:id="cbxPhai" layoutX="148.0" layoutY="148.0" prefHeight="30.0" prefWidth="161.0" styleClass="combo-box" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
+                        <ComboBox fx:id="cbxPhai" layoutX="148.0" layoutY="148.0" prefHeight="30.0" prefWidth="161.0" promptText="Nam" styleClass="combo-box" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
                         <DatePicker fx:id="txtNamSinh" layoutX="148.0" layoutY="115.0" styleClass="date-picker" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
+                        <Label fx:id="lblMaKH" layoutX="154.0" layoutY="41.0" text="KH0001" textFill="WHITE">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </top>
                <right>
                   <Pane prefHeight="256.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView layoutX="1.0" layoutY="-3.0" prefHeight="249.0" prefWidth="1080.0">
+                        <TableView fx:id="tblKhachHang" layoutX="1.0" layoutY="-3.0" prefHeight="249.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css">
                            <columns>
-                              <TableColumn prefWidth="30.0" text="STT" />
-                              <TableColumn prefWidth="82.0" text="Mã sách" />
-                              <TableColumn prefWidth="160.0" text="Tên sách" />
-                              <TableColumn prefWidth="90.0" text="Ngày nhập" />
-                              <TableColumn prefWidth="60.0" text="Số lượng" />
-                              <TableColumn minWidth="0.0" prefWidth="120.0" text="Nhà xuất bản" />
-                              <TableColumn prefWidth="120.0" text="Tác giả" />
-                              <TableColumn prefWidth="110.0" text="Loại sách" />
-                              <TableColumn prefWidth="100.0" text="Giá nhập" />
-                              <TableColumn prefWidth="100.0" text="Giá bán" />
-                              <TableColumn prefWidth="105.0" text="Hành động" />
+                              <TableColumn fx:id="colMaKH" prefWidth="96.66668319702148" text="Mã khách hàng" />
+                              <TableColumn fx:id="colTenKH" prefWidth="170.00003051757812" text="Tên khách hàng" />
+                              <TableColumn fx:id="colNamSinh" prefWidth="94.0" text="Năm sinh" />
+                              <TableColumn fx:id="colPhai" prefWidth="69.33334350585938" text="Phái" />
+                              <TableColumn fx:id="colDiaChi" minWidth="0.0" prefWidth="203.33328247070312" text="Địa chỉ" />
+                              <TableColumn fx:id="colEmail" prefWidth="204.66668701171875" text="Email" />
+                              <TableColumn fx:id="colSDT" prefWidth="124.6666259765625" text="Số điện thoại" />
+                              <TableColumn fx:id="colHanhDong" prefWidth="112.66668701171875" text="Hành động" />
                            </columns>
                         </TableView>
                      </children>
