@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.LapHoaDonController">
+<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.LapHoaDonController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
@@ -95,9 +95,9 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblTenKhachHang" layoutX="150.0" layoutY="34.0" textFill="WHITE">
+                        <Label fx:id="lblTenKH" layoutX="150.0" layoutY="39.0" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="17.0" />
+                              <Font size="14.0" />
                            </font>
                         </Label>
                         <Label fx:id="lblMaNV" layoutX="674.0" layoutY="4.0" textFill="WHITE">

@@ -1,5 +1,6 @@
 package com.example.nhom10_qlhs.controller;
 
+import com.example.nhom10_qlhs.DangNhapMain;
 import com.example.nhom10_qlhs.FxmlLoader;
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
@@ -17,6 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,6 +54,8 @@ public class LapHoaDonController implements Initializable {
 
     @FXML
     private Label lblChucVu;
+    @FXML
+    private Label lblTenKH;
 
     public Connection connect;
     private PreparedStatement prepare;
@@ -73,23 +78,15 @@ public class LapHoaDonController implements Initializable {
                 alert.showAndWait();
             }else {
                 if (result.next()) {
-                    lblMaKH.setText(result.getString("maKH"));
-                    lblTenKhachHang.setText(result.getString("tenKH"));
+                        lblMaKH.setText(result.getString("maKH"));
+                        lblTenKH.setText(result.getString("tenKH"));
                 } else {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setHeaderText(null);
                     alert.setContentText("Không tìm thấy khách hàng");
                     if(!alert.showAndWait().isEmpty()){
-                        Stage stage = new Stage();
-                        GetData.sdtKH = txtSDTKH.getText();
-                        FxmlLoader fxmlLoader = new FxmlLoader();
-                        BorderPane manHinhChinhPane = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
-                        BorderPane view = fxmlLoader.getBorderPane("quan-ly-khach-hang-gui");
-                        manHinhChinhPane.setCenter(view);
-                        stage.setScene(new Scene(manHinhChinhPane));
-                        stage.show();
-                        btnTimKH.getScene().getWindow().hide();
+                        hienFormThemKhachHang();
                     }
                 }
             }
@@ -117,6 +114,25 @@ public class LapHoaDonController implements Initializable {
     public void loadNgayBan(){
         lblNgayBan.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString());
     }
+    public void hienFormThemKhachHang() throws IOException {
+        URL url = new File("target/classes/com/example/nhom10_qlhs/them-khach-hang-gui.fxml").toURI().toURL();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(url);
+        BorderPane borderPane = loader.load();
+        Scene scene = new Scene(borderPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
+        //Sau khi form thêm khách hàng close, set text vào textField SDT và hiển thị tên khách hàng
+        if(!stage.isShowing()){
+            if(!lblTenKH.getText().equals(GetData.tenKH) || !txtSDTKH.getText().equals(GetData.sdtKH)){
+                lblTenKH.setText(GetData.tenKH);
+                txtSDTKH.setText(GetData.sdtKH);
+            }
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadNgayBan();

@@ -15,9 +15,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class ManHinhChinhController implements Initializable{
+public class MenuController implements Initializable{
     @FXML
-    private BorderPane manHinhChinhPane;
+    private BorderPane menuPane;
 
     @FXML
     private Button btnDangXuat;
@@ -28,40 +28,46 @@ public class ManHinhChinhController implements Initializable{
     @FXML
     private Label lblTenTaiKhoan;
     @FXML
+    private void handleMenuItemAction(ActionEvent actionEvent){
+        FxmlLoader fxmlLoader = new FxmlLoader();
+        BorderPane view = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
+        menuPane.setCenter(view);
+    }
+    @FXML
     private void handleMenuItem1Action(ActionEvent actionEvent){
         FxmlLoader fxmlLoader = new FxmlLoader();
         BorderPane view = fxmlLoader.getBorderPane("lap-hoa-don-gui");
-        manHinhChinhPane.setCenter(view);
+        menuPane.setCenter(view);
     }
     @FXML
     private void handleMenuItem2Action(ActionEvent actionEvent){
         FxmlLoader fxmlLoader = new FxmlLoader();
         BorderPane view = fxmlLoader.getBorderPane("quan-ly-hoa-don-gui");
-        manHinhChinhPane.setCenter(view);
+        menuPane.setCenter(view);
     }
     @FXML
     private void handleMenuItem3Action(ActionEvent actionEvent){
         FxmlLoader fxmlLoader = new FxmlLoader();
         BorderPane view = fxmlLoader.getBorderPane("quan-ly-sach-gui");
-        manHinhChinhPane.setCenter(view);
+        menuPane.setCenter(view);
     }
     @FXML
     private void handleMenuItem4Action(ActionEvent actionEvent){
         FxmlLoader fxmlLoader = new FxmlLoader();
         BorderPane view = fxmlLoader.getBorderPane("quan-ly-khach-hang-gui");
-        manHinhChinhPane.setCenter(view);
+        menuPane.setCenter(view);
     }
     @FXML
     private void handleMenuItem5Action(ActionEvent actionEvent){
         FxmlLoader fxmlLoader = new FxmlLoader();
         BorderPane view = fxmlLoader.getBorderPane("quan-ly-nhan-vien-gui");
-        manHinhChinhPane.setCenter(view);
+        menuPane.setCenter(view);
     }
     @FXML
     private void handleMenuItem6Action(ActionEvent actionEvent){
         FxmlLoader fxmlLoader = new FxmlLoader();
         BorderPane view = fxmlLoader.getBorderPane("thong-ke-gui");
-        manHinhChinhPane.setCenter(view);
+        menuPane.setCenter(view);
     }
 
     @FXML

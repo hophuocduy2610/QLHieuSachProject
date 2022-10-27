@@ -1,154 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="manHinhChinhPane" prefHeight="550.0" prefWidth="1280.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.ManHinhChinhController">
-   <left>
-      <VBox prefHeight="550.0" prefWidth="200.0" style="-fx-background-color: #0C2D48;" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon  fill="WHITE" glyphName="USER" size="5em" />
-               </graphic>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </Label>
-            <Label fx:id="lblTenTaiKhoan" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="lblChucVu" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Chức vụ" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnDangXuat" alignment="BASELINE_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#logout" prefHeight="29.0" prefWidth="116.0" styleClass="btnSignOut" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Đăng xuất" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="1.5em" />
-               </graphic>
-               <VBox.margin>
-                  <Insets left="40.0" />
-               </VBox.margin>
-            </Button>
-            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="200.0" styleClass="lblMenu" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Menu" textAlignment="CENTER" textFill="WHITE">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="BARS" />
-               </graphic>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Label>
-            <Button alignment="BASELINE_CENTER" layoutX="10.0" layoutY="239.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="btnMenu" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Màn hình chính" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMenuItem1Action" styleClass="btnMenu" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Lập hóa đơn" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" layoutX="10.0" layoutY="101.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMenuItem2Action" styleClass="btnMenu" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Quản lý hóa đơn" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" layoutX="10.0" layoutY="151.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMenuItem3Action" styleClass="btnMenu" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Quản lý sách" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" layoutX="10.0" layoutY="201.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMenuItem4Action" styleClass="btnMenu" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Quản lý khách hàng" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" layoutX="10.0" layoutY="251.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMenuItem5Action" styleClass="btnMenu" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Quản lý nhân viên" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" layoutX="10.0" layoutY="301.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleMenuItem6Action" styleClass="btnMenu" stylesheets="@../../../stylesheet/man-hinh-chinh-stylesheet.css" text="Thống kê" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="15.0" top="15.0" />
-               </padding>
-            </Button>
-         </children>
-      </VBox>
-   </left>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <center>
-            <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@../../../image/welcome-bookstore-logo.jpg" />
-               </image>
-            </ImageView>
-         </center>
-      </BorderPane>
+      <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../../../image/welcome-bookstore-logo.jpg" />
+         </image>
+      </ImageView>
    </center>
 </BorderPane>

@@ -45,6 +45,11 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
+                        <Label fx:id="lblMaKH" layoutX="154.0" layoutY="41.0" text="KH0001" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
                         <Label layoutX="9.0" layoutY="77.0" text="Tên khách hàng:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
@@ -92,11 +97,6 @@
                         <TextField fx:id="txtSoDT" layoutX="517.0" layoutY="113.0" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
                         <ComboBox fx:id="cbxPhai" layoutX="148.0" layoutY="148.0" prefHeight="30.0" prefWidth="161.0" promptText="Nam" styleClass="combo-box" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
                         <DatePicker fx:id="txtNamSinh" layoutX="148.0" layoutY="115.0" styleClass="date-picker" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <Label fx:id="lblMaKH" layoutX="154.0" layoutY="41.0" text="KH0001" textFill="WHITE">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Label>
                      </children>
                   </Pane>
                </top>
@@ -164,12 +164,12 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnThemKH" layoutX="620.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="152.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Thêm khách hàng" textFill="WHITE">
+                        <Button fx:id="btnThemKH" layoutX="620.0" layoutY="31.0" mnemonicParsing="false" onAction="#themKhachHang" prefHeight="32.0" prefWidth="152.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Thêm khách hàng" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="810.0" layoutY="32.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Làm mới" textFill="WHITE">
+                        <Button fx:id="btnLamMoi" layoutX="810.0" layoutY="32.0" mnemonicParsing="false" onAction="#clearFormThongTinKhachHang" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Làm mới" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>

@@ -62,11 +62,12 @@ public class DangNhapController implements Initializable{
                     //Hiển thị màn hình chính
                     Stage stage = new Stage();
                     FxmlLoader fxmlLoader = new FxmlLoader();
+                    BorderPane menu = fxmlLoader.getBorderPane("menu-gui");
                     BorderPane view = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
-                    Scene scene = new Scene(view);
+                    menu.setCenter(view);
+                    Scene scene = new Scene(menu);
                     stage.setScene(scene);
                     stage.show();
-
                 } else {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");

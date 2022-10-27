@@ -27,7 +27,7 @@ public class DiaChiController {
     private TextField txtThanhPho;
 
     public boolean sendDataToTextFieldDiaChi() {
-        String diaChi = txtSoNha.getText() + ", "
+        String diaChi = txtSoNha.getText() + " "
                 + txtDuong.getText() + ", "
                 + txtPhuong.getText() + ", "
                 + txtQuan.getText() + ", "

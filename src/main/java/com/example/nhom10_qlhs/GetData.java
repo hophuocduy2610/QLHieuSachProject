@@ -8,4 +8,6 @@ public class GetData {
     public static String sdtKH;
     public static ObservableList<String> phais;
     public static String diaChi;
+    public static String maKH;
+    public static String tenKH;
 }
