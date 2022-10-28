@@ -1,21 +1,24 @@
 package com.example.nhom10_qlhs.controller;
 
-import com.example.nhom10_qlhs.DangNhapMain;
-import com.example.nhom10_qlhs.FxmlLoader;
 import com.example.nhom10_qlhs.GetData;
+import com.example.nhom10_qlhs.MyListener;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import com.example.nhom10_qlhs.entities.Sach;
+import com.example.nhom10_qlhs.entities.SachInTable;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -26,8 +29,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LapHoaDonController implements Initializable {
@@ -56,6 +61,33 @@ public class LapHoaDonController implements Initializable {
     private Label lblChucVu;
     @FXML
     private Label lblTenKH;
+
+    @FXML
+    private VBox pnVBox;
+
+    @FXML
+    private TableView<SachInTable> tblHoaDon;
+
+    @FXML
+    private TableColumn<SachInTable, Double> colDonGia;
+
+    @FXML
+    private TableColumn<SachInTable, String> colMaSach;
+
+    @FXML
+    private TableColumn<SachInTable, Integer> colSoLuong;
+
+    @FXML
+    private TableColumn<SachInTable, String> colTenSach;
+
+    @FXML
+    private TableColumn<SachInTable, Double> colThanhTien;
+
+    @FXML
+    private TableColumn<SachInTable, String> colXoa;
+    List<Sach> saches = new ArrayList<>();
+    ObservableList<SachInTable> sachObservableList = FXCollections.observableArrayList();
+    private MyListener myListener;
 
     public Connection connect;
     private PreparedStatement prepare;
@@ -132,10 +164,100 @@ public class LapHoaDonController implements Initializable {
             }
         }
     }
-
+    public List<Sach> getDSSach(){
+        Sach sach;
+        List<Sach> sachList = new ArrayList<>();
+        String sql = "SELECT * FROM Sach";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            while(result.next()){
+                sach = new Sach();
+                sach.setMaSach(result.getString("maS"));
+                sach.setTenSach(result.getString("tenSach"));
+                sach.setSoLuong(result.getInt("soLuong"));
+                sach.setGiaNhap(result.getDouble("giaNhap"));
+                //sach.setNhaXuatBan(result.getString("nhaXuatBan"));
+                sach.setNamXuatBan(result.getInt("namXuatBan"));
+                //sach.setTacGia(result.getString("tacGia"));
+                sach.setLoaiSach(result.getString("loaiSach"));
+                //sach.setNhaCungCap(result.getString("nhaCungCap"));
+                sach.setGiaBan(result.getDouble("giaBan"));
+                sach.setHinhAnhSach(result.getString("hinhAnhSach"));
+                sachList.add(sach);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return sachList;
+    }
+    public void showBooks(SachInTable sach){
+        sachObservableList.add(sach);
+        System.out.println(sachObservableList);
+        colMaSach.setCellValueFactory(new PropertyValueFactory<SachInTable, String>("maSach"));
+        colTenSach.setCellValueFactory(new PropertyValueFactory<SachInTable, String>("tenSach"));
+        colSoLuong.setCellValueFactory(new PropertyValueFactory<SachInTable, Integer>("soLuong"));
+        colDonGia.setCellValueFactory(new PropertyValueFactory<SachInTable, Double>("donGia"));
+        colThanhTien.setCellValueFactory(new PropertyValueFactory<SachInTable, Double>("thanhTien"));
+        colXoa.setCellValueFactory(new PropertyValueFactory<SachInTable, String>("checkBox"));
+        tblHoaDon.getItems();
+        tblHoaDon.setItems(sachObservableList);
+    }
+    @FXML
+    private void xoaChiTietHoaDon(ActionEvent event) {
+        ObservableList<SachInTable> dataListRemove = FXCollections.observableArrayList();
+        Iterator var3 = sachObservableList.iterator();
+        while(var3.hasNext()) {
+            SachInTable bean = (SachInTable) var3.next();
+            if (bean.getCheckBox().isSelected()) {
+                dataListRemove.add(bean);
+            }
+        }
+        if(dataListRemove.size() == 0){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Chọn sản phẩm cần xóa");
+            alert.showAndWait();
+        }
+        sachObservableList.removeAll(dataListRemove);
+    }
+    @FXML
+    private void huyHoaDon(ActionEvent event){
+        lblTenKH.setText("");
+        txtSDTKH.setText("");
+        tblHoaDon.setItems(null);
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadNgayBan();
         loadThongTinNhanVien();
+        System.out.println(getDSSach());
+        saches = getDSSach();
+        System.out.println(saches);
+        myListener = new MyListener() {
+            @Override
+            public void onActionListener(SachInTable sach) {
+                System.out.println(sach);
+                showBooks(sach);
+            }
+        };
+        //Hiển thị item sách lên scrollpane
+        try{
+            for (Sach sach : saches) {
+                URL url = new File("target/classes/com/example/nhom10_qlhs/sach-item.fxml").toURI().toURL();
+
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(url);
+                HBox hBox = fxmlLoader.load();
+                SachItemController sachItemController = fxmlLoader.getController();
+                sachItemController.setDataSach(sach, myListener);
+                pnVBox.getChildren().add(hBox);
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
     }
 }

@@ -17,3 +17,32 @@
 .button:hover{
     -fx-background-color:#60A3D9;
 }
+/************ CSS Styling for scrollpane *************/
+.scroll-pane > .viewport{
+    -fx-background-color: #0c4ca3;
+    -fx-border-color: transparent;
+}
+.scroll-pane{
+   -fx-background-color:transparent;
+}
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:#0c4ca3;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: #0c4ca3;
+    -fx-border-color: #0c4ca3;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: #0c4ca3;
+    -fx-border-color: #0c4ca3;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #C1C1C1;
+    -fx-background-radius: 5em;
+}

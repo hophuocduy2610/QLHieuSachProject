@@ -9,7 +9,9 @@ module com.example.nhom10_qlhs {
     requires fontawesomefx;
 
     opens com.example.nhom10_qlhs to javafx.fxml;
+    opens com.example.nhom10_qlhs.entities to javafx.fxml;
     exports com.example.nhom10_qlhs;
+    exports com.example.nhom10_qlhs.entities;
     exports com.example.nhom10_qlhs.controller;
     opens com.example.nhom10_qlhs.controller to javafx.fxml;
 }

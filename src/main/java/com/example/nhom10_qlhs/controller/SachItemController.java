@@ -1,0 +1,99 @@
+package com.example.nhom10_qlhs.controller;
+
+import com.example.nhom10_qlhs.GetData;
+import com.example.nhom10_qlhs.MyListener;
+import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import com.example.nhom10_qlhs.entities.Sach;
+import com.example.nhom10_qlhs.entities.SachInTable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class SachItemController {
+    @FXML
+    private Button btnThem;
+
+    @FXML
+    private ImageView imgSach;
+
+    @FXML
+    private Label lblGiaBan;
+
+    @FXML
+    private Label lblMaSach;
+
+    @FXML
+    private Label lblTenSach;
+
+    @FXML
+    private Label lblNamXuatBan;
+    private MyListener myListener;
+    private Sach sach;
+
+    public Connection connect;
+    private PreparedStatement prepare;
+    private Statement statement;
+    private ResultSet result;
+    public void click() throws IOException{
+        URL url = new File("target/classes/com/example/nhom10_qlhs/nhap-so-luong.fxml").toURI().toURL();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(url);
+        SachItemController sachItemController = loader.getController();
+        BorderPane borderPane = loader.load();
+        Scene scene = new Scene(borderPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
+        //Sau khi form địa chỉ close, set text vào textField địa chỉ
+        if(GetData.trangThaiThemSoLuong.equals("btnOk")){
+            GetData.trangThaiThemSoLuong = "";
+            String sql = "SELECT * FROM Sach WHERE maS = ?";
+            try {
+                connect = ConnectDB.connect();
+                prepare = connect.prepareStatement(sql);
+                prepare.setString(1, lblMaSach.getText());
+                result = prepare.executeQuery();
+                if (result.next()){
+                    SachInTable sachInTable = new SachInTable(result.getString("maS"), result.getString("tenSach"), GetData.slSach, result.getDouble("giaBan"));
+                    myListener.onActionListener(sachInTable);
+                }
+            }catch (Exception exception){
+                exception.printStackTrace();
+            }
+        }
+    }
+    public void setDataSach(Sach sach, MyListener myListener) throws IOException {
+        this.sach = sach;
+        this.myListener = myListener;
+        Image image = new Image(new File(sach.getHinhAnhSach()).toURI().toString());
+        lblMaSach.setText(sach.getMaSach());
+        imgSach.setImage(image);
+        lblTenSach.setText(sach.getTenSach());
+        lblGiaBan.setText(String.valueOf(sach.getGiaBan()));
+        lblNamXuatBan.setText(String.valueOf(sach.getNamXuatBan()));
+        GetData.slSach = sach.getSoLuong();
+//        btnThem.setOnAction((ActionEvent event) -> {
+//
+//        });
+    }
+}
