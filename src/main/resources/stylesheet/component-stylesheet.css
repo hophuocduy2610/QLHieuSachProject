@@ -1,3 +1,5 @@
+/****************************** Text field CSS **********************************/
+
 .textfield{
     -fx-background-color:transparent;
     -fx-text-inner-color:#fff;
@@ -10,6 +12,8 @@
     -fx-border-width:0px 0px 1px 0px;
 }
 
+/****************************** Button CSS *************************************/
+
 .button{
     -fx-background-color:#2E8BC0;
     -fx-background-radius:8;
@@ -17,8 +21,15 @@
 .button:hover{
     -fx-background-color:#60A3D9;
 }
+.btnThem{
+    -fx-background-color:transparent;
+    -fx-background-radius:8;
+}
+.btnThem:hover{
+    -fx-background-color:#60A3D9;
+}
 
-/*CSS DatePicker*/
+/********************************* DatePicker CSS ***************************************/
 * {
 	-fx-primary-color: #007acc;
 	-fx-secondary-color: #4B6EAF;
@@ -82,7 +93,8 @@
 .date-picker-popup .spinner .button .right-arrow {
 	-fx-background-color: white;
 }
-/*CSS Combo-box*/
+
+/*************************************** Combo-box CSS ********************************************/
 .combo-box{
     -fx-background-color:transparent;
     -fx-border-color:#fff;
@@ -105,7 +117,8 @@
 .combo-box .arrow{
     -fx-background-color: white;
 }
-/*                  Table view CSS                          */
+
+/****************************************** Table view CSS **********************************************/
 .table-view{
    -fx-background-color:  #0c4ca3;
 }
@@ -185,5 +198,35 @@
     -fx-background-color: rgba(159, 214, 252, 10);
 	-fx-background-insets: 2, 0, 0;
 	-fx-background-radius: 2em;
-
 }
+
+/******************************************* Scrollpane CSS ************************************************************/
+.scroll-pane > .viewport{
+    -fx-background-color: #0c4ca3;
+    -fx-border-color: transparent;
+}
+.scroll-pane{
+   -fx-background-color:transparent;
+}
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:#0c4ca3;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: #0c4ca3;
+    -fx-border-color: #0c4ca3;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: #0c4ca3;
+    -fx-border-color: #0c4ca3;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #C1C1C1;
+    -fx-background-radius: 5em;
+}
+

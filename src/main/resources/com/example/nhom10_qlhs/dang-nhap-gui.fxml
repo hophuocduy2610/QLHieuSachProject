@@ -40,13 +40,13 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="btnDangNhap" layoutX="136.0" layoutY="297.0" mnemonicParsing="false" onAction="#login" prefHeight="38.0" prefWidth="127.0" styleClass="login-btn" stylesheets="@../../../stylesheet/dang-nhap-stylesheet.css" text="Đăng nhập" textFill="WHITE">
+            <Button fx:id="btnDangNhap" layoutX="136.0" layoutY="297.0" mnemonicParsing="false" onAction="#login" prefHeight="38.0" prefWidth="127.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Đăng nhập" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <TextField fx:id="txtTaiKhoan" layoutX="170.0" layoutY="164.0" prefHeight="27.0" prefWidth="171.0" promptText="taikhoan" styleClass="textfield" stylesheets="@../../../stylesheet/dang-nhap-stylesheet.css" />
-            <PasswordField fx:id="txtMatKhau" layoutX="170.0" layoutY="225.0" prefHeight="27.0" prefWidth="171.0" promptText="matkhau" styleClass="textfield" stylesheets="@../../../stylesheet/dang-nhap-stylesheet.css" />
+            <TextField fx:id="txtTaiKhoan" layoutX="170.0" layoutY="164.0" prefHeight="27.0" prefWidth="171.0" promptText="taikhoan" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <PasswordField fx:id="txtMatKhau" layoutX="170.0" layoutY="225.0" prefHeight="27.0" prefWidth="171.0" promptText="matkhau" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
          </children>
       </AnchorPane>
    </right>

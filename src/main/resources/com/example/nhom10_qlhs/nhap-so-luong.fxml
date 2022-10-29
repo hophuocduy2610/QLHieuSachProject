@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="200.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.ThemSoLuongController">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -17,9 +16,9 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="txtSoLuong" layoutX="25.0" layoutY="43.0" />
-            <Button fx:id="btnOk" layoutX="24.0" layoutY="82.0" mnemonicParsing="false" onAction="#sendSoLuong" prefHeight="25.0" prefWidth="55.0" text="Ok" />
-            <Button fx:id="btnHuy" layoutX="119.0" layoutY="82.0" mnemonicParsing="false" onAction="#huyNhapSoLuong" prefHeight="25.0" prefWidth="55.0" text="Hủy" />
+            <TextField fx:id="txtSoLuong" layoutX="25.0" layoutY="43.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <Button fx:id="btnOk" layoutX="24.0" layoutY="82.0" mnemonicParsing="false" onAction="#sendSoLuong" prefHeight="25.0" prefWidth="55.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Ok" textFill="WHITE" />
+            <Button fx:id="btnHuy" layoutX="130.0" layoutY="82.0" mnemonicParsing="false" onAction="#huyNhapSoLuong" prefHeight="25.0" prefWidth="55.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Hủy" textFill="WHITE" />
          </children>
       </Pane>
    </center>

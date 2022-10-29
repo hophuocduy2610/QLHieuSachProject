@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="500.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="500.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <Pane prefHeight="71.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
@@ -30,7 +30,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField layoutX="250.0" layoutY="15.0" prefHeight="30.0" prefWidth="164.0" promptText="0938123456" />
+            <TextField layoutX="250.0" layoutY="15.0" prefHeight="30.0" prefWidth="164.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <Label layoutX="87.0" layoutY="68.0" text="Mật khẩu:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
@@ -41,7 +41,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Button layoutX="193.0" layoutY="228.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #2E8BC0;" text="Tạo" textFill="WHITE">
+            <Button layoutX="193.0" layoutY="228.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="115.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Tạo" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -51,9 +51,9 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <PasswordField layoutX="250.0" layoutY="66.0" prefHeight="30.0" prefWidth="164.0" text="matkhau" />
-            <PasswordField layoutX="250.0" layoutY="119.0" prefHeight="30.0" prefWidth="164.0" text="matkhau" />
-            <MenuButton layoutX="250.0" layoutY="171.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="164.0" text="Nhân viên">
+            <PasswordField layoutX="250.0" layoutY="66.0" prefHeight="30.0" prefWidth="164.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" text="matkhau" />
+            <PasswordField layoutX="250.0" layoutY="119.0" prefHeight="30.0" prefWidth="164.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" text="matkhau" />
+            <MenuButton layoutX="250.0" layoutY="171.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="164.0" styleClass="combo-box" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Nhân viên">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />

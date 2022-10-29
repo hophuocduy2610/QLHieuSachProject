@@ -35,80 +35,74 @@
                <top>
                   <Pane prefHeight="197.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="212.0" startX="-212.00001525878906" startY="-7.62939453125E-6" />
-                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="191.0" startX="-212.00001525878906" startY="-7.62939453125E-6" />
-                        <Label layoutX="8.0" layoutY="39.0" text="Mã NV:" textFill="WHITE">
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="212.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="191.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
+                        <Label layoutX="9.0" layoutY="41.0" text="Tên nhân viên:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="9.0" layoutY="77.0" text="Tên nhân viên:" textFill="WHITE">
+                        <Label layoutX="11.0" layoutY="78.0" text="Năm sinh:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="11.0" layoutY="114.0" text="Năm sinh:" textFill="WHITE">
+                        <Label layoutX="378.0" layoutY="86.0" text="Email:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="396.0" layoutY="113.0" text="Email:" textFill="WHITE">
+                        <Label layoutX="377.0" layoutY="49.0" text="Địa chỉ:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="395.0" layoutY="76.0" text="Địa chỉ:" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="17.0" />
-                           </font>
-                        </Label>
-                        <TextField layoutX="149.0" layoutY="114.0" promptText="0938123456" />
+                        <TextField layoutX="149.0" layoutY="78.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Label layoutX="9.0" layoutY="1.0" text="Thông tin khách hàng" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="775.0" layoutY="35.0" text="Số điện thoại:" textFill="WHITE">
+                        <Label layoutX="776.0" layoutY="47.0" text="Số điện thoại:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="477.0" layoutY="75.0" promptText="0938123456" />
-                        <TextField layoutX="479.0" layoutY="113.0" promptText="0938123456" />
-                        <TextField layoutX="895.0" layoutY="38.0" promptText="0938123456" />
-                        <TextField layoutX="148.0" layoutY="77.0" promptText="0938123456" />
-                        <TextField layoutX="148.0" layoutY="39.0" promptText="0938123456" />
-                        <Label layoutX="12.0" layoutY="150.0" text="Phái:" textFill="WHITE">
+                        <TextField layoutX="459.0" layoutY="48.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField layoutX="461.0" layoutY="86.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField layoutX="896.0" layoutY="50.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField layoutX="148.0" layoutY="41.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label layoutX="12.0" layoutY="114.0" text="Phái:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="149.0" layoutY="152.0" promptText="0938123456" />
-                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="447.0" startX="-212.00001525878906" startY="-7.62939453125E-6" />
-                        <Label layoutX="395.0" layoutY="39.0" text="CMND:" textFill="WHITE">
+                        <TextField layoutX="149.0" layoutY="116.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="447.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
+                        <Label layoutX="14.0" layoutY="154.0" text="CMND:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="477.0" layoutY="38.0" promptText="0938123456" />
-                        <Label layoutX="775.0" layoutY="77.0" text="Tài khoản:" textFill="WHITE">
+                        <TextField layoutX="148.0" layoutY="153.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label layoutX="776.0" layoutY="89.0" text="Tài khoản:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="897.0" layoutY="76.0" promptText="0938123456" />
-                        <Label layoutX="395.0" layoutY="151.0" text="Chức vụ:" textFill="WHITE">
+                        <TextField layoutX="898.0" layoutY="88.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label layoutX="377.0" layoutY="124.0" text="Chức vụ:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="479.0" layoutY="150.0" promptText="0938123456" />
-                        <Button layoutX="639.0" layoutY="72.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: #2E8BC0;" text="Thêm địa chỉ" textFill="WHITE">
+                        <TextField layoutX="461.0" layoutY="123.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Button layoutX="630.0" layoutY="46.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm địa chỉ" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="898.0" layoutY="114.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" style="-fx-background-color: #2E8BC0;" text="Thêm tài khoản" textFill="WHITE">
+                        <Button layoutX="899.0" layoutY="126.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm tài khoản" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -150,8 +144,8 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="S123" />
-                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #2E8BC0;" textFill="WHITE">
+                        <TextField layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="S123" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" stylesheets="@../../../stylesheet/component-stylesheet.css" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -179,17 +173,17 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Button layoutX="620.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="134.0" style="-fx-background-color: #2E8BC0;" text="Thêm nhân viên" textFill="WHITE">
+                        <Button layoutX="620.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="134.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm nhân viên" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="802.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" style="-fx-background-color: #2E8BC0;" text="Làm mới" textFill="WHITE">
+                        <Button layoutX="802.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Làm mới" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="957.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" style="-fx-background-color: #2E8BC0;" text="Thoát" textFill="WHITE">
+                        <Button layoutX="957.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thoát" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>

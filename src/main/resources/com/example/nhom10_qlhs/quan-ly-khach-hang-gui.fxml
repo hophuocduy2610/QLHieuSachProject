@@ -80,30 +80,30 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtDiaChi" layoutX="518.0" layoutY="38.0" promptText="1 Quang Trung, 11, Gò Vấp, TPHCM" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <TextField fx:id="txtEmail" layoutX="517.0" layoutY="76.0" promptText="man@gmail.com" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <TextField fx:id="txtTenKH" layoutX="148.0" layoutY="74.0" promptText="Nguyễn Văn Phúc" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
+                        <TextField fx:id="txtDiaChi" layoutX="518.0" layoutY="38.0" promptText="1 Quang Trung, 11, Gò Vấp, TPHCM" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtEmail" layoutX="517.0" layoutY="76.0" promptText="man@gmail.com" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtTenKH" layoutX="148.0" layoutY="74.0" promptText="Nguyễn Văn Phúc" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Label layoutX="12.0" layoutY="150.0" text="Phái:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
                         <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="447.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
-                        <Button fx:id="btnThemDiaChi" layoutX="690.0" layoutY="33.0" mnemonicParsing="false" onAction="#hienFormThemDiaChi" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Thêm địa chỉ" textFill="WHITE">
+                        <Button fx:id="btnThemDiaChi" layoutX="691.0" layoutY="33.0" mnemonicParsing="false" onAction="#hienFormThemDiaChi" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm địa chỉ" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <TextField fx:id="txtSoDT" layoutX="517.0" layoutY="113.0" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <ComboBox fx:id="cbxPhai" layoutX="148.0" layoutY="148.0" prefHeight="30.0" prefWidth="161.0" promptText="Nam" styleClass="combo-box" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <DatePicker fx:id="txtNamSinh" layoutX="148.0" layoutY="115.0" styleClass="date-picker" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
+                        <TextField fx:id="txtSoDT" layoutX="517.0" layoutY="113.0" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <ComboBox fx:id="cbxPhai" layoutX="148.0" layoutY="148.0" prefHeight="30.0" prefWidth="161.0" promptText="Nam" styleClass="combo-box" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <DatePicker fx:id="txtNamSinh" layoutX="148.0" layoutY="115.0" styleClass="date-picker" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                      </children>
                   </Pane>
                </top>
                <right>
                   <Pane prefHeight="256.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView fx:id="tblKhachHang" layoutX="1.0" layoutY="-3.0" onMouseClicked="#loadHangDuocChonLenTextField" prefHeight="249.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css">
+                        <TableView fx:id="tblKhachHang" layoutX="1.0" layoutY="-3.0" onMouseClicked="#loadHangDuocChonLenTextField" prefHeight="249.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
                            <columns>
                               <TableColumn fx:id="colXoa" prefWidth="40.0" text="Xóa" />
                               <TableColumn fx:id="colMaKH" prefWidth="138.4444122314453" text="Mã khách hàng" />
@@ -132,8 +132,8 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtTimKiem" layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="Tìm kiếm...." styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" onAction="#timKiemKhachHang" prefHeight="17.0" prefWidth="22.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" textFill="WHITE">
+                        <TextField fx:id="txtTimKiem" layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="Tìm kiếm...." styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" onAction="#timKiemKhachHang" prefHeight="17.0" prefWidth="22.0" stylesheets="@../../../stylesheet/component-stylesheet.css" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -164,17 +164,17 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnThemKH" layoutX="620.0" layoutY="31.0" mnemonicParsing="false" onAction="#themKhachHang" prefHeight="32.0" prefWidth="152.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Thêm khách hàng" textFill="WHITE">
+                        <Button fx:id="btnThemKH" layoutX="620.0" layoutY="31.0" mnemonicParsing="false" onAction="#themKhachHang" prefHeight="32.0" prefWidth="152.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm khách hàng" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnLamMoi" layoutX="959.0" layoutY="30.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Làm mới" textFill="WHITE">
+                        <Button fx:id="btnLamMoi" layoutX="959.0" layoutY="30.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Làm mới" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="812.0" layoutY="30.0" mnemonicParsing="false" onAction="#xoaKhachHang" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Xóa" textFill="WHITE">
+                        <Button layoutX="812.0" layoutY="30.0" mnemonicParsing="false" onAction="#xoaKhachHang" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Xóa" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
