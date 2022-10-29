@@ -5,19 +5,13 @@ import com.example.nhom10_qlhs.MyListener;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
 import com.example.nhom10_qlhs.entities.Sach;
 import com.example.nhom10_qlhs.entities.SachInTable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -29,8 +23,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class SachItemController {
-    @FXML
-    private Button btnThem;
 
     @FXML
     private ImageView imgSach;
@@ -53,20 +45,23 @@ public class SachItemController {
     private PreparedStatement prepare;
     private Statement statement;
     private ResultSet result;
+
+    //Sau khi nhấn vào nút thêm của một cuốn sách nào đó trên giao diện lập hóa đơn
     public void click() throws IOException{
         URL url = new File("target/classes/com/example/nhom10_qlhs/nhap-so-luong.fxml").toURI().toURL();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(url);
-        SachItemController sachItemController = loader.getController();
         BorderPane borderPane = loader.load();
         Scene scene = new Scene(borderPane);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.showAndWait();
-        //Sau khi form địa chỉ close, set text vào textField địa chỉ
-        if(GetData.trangThaiThemSoLuong.equals("btnOk")){
-            GetData.trangThaiThemSoLuong = "";
+
+
+        //Sau khi form nhập số lượng close, truyền dữ liệu sách vào hàm onActionListener
+        if(GetData.trangThaiButton.equals("btnOk")){
+            GetData.trangThaiButton = "";
             String sql = "SELECT * FROM Sach WHERE maS = ?";
             try {
                 connect = ConnectDB.connect();
@@ -82,6 +77,8 @@ public class SachItemController {
             }
         }
     }
+
+    //Set dữ liệu vào item sách
     public void setDataSach(Sach sach, MyListener myListener) throws IOException {
         this.sach = sach;
         this.myListener = myListener;
@@ -92,8 +89,5 @@ public class SachItemController {
         lblGiaBan.setText(String.valueOf(sach.getGiaBan()));
         lblNamXuatBan.setText(String.valueOf(sach.getNamXuatBan()));
         GetData.slSach = sach.getSoLuong();
-//        btnThem.setOnAction((ActionEvent event) -> {
-//
-//        });
     }
 }

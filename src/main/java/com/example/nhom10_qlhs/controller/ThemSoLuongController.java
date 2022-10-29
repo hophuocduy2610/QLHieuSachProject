@@ -16,10 +16,11 @@ public class ThemSoLuongController {
     @FXML
     private Button btnHuy;
 
+    //Truyền số lượng qua biến tạm Getdata.slSach
     public void sendSoLuong(ActionEvent event) {
         if(txtSoLuong.getText() != ""){
             GetData.slSach = Integer.parseInt(txtSoLuong.getText());
-            GetData.trangThaiThemSoLuong = "btnOk";
+            GetData.trangThaiButton = "btnOk";
             btnOk.getScene().getWindow().hide();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -29,6 +30,8 @@ public class ThemSoLuongController {
             alert.showAndWait();
         }
     }
+
+    //Thoát khỏi giao diện thêm số lượng
     public void huyNhapSoLuong(ActionEvent event){
         btnHuy.getScene().getWindow().hide();
     }

@@ -93,6 +93,8 @@ public class LapHoaDonController implements Initializable {
     private PreparedStatement prepare;
     private Statement statement;
     private ResultSet result;
+
+    //Tìm thông tin khách hàng
     public void timKH(ActionEvent actionEvent){
         String sql = "SELECT * FROM KhachHang WHERE sdt = ?";
         try {
@@ -127,6 +129,8 @@ public class LapHoaDonController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    //Load thông tin nhân viên lên giao diện lập hóa đơn
     public void loadThongTinNhanVien(){
         String sql = "SELECT * FROM NhanVien WHERE maNV = ?";
         try {
@@ -143,9 +147,13 @@ public class LapHoaDonController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    //Load ngày bán theo ngày hiện tại lên giao diện lập hóa đơn
     public void loadNgayBan(){
         lblNgayBan.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString());
     }
+
+    //Hiện form thêm khách hàng khi không tìm thấy khách hàng
     public void hienFormThemKhachHang() throws IOException {
         URL url = new File("target/classes/com/example/nhom10_qlhs/them-khach-hang-gui.fxml").toURI().toURL();
 
@@ -164,6 +172,8 @@ public class LapHoaDonController implements Initializable {
             }
         }
     }
+
+    //Lấy danh sách tất cả sách
     public List<Sach> getDSSach(){
         Sach sach;
         List<Sach> sachList = new ArrayList<>();
@@ -192,6 +202,8 @@ public class LapHoaDonController implements Initializable {
         }
         return sachList;
     }
+
+    //Hiển thị sách lên bảng hóa đơn
     public void showBooks(SachInTable sach){
         sachObservableList.add(sach);
         System.out.println(sachObservableList);
@@ -204,16 +216,20 @@ public class LapHoaDonController implements Initializable {
         tblHoaDon.getItems();
         tblHoaDon.setItems(sachObservableList);
     }
+
+    //Xóa chi tiết hóa đơn
     @FXML
     private void xoaChiTietHoaDon(ActionEvent event) {
         ObservableList<SachInTable> dataListRemove = FXCollections.observableArrayList();
-        Iterator var3 = sachObservableList.iterator();
-        while(var3.hasNext()) {
-            SachInTable bean = (SachInTable) var3.next();
+        Iterator sachItem = sachObservableList.iterator();
+
+        while(sachItem.hasNext()) {
+            SachInTable bean = (SachInTable) sachItem.next();
             if (bean.getCheckBox().isSelected()) {
                 dataListRemove.add(bean);
             }
         }
+
         if(dataListRemove.size() == 0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Message");
@@ -223,23 +239,28 @@ public class LapHoaDonController implements Initializable {
         }
         sachObservableList.removeAll(dataListRemove);
     }
+
+    //Hủy hóa đơn
     @FXML
     private void huyHoaDon(ActionEvent event){
         lblTenKH.setText("");
         txtSDTKH.setText("");
         tblHoaDon.setItems(null);
     }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadNgayBan();
         loadThongTinNhanVien();
-        System.out.println(getDSSach());
         saches = getDSSach();
-        System.out.println(saches);
+        //Sau khi SachItemController truyền dữ liệu sách vào hàm onActionLisener thì myListener sẽ nhận được dữ liệu
         myListener = new MyListener() {
             @Override
             public void onActionListener(SachInTable sach) {
                 System.out.println(sach);
+
+                //Hiển thị sách lên bảng hóa đơn
                 showBooks(sach);
             }
         };

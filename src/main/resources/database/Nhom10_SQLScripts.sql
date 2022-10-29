@@ -23,8 +23,10 @@ INCREMENT BY 1;
    CMND NVARCHAR(50),
    phai NVARCHAR(10) NOT null,
    chucVu NVARCHAR (50) NOT NULL,
-   ngayVaoLam Date NOT NULL
+   ngayVaoLam Date NOT NULL,
+   trangThai BIT
 )
+
 GO
 -------------------------------Tạo chuỗi tăng số tự động cho tài khoản-------------------------------------------
 CREATE SEQUENCE ChuoiTang1
@@ -32,12 +34,14 @@ AS INT
 START WITH 1
 INCREMENT BY 1;
 -----------------------------------Tạo bảng tài khoản-------------------------------------
-CREATE TABLE TaiKhoan(
+CREATE TABLE TaiKhoan(	
    maTaiKhoan VARCHAR(20) DEFAULT 'TK-' + FORMAT((NEXT VALUE FOR ChuoiTang1), '00000', 'en-US') foreign key references NhanVien(maNV) primary key,
    tenTaiKhoan VARCHAR(50),
    matKhau NVARCHAR(50) NOT NULL,
-   loaiTK NVARCHAR(50) NOT NULL
+   loaiTK NVARCHAR(50) NOT NULL,
+   trangThai BIT
 )
+
 GO
 -------------------------------Tạo chuỗi tăng số tự động cho khách hàng-------------------------------------------
 CREATE SEQUENCE ChuoiTang2
@@ -52,7 +56,8 @@ INCREMENT BY 1;
    sdt VARCHAR(12) NOT NULL,
    email NVARCHAR(50),
    phai NVARCHAR(10),
-   namSinh Date
+   namSinh Date,
+   trangThai BIT 
 )
 GO
 -------------------------------Tạo chuỗi tăng số tự động cho nhà cung cấp------------------------------------------
@@ -66,7 +71,8 @@ CREATE TABLE NhaCungCap(
    tenNCC NVARCHAR (80) NOT NULL,
    diaChi NVARCHAR (250) NULL,
    sdt NVARCHAR (50)  NULL,
-   email nvarchar(50) NULL
+   email nvarchar(50) NULL,
+   trangThai BIT
 )
 GO
 -------------------------------Tạo chuỗi tăng số tự động cho loại sách------------------------------------------
@@ -77,7 +83,8 @@ INCREMENT BY 1;
 ---------------------------------Tạo bảng loại sách----------------------------------------
  CREATE TABLE LoaiS(
    maLoai NVARCHAR(100) DEFAULT 'LS-' + FORMAT((NEXT VALUE FOR ChuoiTang4), '000', 'en-US') primary key,
-   tenLoai NVARCHAR (80) NOT NULL
+   tenLoai NVARCHAR (80) NOT NULL,
+   trangThai BIT
 )
 GO
 -------------------------------Tạo chuỗi tăng số tự động cho nhà xuất bản------------------------------------------
@@ -91,7 +98,8 @@ CREATE TABLE NhaXuatBan(
    tenNXB NVARCHAR (80) NOT NULL,
    diaChi NVARCHAR (250)  NULL,
    sdt NVARCHAR (50)  NULL,
-   email nvarchar(50) null
+   email nvarchar(50) null,
+   trangThai BIT
 )
 GO
 -------------------------------Tạo chuỗi tăng số tự động cho tác giả ------------------------------------------
@@ -106,6 +114,7 @@ CREATE TABLE TacGia(
    sdt NVARCHAR (50)  NULL,
    email nvarchar(50) null,
    diaChi NVARCHAR (80)  NULL,
+   trangThai BIT
 )
 GO
 -------------------------------Tạo chuỗi tăng số tự động cho sách------------------------------------------
@@ -125,7 +134,8 @@ CREATE TABLE Sach(
    loaiSach NVARCHAR(100) NOT NULL,
    nhaCungCap NVARCHAR(250) NOT NULL,
    giaBan money NOT NULL,
-   hinhAnhSach VARCHAR(150) NOT NULL
+   hinhAnhSach VARCHAR(150) NOT NULL,
+   trangThai BIT
 )
 GO
 -------------------------------Tạo chuỗi tăng số tự động cho hóa đơn------------------------------------------
@@ -140,7 +150,8 @@ INCREMENT BY 1;
    maNhanVien NVARCHAR(50),
    ngayLap DATE NOT NULL,
    maKhachHang VARCHAR(20) NOT NULL foreign key references KhachHang(maKH),
-   tongTien MONEY NOT NULL
+   tongTien MONEY NOT NULL,
+   trangThai BIT
 )
 GO
 -----------------------------------------Tạo bảng CTHD----------------------------------------------------
@@ -150,7 +161,8 @@ GO
    soLuong INT,
    VAT FLOAT,
    donGia MONEY,
-   thanhTien MONEY
+   thanhTien MONEY,
+   trangThai BIT
 )
 GO
 ALTER TABLE CTHoaDon ADD CONSTRAINT CTHD_PK PRIMARY KEY (maHoaDon,maSach);
@@ -167,14 +179,13 @@ ALTER TABLE Sach ADD CONSTRAINT NCC_FK foreign key (nhaCungCap) references NhaCu
 INSERT INTO TaiKhoan (taiKhoan, matKhau, loaiTK) VALUES ('QL001','admin', N'Quản lý')
 
 -----------------------------------------Thêm nhân viên------------------------------------------------
-
 select MAX(maNV) AS maNV from NhanVien
 INSERT INTO NhanVien(tenNV, diaChi, namSinh, sdt, CMND, phai, chucVu, ngayVaoLam) VALUES (N'Hồ Phước Duy', N'1 Quang Trung, 11, Gò Vấp, TPHCM', '2000-10-26', '0123456789', '01234567891', N'Nam', N'Quản lý', '2022-12-2')
 
 ----------------------------------------------------Thêm khách hàng----------------------------------------------------
 SELECT * FROM KhachHang
 SELECT MAX(maKH) AS maKH FROM KhachHang
-INSERT INTO KhachHang (tenKH, diaChi, sdt, email, phai, namSinh) VALUES (N'Nguyễn Văn Tú', N'2 Nguyễn Văn Bảo, 10, Gò Vấp, TPHCM', '0123446798', 'tu@gmail.com', 'Nam', '2002-10-26')
+INSERT INTO KhachHang (tenKH, diaChi, sdt, email, phai, namSinh, trangThai) VALUES (N'Nguyễn Hữu Tú', N'2 Nguyễn Văn Bảo, 10, Gò Vấp, TPHCM', '0123446798', 'tu@gmail.com', 'Nam', '2002-10-26', 1)
 
 --------------------------------------------------Thêm loại sách------------------------------------------------------
 INSERT LoaiS (tenLoai) VALUES ( N'Tiểu thuyết')
@@ -382,3 +393,7 @@ CONVERT(VARCHAR(10), FORMAT(CURDATE(), 'ddMMyyyy', 'en-US'))
 Giá bán lẻ = [(Giá vốn) / (100 – % lợi nhuận mong muốn)] x 100
 Ví dụ: 1 sản phẩm giá gốc của bạn là 60.000 VND, bạn muốn thu lợi nhuận 50%, vậy thì bạn sẽ có giá bán là: 
 [(60.000 / (100 – 50)] x 100 = 120.000 VND
+
+ DELETE FROM KhachHang
+WHERE maKH = 'KH-000000002'
+select * from KhachHang

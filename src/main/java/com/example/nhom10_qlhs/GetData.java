@@ -12,5 +12,7 @@ public class GetData {
     public static String tenKH;
     public static String maSach;
     public static int slSach;
-    public static String trangThaiThemSoLuong;
+    public static String trangThaiButton;
+
+    public static int trangThai;
 }

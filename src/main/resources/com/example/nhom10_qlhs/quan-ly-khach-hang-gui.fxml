@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -102,16 +103,17 @@
                <right>
                   <Pane prefHeight="256.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView fx:id="tblKhachHang" layoutX="1.0" layoutY="-3.0" prefHeight="249.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css">
+                        <TableView fx:id="tblKhachHang" layoutX="1.0" layoutY="-3.0" onMouseClicked="#loadHangDuocChonLenTextField" prefHeight="249.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css">
                            <columns>
-                              <TableColumn fx:id="colMaKH" prefWidth="96.66668319702148" text="Mã khách hàng" />
-                              <TableColumn fx:id="colTenKH" prefWidth="170.00003051757812" text="Tên khách hàng" />
-                              <TableColumn fx:id="colNamSinh" prefWidth="94.0" text="Năm sinh" />
-                              <TableColumn fx:id="colPhai" prefWidth="69.33334350585938" text="Phái" />
-                              <TableColumn fx:id="colDiaChi" minWidth="0.0" prefWidth="203.33328247070312" text="Địa chỉ" />
-                              <TableColumn fx:id="colEmail" prefWidth="204.66668701171875" text="Email" />
-                              <TableColumn fx:id="colSDT" prefWidth="124.6666259765625" text="Số điện thoại" />
-                              <TableColumn fx:id="colHanhDong" prefWidth="112.66668701171875" text="Hành động" />
+                              <TableColumn fx:id="colXoa" prefWidth="40.0" text="Xóa" />
+                              <TableColumn fx:id="colMaKH" prefWidth="138.4444122314453" text="Mã khách hàng" />
+                              <TableColumn fx:id="colTenKH" prefWidth="168.6666717529297" text="Tên khách hàng" />
+                              <TableColumn fx:id="colNamSinh" prefWidth="113.33331298828125" text="Năm sinh" />
+                              <TableColumn fx:id="colPhai" minWidth="0.0" prefWidth="50.0" text="Phái" />
+                              <TableColumn fx:id="colDiaChi" prefWidth="190.0" text="Địa chỉ" />
+                              <TableColumn fx:id="colEmail" prefWidth="153.55560302734375" text="Email" />
+                              <TableColumn fx:id="colSDT" prefWidth="122.888916015625" text="Số điện thoại" />
+                              <TableColumn fx:id="colCapNhat" prefWidth="86.888916015625" text="Cập nhật" />
                            </columns>
                         </TableView>
                      </children>
@@ -130,8 +132,8 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="Tìm kiếm...." styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
-                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="22.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" textFill="WHITE">
+                        <TextField fx:id="txtTimKiem" layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="Tìm kiếm...." styleClass="textfield" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" />
+                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" onAction="#timKiemKhachHang" prefHeight="17.0" prefWidth="22.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -139,17 +141,20 @@
                               <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
                            </graphic>
                         </Button>
-                        <RadioButton layoutX="121.0" layoutY="37.0" mnemonicParsing="false" text="Mã khách hàng" textFill="WHITE">
+                        <RadioButton fx:id="radMaKH" layoutX="121.0" layoutY="37.0" mnemonicParsing="false" text="Mã khách hàng" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="timkiem" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radTenKH" layoutX="291.0" layoutY="37.0" mnemonicParsing="false" text="Tên khách hàng" textFill="WHITE" toggleGroup="$timkiem">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton layoutX="291.0" layoutY="37.0" mnemonicParsing="false" text="Tên khách hàng" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton layoutX="464.0" layoutY="37.0" mnemonicParsing="false" text="Số điện thoại" textFill="WHITE">
+                        <RadioButton fx:id="radSDT" layoutX="464.0" layoutY="37.0" mnemonicParsing="false" text="Số điện thoại" textFill="WHITE" toggleGroup="$timkiem">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -164,12 +169,12 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnLamMoi" layoutX="810.0" layoutY="32.0" mnemonicParsing="false" onAction="#clearFormThongTinKhachHang" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Làm mới" textFill="WHITE">
+                        <Button fx:id="btnLamMoi" layoutX="959.0" layoutY="30.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Làm mới" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="957.0" layoutY="32.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Thoát" textFill="WHITE">
+                        <Button layoutX="812.0" layoutY="30.0" mnemonicParsing="false" onAction="#xoaKhachHang" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/quan-ly-khach-hang.css" text="Xóa" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
