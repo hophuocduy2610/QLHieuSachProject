@@ -12,6 +12,18 @@
     -fx-border-width:0px 0px 1px 0px;
 }
 
+#txtTienThoi{
+    -fx-background-color:transparent;
+    -fx-text-inner-color:#fff;
+    -fx-border-color:#fff;
+    -fx-border-width:0px 0px .4px 0px;
+    -fx-font-size:17px;
+}
+
+#txtTienThoi:focused{
+    -fx-border-width:0px 0px 1px 0px;
+}
+
 /****************************** Button CSS *************************************/
 
 .button{

@@ -3,6 +3,8 @@ package com.example.nhom10_qlhs.controller;
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.MyListener;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import com.example.nhom10_qlhs.entities.CTHD;
+import com.example.nhom10_qlhs.entities.HoaDon;
 import com.example.nhom10_qlhs.entities.Sach;
 import com.example.nhom10_qlhs.entities.SachInTable;
 import javafx.collections.FXCollections;
@@ -24,16 +26,14 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class LapHoaDonController implements Initializable {
 
@@ -85,6 +85,8 @@ public class LapHoaDonController implements Initializable {
 
     @FXML
     private TableColumn<SachInTable, String> colXoa;
+    @FXML
+    private TextField txtMaSach;
     List<Sach> saches = new ArrayList<>();
     ObservableList<SachInTable> sachObservableList = FXCollections.observableArrayList();
     private MyListener myListener;
@@ -132,7 +134,7 @@ public class LapHoaDonController implements Initializable {
 
     //Load thông tin nhân viên lên giao diện lập hóa đơn
     public void loadThongTinNhanVien(){
-        String sql = "SELECT * FROM NhanVien WHERE maNV = ?";
+        String sql = "SELECT * FROM NhanVien WHERE maNV IN ( SELECT maTaiKhoan FROM TaiKhoan WHERE tenTaiKhoan = ? )";
         try {
             connect = ConnectDB.connect();
             prepare = connect.prepareStatement(sql);
@@ -188,11 +190,8 @@ public class LapHoaDonController implements Initializable {
                 sach.setTenSach(result.getString("tenSach"));
                 sach.setSoLuong(result.getInt("soLuong"));
                 sach.setGiaNhap(result.getDouble("giaNhap"));
-                //sach.setNhaXuatBan(result.getString("nhaXuatBan"));
                 sach.setNamXuatBan(result.getInt("namXuatBan"));
-                //sach.setTacGia(result.getString("tacGia"));
                 sach.setLoaiSach(result.getString("loaiSach"));
-                //sach.setNhaCungCap(result.getString("nhaCungCap"));
                 sach.setGiaBan(result.getDouble("giaBan"));
                 sach.setHinhAnhSach(result.getString("hinhAnhSach"));
                 sachList.add(sach);
@@ -248,6 +247,148 @@ public class LapHoaDonController implements Initializable {
         tblHoaDon.setItems(null);
     }
 
+    public void hienThiXacNhanThanhToan() throws IOException {
+        tinhTongThanhTien();
+        URL url = new File("target/classes/com/example/nhom10_qlhs/xac-nhan-thanh-toan.fxml").toURI().toURL();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(url);
+        BorderPane borderPane = loader.load();
+        Scene scene = new Scene(borderPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
+        if(GetData.trangThaiButton.equals("dathanhtoan")) {
+            System.out.println("Ngày bán trước khi thêm hóa đơn: " + GetData.ngayBan);
+            HoaDon hd = new HoaDon(lblMaNV.getText(), GetData.ngayBan, lblMaKH.getText(), GetData.tongThanhTien);
+            themHoaDon(hd);
+            System.out.println("Ngày bán sau khi thêm hóa đơn: " + GetData.ngayBan);
+            themCTHD(tblHoaDon, lblMaNV.getText(), GetData.ngayBan, lblMaKH.getText(), GetData.tongThanhTien);
+            capNhatSoLuong(tblHoaDon);
+        }else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Hóa đơn chưa được thanh toán");
+            alert.showAndWait();
+        }
+    }
+    public void clearAll(){
+        lblMaKH.setText("");
+        lblTenKH.setText("");
+        txtSDTKH.setText("");
+        txtMaSach.setText("");
+        tblHoaDon.setItems(null);
+    }
+    public void themCTHD(TableView<SachInTable> tblHoaDon, String maNV, Date ngayBan, String maKH, Double tongThanhTien){
+        String sql = "SELECT maHoaDon from HoaDon " +
+                "WHERE maNV = ? AND ngayLap = ? AND maKhachHang = ? AND tongTien = ?";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, maNV);
+            prepare.setDate(2, ngayBan);
+            System.out.println("Ngày bán ở themCTHD method: " + ngayBan);
+            prepare.setString(3, maKH);
+            prepare.setDouble(4, tongThanhTien);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                GetData.maHD = result.getString("maHoaDon");
+                GetData.trangThai = 1;
+                for(int i = 0; i < tblHoaDon.getItems().size(); i++){
+                    SachInTable sachInTable = tblHoaDon.getItems().get(i);
+                    String query = "  INSERT INTO CTHoaDon (maHoaDon, maSach, soLuong, donGia, thanhTien, trangThai) " +
+                            "VALUES (?, ?, ?, ?, ?, ?)";
+                    try {
+                        connect = ConnectDB.connect();
+                        prepare = connect.prepareStatement(query);
+                        prepare.setString(1, GetData.maHD);
+                        prepare.setString(2, sachInTable.getMaSach());
+                        prepare.setInt(3, sachInTable.getSoLuong());
+                        prepare.setDouble(4, sachInTable.getDonGia());
+                        prepare.setDouble(5, sachInTable.getThanhTien());
+                        prepare.setInt(6, GetData.trangThai);
+                        prepare.execute();
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Quá trình thêm chi tiết hóa đơn không thành công");
+                        alert.showAndWait();
+                    }
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Lấy mã hóa đơn không thành công");
+            alert.showAndWait();
+        }
+    }
+    public void themHoaDon(HoaDon hd){
+        GetData.trangThai = 1;
+        String sql = "  INSERT INTO HoaDon (maNV, ngayLap, maKhachHang, tongTien, trangThai) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, hd.getMaNV());
+            prepare.setDate(2, hd.getNgayLap());
+            prepare.setString(3, hd.getMaKhachHang());
+            prepare.setDouble(4, hd.getTongThanhTien());
+            prepare.setDouble(5, GetData.trangThai);
+            prepare.execute();//Thực thi truy vấn sql
+        }catch (Exception ex){
+            ex.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Quá trình thêm hóa đơn vào hệ thống xảy ra lỗi");
+            alert.showAndWait();
+        }
+    }
+    public void capNhatSoLuong(TableView<SachInTable> tblHoaDon){
+        for(int i = 0; i < tblHoaDon.getItems().size(); i++){
+            SachInTable sachInTable = tblHoaDon.getItems().get(i);
+            String sql = "  SELECT soLuong " +
+                    "FROM Sach " +
+                    "WHERE maS = ?";
+            try {
+                connect = ConnectDB.connect();
+                prepare = connect.prepareStatement(sql);
+                prepare.setString(1, sachInTable.getMaSach());
+                result = prepare.executeQuery();
+                while (result.next()){
+                    String query = "  UPDATE Sach " +
+                            "SET soLuong = ? " +
+                            "WHERE maS = ?";
+                    try {
+                        int soLuongConLai = result.getInt("soLuong") - sachInTable.getSoLuong();
+                        System.out.println(soLuongConLai);
+                        connect = ConnectDB.connect();
+                        prepare = connect.prepareStatement(query);
+                        prepare.setInt(1, soLuongConLai);
+                        prepare.setString(2, sachInTable.getMaSach());
+                        prepare.execute();
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+    public void tinhTongThanhTien(){
+        GetData.tongThanhTien = 0;
+        for(int i = 0; i < tblHoaDon.getItems().size(); i++){
+            SachInTable sachInTable = tblHoaDon.getItems().get(i);
+            GetData.tongThanhTien += sachInTable.getThanhTien();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -258,8 +399,6 @@ public class LapHoaDonController implements Initializable {
         myListener = new MyListener() {
             @Override
             public void onActionListener(SachInTable sach) {
-                System.out.println(sach);
-
                 //Hiển thị sách lên bảng hóa đơn
                 showBooks(sach);
             }
@@ -277,6 +416,13 @@ public class LapHoaDonController implements Initializable {
                 pnVBox.getChildren().add(hBox);
             }
         } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        try{
+            ZoneId z = ZoneId.of( "America/Montreal" );
+            LocalDate today = LocalDate.now( z );
+            GetData.ngayBan = Date.valueOf(today);
+        }catch (Exception ex){
             ex.printStackTrace();
         }
 

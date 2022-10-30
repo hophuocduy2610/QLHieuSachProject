@@ -116,15 +116,15 @@
                   </Pane>
                </top>
                <right>
-                  <Pane prefHeight="477.0" prefWidth="540.0" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="471.0" prefWidth="540.0" BorderPane.alignment="CENTER">
                      <children>
                         <Label layoutX="247.0" text="Hóa đơn" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Line endX="-113.0" endY="-67.5000228881836" layoutX="112.0" layoutY="63.0" startX="-112.0" startY="407.66668701171875" stroke="WHITE" />
-                        <TableView fx:id="tblHoaDon" layoutX="1.0" layoutY="53.0" prefHeight="200.0" prefWidth="539.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                        <Line endX="-113.0" endY="-67.5000228881836" layoutX="109.0" layoutY="63.0" startX="-112.0" startY="407.66668701171875" stroke="WHITE" />
+                        <TableView fx:id="tblHoaDon" layoutY="53.0" prefHeight="290.0" prefWidth="540.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
                           <columns>
                             <TableColumn fx:id="colMaSach" prefWidth="100.0" text="Mã sách" />
                               <TableColumn fx:id="colTenSach" prefWidth="165.0" text="Tên sách" />
@@ -134,12 +134,12 @@
                               <TableColumn fx:id="colXoa" prefWidth="36.0" text="Xóa" />
                           </columns>
                         </TableView>
-                        <Button layoutX="21.0" layoutY="274.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="101.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thanh toán" textFill="WHITE">
+                        <Button layoutX="192.0" layoutY="351.0" mnemonicParsing="false" onAction="#hienThiXacNhanThanhToan" prefHeight="42.0" prefWidth="165.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thanh toán" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnHuyHD" layoutX="275.0" layoutY="274.0" mnemonicParsing="false" onAction="#huyHoaDon" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Hủy hóa đơn" textFill="WHITE">
+                        <Button fx:id="btnHuyHD" layoutX="212.0" layoutY="409.0" mnemonicParsing="false" onAction="#huyHoaDon" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Hủy hóa đơn" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -149,12 +149,12 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button layoutX="410.0" layoutY="273.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="In hóa đơn" textFill="WHITE">
+                        <Button layoutX="388.0" layoutY="409.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="In hóa đơn" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnXoaSanPham" layoutX="137.0" layoutY="274.0" mnemonicParsing="false" onAction="#xoaChiTietHoaDon" prefHeight="32.0" prefWidth="123.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Xóa sản phẩm" textFill="WHITE">
+                        <Button fx:id="btnXoaSanPham" layoutX="48.0" layoutY="410.0" mnemonicParsing="false" onAction="#xoaChiTietHoaDon" prefHeight="32.0" prefWidth="123.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Xóa sản phẩm" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -163,7 +163,7 @@
                   </Pane>
                </right>
                <center>
-                  <Pane prefHeight="200.0" prefWidth="540.0" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="471.0" prefWidth="540.0" BorderPane.alignment="CENTER">
                      <children>
                         <Label layoutX="251.0" text="Sách" textFill="WHITE">
                            <font>
@@ -175,7 +175,7 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="90.0" layoutY="34.0" promptText="S123" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtMaSach" layoutX="90.0" layoutY="34.0" promptText="S123" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Button layoutX="260.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" stylesheets="@../../../stylesheet/component-stylesheet.css" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -184,7 +184,7 @@
                               <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
                            </graphic>
                         </Button>
-                        <ScrollPane layoutX="10.0" layoutY="120.0" prefHeight="341.0" prefWidth="520.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                        <ScrollPane layoutX="6.0" layoutY="120.0" prefHeight="341.0" prefWidth="523.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
                            <content>
                               <VBox fx:id="pnVBox" prefHeight="0.0" prefWidth="497.0" />
                            </content>

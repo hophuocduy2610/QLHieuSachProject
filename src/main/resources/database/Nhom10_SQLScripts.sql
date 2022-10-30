@@ -147,7 +147,6 @@ INCREMENT BY 1;
  CREATE TABLE HoaDon(
    maHoaDon VARCHAR(20) DEFAULT 'HD-' + FORMAT((NEXT VALUE FOR ChuoiTang8), '000000000', 'en-US') primary key,
    maNV VARCHAR(20) NOT NULL foreign key references NhanVien(maNV),
-   maNhanVien NVARCHAR(50),
    ngayLap DATE NOT NULL,
    maKhachHang VARCHAR(20) NOT NULL foreign key references KhachHang(maKH),
    tongTien MONEY NOT NULL,
@@ -159,7 +158,6 @@ GO
    maHoaDon VARCHAR(20) NOT NULL,
    maSach VARCHAR(20) NOT NULL,
    soLuong INT,
-   VAT FLOAT,
    donGia MONEY,
    thanhTien MONEY,
    trangThai BIT

@@ -33,6 +33,7 @@ public class ThemSoLuongController {
 
     //Thoát khỏi giao diện thêm số lượng
     public void huyNhapSoLuong(ActionEvent event){
+        GetData.trangThaiButton = "btnHuy";
         btnHuy.getScene().getWindow().hide();
     }
 }

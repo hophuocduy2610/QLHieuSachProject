@@ -70,7 +70,7 @@
                            </font>
                         </Label>
                         <Line endX="-113.0" endY="-67.5000228881836" layoutX="112.0" layoutY="65.0" startX="-113.0" startY="204.33334350585938" stroke="WHITE" />
-                        <TableView layoutX="1.0" layoutY="54.0" prefHeight="215.0" prefWidth="539.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                        <TableView layoutX="-1.0" layoutY="54.0" prefHeight="215.0" prefWidth="539.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
                            <columns>
                               <TableColumn prefWidth="45.0" text="STT" />
                               <TableColumn text="Mã HD" />
