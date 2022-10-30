@@ -205,7 +205,6 @@ public class LapHoaDonController implements Initializable {
     //Hiển thị sách lên bảng hóa đơn
     public void showBooks(SachInTable sach){
         sachObservableList.add(sach);
-        System.out.println(sachObservableList);
         colMaSach.setCellValueFactory(new PropertyValueFactory<SachInTable, String>("maSach"));
         colTenSach.setCellValueFactory(new PropertyValueFactory<SachInTable, String>("tenSach"));
         colSoLuong.setCellValueFactory(new PropertyValueFactory<SachInTable, Integer>("soLuong"));
@@ -260,7 +259,7 @@ public class LapHoaDonController implements Initializable {
         stage.showAndWait();
         if(GetData.trangThaiButton.equals("dathanhtoan")) {
             System.out.println("Ngày bán trước khi thêm hóa đơn: " + GetData.ngayBan);
-            HoaDon hd = new HoaDon(lblMaNV.getText(), GetData.ngayBan, lblMaKH.getText(), GetData.tongThanhTien);
+            HoaDon hd = new HoaDon(null, lblMaNV.getText(), GetData.ngayBan, lblMaKH.getText(), GetData.tongThanhTien);
             themHoaDon(hd);
             System.out.println("Ngày bán sau khi thêm hóa đơn: " + GetData.ngayBan);
             themCTHD(tblHoaDon, lblMaNV.getText(), GetData.ngayBan, lblMaKH.getText(), GetData.tongThanhTien);

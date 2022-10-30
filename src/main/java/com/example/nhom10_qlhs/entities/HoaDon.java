@@ -12,7 +12,9 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon( String maNV, Date ngayLap, String maKhachHang, double tongThanhTien) {
+
+    public HoaDon(String maHD, String maNV, Date ngayLap, String maKhachHang, double tongThanhTien) {
+        this.maHD = maHD;
         this.maNV = maNV;
         this.ngayLap = ngayLap;
         this.maKhachHang = maKhachHang;

@@ -7,15 +7,24 @@ public class CTHD {
     private double donGia;
     private double thanhTien;
 
+    private String tenSach;
+
     public CTHD() {
     }
 
-    public CTHD(String maHD, String maSach, int soLuong, double donGia, double thanhTien) {
-        this.maHD = maHD;
+    public CTHD( String maSach, int soLuong, double donGia, double thanhTien) {
         this.maSach = maSach;
         this.soLuong = soLuong;
         this.donGia = donGia;
         this.thanhTien = thanhTien;
+    }
+
+    public CTHD(String maSach, int soLuong, double donGia, double thanhTien, String tenSach) {
+        this.maSach = maSach;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.thanhTien = thanhTien;
+        this.tenSach = tenSach;
     }
 
     public String getMaHD() {
@@ -56,6 +65,14 @@ public class CTHD {
 
     public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
+    }
+
+    public String getTenSach() {
+        return tenSach;
+    }
+
+    public void setTenSach(String tenSach) {
+        this.tenSach = tenSach;
     }
 
     @Override
