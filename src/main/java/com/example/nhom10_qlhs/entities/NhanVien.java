@@ -1,15 +1,20 @@
 package com.example.nhom10_qlhs.entities;
 
-import java.util.Date;
+import javafx.scene.control.CheckBox;
+
+import java.sql.Date;
 
 public class NhanVien {
     private String maNV;
     private String tenNV;
     private String diaChi;
     private Date namSinh;
+    private String sdt;
     private String CMND;
     private String phai;
     private String chucVu;
+    private Date ngayVaoLam;
+    private CheckBox cbXoa;
 
     public NhanVien() {
     }
@@ -18,14 +23,17 @@ public class NhanVien {
         this.maNV = maNV;
     }
 
-    public NhanVien(String maNV, String tenNV, String diaChi, Date namSinh, String CMND, String phai, String chucVu) {
+    public NhanVien(String maNV, String tenNV, String diaChi, Date namSinh, String sdt,String CMND, String phai, String chucVu, Date ngayVaoLam) {
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.diaChi = diaChi;
         this.namSinh = namSinh;
+        this.sdt = sdt;
         this.CMND = CMND;
         this.phai = phai;
         this.chucVu = chucVu;
+        this.ngayVaoLam = ngayVaoLam;
+        this.cbXoa = new CheckBox();
     }
 
     public String getMaNV() {
@@ -84,6 +92,30 @@ public class NhanVien {
         this.chucVu = chucVu;
     }
 
+    public Date getNgayVaoLam() {
+        return ngayVaoLam;
+    }
+
+    public void setNgayVaoLam(Date ngayVaoLam) {
+        this.ngayVaoLam = ngayVaoLam;
+    }
+
+    public CheckBox getCbXoa() {
+        return cbXoa;
+    }
+
+    public void setCbXoa(CheckBox cbXoa) {
+        this.cbXoa = cbXoa;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
     @Override
     public String toString() {
         return "NhanVien{" +
@@ -91,9 +123,12 @@ public class NhanVien {
                 ", tenNV='" + tenNV + '\'' +
                 ", diaChi='" + diaChi + '\'' +
                 ", namSinh=" + namSinh +
+                ", sdt='" + sdt + '\'' +
                 ", CMND='" + CMND + '\'' +
                 ", phai='" + phai + '\'' +
                 ", chucVu='" + chucVu + '\'' +
+                ", ngayVaoLam=" + ngayVaoLam +
+                ", cbXoa=" + cbXoa +
                 '}';
     }
 }

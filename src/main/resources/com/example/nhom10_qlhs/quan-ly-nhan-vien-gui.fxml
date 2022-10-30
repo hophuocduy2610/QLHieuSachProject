@@ -2,18 +2,21 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.QuanLyNhanVienController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
@@ -47,7 +50,7 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="378.0" layoutY="86.0" text="Email:" textFill="WHITE">
+                        <Label layoutX="13.0" layoutY="148.0" text="Ngày vào làm:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -57,7 +60,6 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="149.0" layoutY="78.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Label layoutX="9.0" layoutY="1.0" text="Thông tin khách hàng" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="20.0" />
@@ -68,64 +70,65 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="459.0" layoutY="48.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField layoutX="461.0" layoutY="86.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField layoutX="896.0" layoutY="50.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField layoutX="148.0" layoutY="41.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtDiaChi" layoutX="459.0" layoutY="48.0" promptText="2 Nguyễn Văn Bảo, 11, Gò Vấp, TPHCM" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtSDT" layoutX="896.0" layoutY="50.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtTenNV" layoutX="148.0" layoutY="32.0" promptText="Nguyễn Hữu Tú" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Label layoutX="12.0" layoutY="114.0" text="Phái:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="149.0" layoutY="116.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="447.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
-                        <Label layoutX="14.0" layoutY="154.0" text="CMND:" textFill="WHITE">
+                        <Label layoutX="377.0" layoutY="90.0" text="CMND:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="148.0" layoutY="153.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtCMND" layoutX="461.0" layoutY="89.0" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Label layoutX="776.0" layoutY="89.0" text="Tài khoản:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="898.0" layoutY="88.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtTaiKhoan" layoutX="898.0" layoutY="88.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Label layoutX="377.0" layoutY="124.0" text="Chức vụ:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="461.0" layoutY="123.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <Button layoutX="630.0" layoutY="46.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm địa chỉ" textFill="WHITE">
+                        <Button fx:id="btnThemDiaChi" layoutX="630.0" layoutY="46.0" mnemonicParsing="false" onAction="#hienFormThemDiaChi" prefHeight="32.0" prefWidth="114.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm địa chỉ" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="899.0" layoutY="126.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm tài khoản" textFill="WHITE">
+                        <Button fx:id="btnThemTK" layoutX="899.0" layoutY="126.0" mnemonicParsing="false" onAction="#hienFormThemTaiKhoan" prefHeight="32.0" prefWidth="132.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm tài khoản" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
+                        <DatePicker fx:id="txtNamSinh" layoutX="149.0" layoutY="70.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <ComboBox fx:id="cbxPhai" layoutX="151.0" layoutY="110.0" prefWidth="150.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <ComboBox fx:id="cbxChucVu" layoutX="461.0" layoutY="125.0" prefWidth="150.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <DatePicker fx:id="txtNgayVaoLam" layoutX="150.0" layoutY="141.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                      </children>
                   </Pane>
                </top>
                <right>
                   <Pane prefHeight="256.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView layoutX="1.0" layoutY="-3.0" prefHeight="249.0" prefWidth="1080.0">
+                        <TableView fx:id="tblNhanVien" layoutX="1.0" layoutY="-3.0" onMouseClicked="#loadHangDuocChonLenTextField" prefHeight="249.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
                            <columns>
-                              <TableColumn prefWidth="30.0" text="STT" />
-                              <TableColumn prefWidth="82.0" text="Mã sách" />
-                              <TableColumn prefWidth="160.0" text="Tên sách" />
-                              <TableColumn prefWidth="90.0" text="Ngày nhập" />
-                              <TableColumn prefWidth="60.0" text="Số lượng" />
-                              <TableColumn minWidth="0.0" prefWidth="120.0" text="Nhà xuất bản" />
-                              <TableColumn prefWidth="120.0" text="Tác giả" />
-                              <TableColumn prefWidth="110.0" text="Loại sách" />
-                              <TableColumn prefWidth="100.0" text="Giá nhập" />
-                              <TableColumn prefWidth="100.0" text="Giá bán" />
-                              <TableColumn prefWidth="105.0" text="Hành động" />
+                              <TableColumn fx:id="colXoa" prefWidth="40.0" text="Xóa" />
+                              <TableColumn fx:id="colMaNV" prefWidth="120.0" text="Mã nhân viên" />
+                              <TableColumn fx:id="colTenNV" prefWidth="150.0" text="Tên nhân viên" />
+                              <TableColumn fx:id="colDiaChi" prefWidth="180.0" text="Địa chỉ" />
+                              <TableColumn fx:id="colNamSinh" minWidth="0.0" prefWidth="90.0" text="Năm sinh" />
+                              <TableColumn fx:id="colSdtNV" prefWidth="120.0" text="Số điện thoại" />
+                              <TableColumn fx:id="colCMND" prefWidth="90.0" text="CMND" />
+                              <TableColumn fx:id="colPhai" prefWidth="50.0" text="Phái" />
+                              <TableColumn fx:id="colChucVu" text="Chức vụ" />
+                              <TableColumn fx:id="colNgayVaoLam" prefWidth="90.0" text="Ngày vào làm" />
+                              <TableColumn fx:id="colCapNhat" prefWidth="70.0" text="Cập nhật" />
                            </columns>
                         </TableView>
                      </children>
@@ -144,8 +147,8 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="S123" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" stylesheets="@../../../stylesheet/component-stylesheet.css" textFill="WHITE">
+                        <TextField fx:id="txtTimKiem" layoutX="11.0" layoutY="97.0" prefHeight="25.0" prefWidth="157.0" promptText="S123" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Button layoutX="182.0" layoutY="94.0" mnemonicParsing="false" onAction="#timKiemNhanVien" prefHeight="25.0" prefWidth="30.0" stylesheets="@../../../stylesheet/component-stylesheet.css" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -153,17 +156,20 @@
                               <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" />
                            </graphic>
                         </Button>
-                        <RadioButton layoutX="121.0" layoutY="37.0" mnemonicParsing="false" text="Mã nhân viên" textFill="WHITE">
+                        <RadioButton fx:id="radMaNV" layoutX="121.0" layoutY="37.0" mnemonicParsing="false" text="Mã nhân viên" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="timkiem" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radTenNV" layoutX="291.0" layoutY="37.0" mnemonicParsing="false" text="Tên nhân viên" textFill="WHITE" toggleGroup="$timkiem">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton layoutX="291.0" layoutY="37.0" mnemonicParsing="false" text="Tên nhân viên" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton layoutX="464.0" layoutY="37.0" mnemonicParsing="false" text="Số điện thoại" textFill="WHITE">
+                        <RadioButton fx:id="radSdtNV" layoutX="464.0" layoutY="37.0" mnemonicParsing="false" text="Số điện thoại" textFill="WHITE" toggleGroup="$timkiem">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -173,17 +179,17 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Button layoutX="620.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="134.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm nhân viên" textFill="WHITE">
+                        <Button fx:id="btnThemNV" layoutX="620.0" layoutY="31.0" mnemonicParsing="false" onAction="#themNhanVien" prefHeight="32.0" prefWidth="134.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm nhân viên" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="802.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Làm mới" textFill="WHITE">
+                        <Button layoutX="802.0" layoutY="31.0" mnemonicParsing="false" onAction="#xoaNhanVien" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Xóa" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button layoutX="957.0" layoutY="31.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thoát" textFill="WHITE">
+                        <Button layoutX="957.0" layoutY="31.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="32.0" prefWidth="109.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Làm mới" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>

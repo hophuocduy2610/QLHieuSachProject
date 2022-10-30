@@ -179,11 +179,13 @@ ALTER TABLE Sach ADD CONSTRAINT NCC_FK foreign key (nhaCungCap) references NhaCu
 INSERT INTO TaiKhoan (taiKhoan, matKhau, loaiTK) VALUES ('QL001','admin', N'Quản lý')
 
 -----------------------------------------Thêm nhân viên------------------------------------------------
+SELECT * FROM NhanVien
 select MAX(maNV) AS maNV from NhanVien
 INSERT INTO NhanVien(tenNV, diaChi, namSinh, sdt, CMND, phai, chucVu, ngayVaoLam) VALUES (N'Hồ Phước Duy', N'1 Quang Trung, 11, Gò Vấp, TPHCM', '2000-10-26', '0123456789', '01234567891', N'Nam', N'Quản lý', '2022-12-2')
 
 ----------------------------------------------------Thêm khách hàng----------------------------------------------------
 SELECT * FROM KhachHang
+SELECT * FROM TaiKhoan
 SELECT MAX(maKH) AS maKH FROM KhachHang
 INSERT INTO KhachHang (tenKH, diaChi, sdt, email, phai, namSinh, trangThai) VALUES (N'Nguyễn Hữu Tú', N'2 Nguyễn Văn Bảo, 10, Gò Vấp, TPHCM', '0123446798', 'tu@gmail.com', 'Nam', '2002-10-26', 1)
 

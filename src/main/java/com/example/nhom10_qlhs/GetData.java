@@ -15,4 +15,5 @@ public class GetData {
     public static String trangThaiButton;
 
     public static int trangThai;
+    public static String maNV;
 }

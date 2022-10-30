@@ -95,31 +95,6 @@ public class QuanLyKhachHangController implements Initializable {
     private Statement statement;
     private ResultSet result;
 
-
-    //Lấy danh sách tất cả khách hàng
-    public List<KhachHang> getDSKhachHang(){
-        List<KhachHang> khachHangList = new ArrayList<>();
-        String sql = "SELECT * FROM KhachHang";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-            while(result.next()){
-                khachHang = new KhachHang(result.getString("maKH"),
-                        result.getString("tenKH"),
-                        result.getString("diaChi"),
-                        result.getString("sdt"),
-                        result.getString("email"),
-                        result.getString("phai"),
-                        result.getDate("namSinh"));
-                khachHangList.add(khachHang);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return khachHangList;
-    }
-
     //Lấy danh sách khách hàng theo Mã
     public List<KhachHang> getDSKhachHangTheoMa(String maKH){
         List<KhachHang> khachHangList = new ArrayList<>();
@@ -313,6 +288,7 @@ public class QuanLyKhachHangController implements Initializable {
 
         if(!stage.isShowing()){
             txtDiaChi.setText(GetData.diaChi);
+            GetData.trangThaiButton = "";
         }
     }
 
@@ -373,6 +349,8 @@ public class QuanLyKhachHangController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    //Cập nhật thông tin khách hàng
     public void capNhatThongTinKhachHang(String maKH,String tenKH, Date namSinh, String phai, String diaChi, String email, String sdt){
         String sql = "  UPDATE KhachHang " +
                 "SET tenKH = ?, namSinh = ?, phai = ?, diaChi = ?, email = ?, sdt = ? " +
@@ -425,28 +403,11 @@ public class QuanLyKhachHangController implements Initializable {
         //Lấy dòng khách hàng được chọn trong bảng và đưa lên text field để thực thi chỉnh sửa
         KhachHang kh = tblKhachHang.getItems().get(tblKhachHang.getSelectionModel().getSelectedIndex());
         txtTenKH.setText(kh.getTenKH());
-        txtNamSinh.setAccessibleText(kh.getNamSinh().toString());
+        txtNamSinh.setValue(kh.getNamSinh().toLocalDate());
         cbxPhai.setValue(kh.getPhai());
         txtDiaChi.setText(kh.getDiaChi());
         txtEmail.setText(kh.getEmail());
         txtSoDT.setText(kh.getSdt());
-    }
-
-
-    public void loadMaKH(){
-        String sql = "SELECT MAX(maKH) AS MaKH FROM KhachHang";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-            if(result.next()){
-                lblMaKH.setText(result.getString("MaKH"));
-            }else {
-                lblMaKH.setText("");
-            }
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
     }
 
     //Xóa dữ liệu trên các text field và set dữ liệu table về null
@@ -473,6 +434,6 @@ public class QuanLyKhachHangController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cbxPhai.setItems(FXCollections.observableArrayList("Nam", "Nữ", "Khác"));
-        loadMaKH();
+        radMaKH.setSelected(true);
     }
 }

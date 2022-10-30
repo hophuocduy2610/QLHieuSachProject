@@ -37,7 +37,7 @@ public class DangNhapController implements Initializable{
     private ResultSet result;
 
     public void login() {
-        String sql = "SELECT * FROM TaiKhoan WHERE taiKhoan = ? and matKhau = ?";
+        String sql = "SELECT * FROM TaiKhoan WHERE tenTaiKhoan = ? and matKhau = ?";
         try {
             connect = ConnectDB.connect();
             prepare = connect.prepareStatement(sql);

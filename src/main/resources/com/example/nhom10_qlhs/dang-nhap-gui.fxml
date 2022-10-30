@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../java/com/example/nhom10_qlhs/image/bookstore-logo.jpg" />
+                  <Image url="@../../../img/bookstore-logo.jpg" />
                </image>
             </ImageView>
          </children>

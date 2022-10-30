@@ -8,7 +8,7 @@
    <center>
       <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../../../../java/com/example/nhom10_qlhs/image/welcome-bookstore-logo.jpg" />
+            <Image url="@../../../img/welcome-bookstore-logo.jpg" />
          </image>
       </ImageView>
    </center>

@@ -230,3 +230,10 @@
     -fx-background-radius: 5em;
 }
 
+#btnShowPassword{
+    -fx-background-color: transparent;
+}
+
+#btnShowPassword:hover .icons{
+    -fx-fill: rgba(255,255,255, 1);
+}

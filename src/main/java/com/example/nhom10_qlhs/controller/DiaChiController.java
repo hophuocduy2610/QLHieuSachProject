@@ -35,6 +35,7 @@ public class DiaChiController {
                     + txtQuan.getText() + ", "
                     + txtThanhPho.getText();
             GetData.diaChi = diaChi;
+            GetData.trangThaiButton = "btnDiaChi";
             btnThem.getScene().getWindow().hide();
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
