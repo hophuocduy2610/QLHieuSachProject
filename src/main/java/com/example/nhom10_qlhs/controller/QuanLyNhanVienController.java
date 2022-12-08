@@ -2,6 +2,7 @@ package com.example.nhom10_qlhs.controller;
 
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import com.example.nhom10_qlhs.dao.NhanVienDAO;
 import com.example.nhom10_qlhs.entities.KhachHang;
 import com.example.nhom10_qlhs.entities.NhanVien;
 import javafx.collections.FXCollections;
@@ -108,94 +109,17 @@ public class QuanLyNhanVienController implements Initializable {
     @FXML
     private RadioButton radTenNV;
 
+    @FXML
+    private TextField txtMaNV;
+
     private NhanVien nhanVien;
     private ObservableList<NhanVien> nhanVienObservableList = FXCollections.observableArrayList();
+
+    private NhanVienDAO nhanVienDAO = new NhanVienDAO();
     public Connection connect;
     private PreparedStatement prepare;
     private Statement statement;
     private ResultSet result;
-
-
-    //Lấy danh sách nhân viên theo Mã
-    public List<NhanVien> getDSNhanVienTheoMa(String maNV){
-        List<NhanVien> nhanVienList = new ArrayList<>();
-        String sql = "SELECT * FROM NhanVien WHERE maNV = ? AND trangThai = 1";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, maNV);
-            result = prepare.executeQuery();
-            while(result.next()){
-                nhanVien = new NhanVien(result.getString("maNV"),
-                        result.getString("tenNV"),
-                        result.getString("diaChi"),
-                        result.getDate("namSinh"),
-                        result.getString("sdt"),
-                        result.getString("CMND"),
-                        result.getString("phai"),
-                        result.getString("chucVu"),
-                        result.getDate("ngayVaoLam"));
-                nhanVienList.add(nhanVien);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return nhanVienList;
-    }
-
-    //Lấy danh sách nhân viên theo tên
-    public List<NhanVien> getDSNhanVienTheoTen(String tenNV){
-        List<NhanVien> nhanVienList = new ArrayList<>();
-        String sql = "SELECT * FROM NhanVien WHERE tenNV = ? AND trangThai = 1";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, tenNV);
-            result = prepare.executeQuery();
-            while(result.next()){
-                nhanVien = new NhanVien(result.getString("maNV"),
-                        result.getString("tenNV"),
-                        result.getString("diaChi"),
-                        result.getDate("namSinh"),
-                        result.getString("sdt"),
-                        result.getString("CMND"),
-                        result.getString("phai"),
-                        result.getString("chucVu"),
-                        result.getDate("ngayVaoLam"));
-                nhanVienList.add(nhanVien);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return nhanVienList;
-    }
-
-    //Lấy danh sách nhân viên theo SDT
-    public List<NhanVien> getDSNhanVienTheoSDT(String sdtNV){
-        List<NhanVien> nhanVienList = new ArrayList<>();
-        String sql = "SELECT * FROM NhanVien WHERE sdt = ? AND trangThai = 1";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, sdtNV);
-            result = prepare.executeQuery();
-            while(result.next()){
-                nhanVien = new NhanVien(result.getString("maNV"),
-                        result.getString("tenNV"),
-                        result.getString("diaChi"),
-                        result.getDate("namSinh"),
-                        result.getString("sdt"),
-                        result.getString("CMND"),
-                        result.getString("phai"),
-                        result.getString("chucVu"),
-                        result.getDate("ngayVaoLam"));
-                nhanVienList.add(nhanVien);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return nhanVienList;
-    }
 
     //Hiển thị nhân viên lên bảng
     public void showNhanViens(ObservableList<NhanVien> nhanViens) {
@@ -229,32 +153,13 @@ public class QuanLyNhanVienController implements Initializable {
                         editButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                         editButton.setOnAction(event -> {
                             NhanVien nv = nhanVienObservableList.get(tblNhanVien.getSelectionModel().getSelectedIndex());
-                            if(txtNamSinh.getValue() != null){
-                                if(txtNgayVaoLam != null){
-                                    capNhatThongTinNhanVien(nv.getMaNV(), txtTenNV.getText(),
-                                            txtDiaChi.getText(), Date.valueOf(txtNamSinh.getValue()),
-                                            txtSDT.getText(), txtCMND.getText(),
-                                            cbxPhai.getValue(), cbxChucVu.getValue(), Date.valueOf(txtNgayVaoLam.getValue()));
-                                }else {
-                                    capNhatThongTinNhanVien(nv.getMaNV(), txtTenNV.getText(),
-                                            txtDiaChi.getText(), Date.valueOf(txtNamSinh.getValue()),
-                                            txtSDT.getText(), txtCMND.getText(),
-                                            cbxPhai.getValue(), cbxChucVu.getValue(), nv.getNgayVaoLam());
-                                }
-                            }else if(txtNamSinh.getValue() == null){
-                                if(txtNgayVaoLam!=null){
-                                    capNhatThongTinNhanVien(nv.getMaNV(), txtTenNV.getText(),
-                                            txtDiaChi.getText(), nv.getNamSinh(),
-                                            txtSDT.getText(), txtCMND.getText(),
-                                            cbxPhai.getValue(), cbxChucVu.getValue(), Date.valueOf(txtNgayVaoLam.getValue()));
-                                }else {
-                                    capNhatThongTinNhanVien(nv.getMaNV(), txtTenNV.getText(),
-                                            txtDiaChi.getText(), nv.getNamSinh(),
-                                            txtSDT.getText(), txtCMND.getText(),
-                                            cbxPhai.getValue(), cbxChucVu.getValue(), nv.getNgayVaoLam());
-                                }
-                            }
-                            nhanVienObservableList.setAll(getDSNhanVienTheoTen(txtTenNV.getText()));
+
+                            nhanVienDAO.capNhatThongTinNhanVien(nv.getMaNV(), txtTenNV.getText(),
+                                    txtDiaChi.getText(), Date.valueOf(txtNamSinh.getValue()),
+                                    txtSDT.getText(), txtCMND.getText(),
+                                    cbxPhai.getValue(), cbxChucVu.getValue(), Date.valueOf(txtNgayVaoLam.getValue()));
+
+                            nhanVienObservableList.setAll(nhanVienDAO.getDSNhanVienTheoTen(txtTenNV.getText()));
                             clearTextField();
                         });
                         setGraphic(editButton);
@@ -274,7 +179,7 @@ public class QuanLyNhanVienController implements Initializable {
         String searchKey = txtTimKiem.getText().toLowerCase();//Lấy dữ liệu tìm kiếm và chuyển về chữ thường
         List<NhanVien> khachHangList;
         if (radMaNV.isSelected()){//nếu radio maNV được chọn thì
-            khachHangList = getDSNhanVienTheoMa(searchKey);//lấy danh sách khách hàng theo mã
+            khachHangList = nhanVienDAO.getDSNhanVienTheoMa(searchKey);//lấy danh sách khách hàng theo mã
             if(!khachHangList.isEmpty()){//Nếu danh sách không rỗng thì
                 nhanVienObservableList.setAll(khachHangList);//Đưa list khách hàng vô khachHangObservableList
                 showNhanViens(nhanVienObservableList);//Hiển thị dữ liệu lên bảng
@@ -287,7 +192,7 @@ public class QuanLyNhanVienController implements Initializable {
             }
             //Mấy câu if sau tương tự như radioMa
         }else if (radTenNV.isSelected()){
-            khachHangList = getDSNhanVienTheoTen(searchKey);
+            khachHangList = nhanVienDAO.getDSNhanVienTheoTen(searchKey);
             if(!khachHangList.isEmpty()){
                 nhanVienObservableList.setAll(khachHangList);
                 showNhanViens(nhanVienObservableList);
@@ -299,7 +204,7 @@ public class QuanLyNhanVienController implements Initializable {
                 alert.showAndWait();
             }
         } else if (radSdtNV.isSelected()) {
-            khachHangList = getDSNhanVienTheoSDT(searchKey);
+            khachHangList = nhanVienDAO.getDSNhanVienTheoSDT(searchKey);
             if(!khachHangList.isEmpty()){
                 nhanVienObservableList.setAll(khachHangList);
                 showNhanViens(nhanVienObservableList);
@@ -321,26 +226,8 @@ public class QuanLyNhanVienController implements Initializable {
 
     //Thêm một nhân viên mới
     public void themNhanVien(){
-        GetData.trangThai = 1; //set trạng thái cho nhân viên để dùng trong lúc xóa
-        GetData.trangThaiButton = "btnThemNV";
-        String sql = "  INSERT INTO NhanVien (tenNV, diaChi, sdt, ngayVaoLam, phai, namSinh, chucVu, CMND, trangThai) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql); // đưa chuỗi sql vô 1 biến prepare để đưa giá trị cần trong câu query
-            //Gán giá trị vào từng dấu chấm hỏi trong câu query sql thứ tự tăng dần từ trái sang phải
-            prepare.setString(1, txtTenNV.getText());
-            prepare.setString(2, txtDiaChi.getText());
-            prepare.setString(3, txtSDT.getText());
-            prepare.setDate(4, Date.valueOf(txtNgayVaoLam.getValue()));
-            prepare.setString(5, cbxPhai.getValue());
-            prepare.setString(6, txtNamSinh.getValue().toString());
-            prepare.setString(7, cbxChucVu.getValue());
-            prepare.setString(8, txtCMND.getText());
-            prepare.setInt(9, GetData.trangThai);
-            boolean result = prepare.execute();//Thực thi truy vấn sql
-
-            if(!result){ //Nếu thực thi thành công thì xuất thông báo
+        boolean result = nhanVienDAO.themNhanVien(txtMaNV.getText(), txtTenNV.getText(), txtDiaChi.getText(), txtSDT.getText(), Date.valueOf(txtNgayVaoLam.getValue()), cbxPhai.getValue(), Date.valueOf(txtNamSinh.getValue()), cbxChucVu.getValue(), txtCMND.getText());
+        if(result){ //Nếu thực thi thành công thì xuất thông báo
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Message");
                 alert.setHeaderText(null);
@@ -356,41 +243,14 @@ public class QuanLyNhanVienController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Thêm không thành công");
                 alert.showAndWait();
-            }
-        }catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Thêm không thành công");
-            alert.showAndWait();
         }
     }
 
-    //Cập nhật thông khách hàng
-    public void capNhatThongTinNhanVien(String maNV,String tenNV, String diaChi, Date namSinh, String sdt,  String CMND, String phai, String chucVu, Date ngayVaoLam){
-        String sql = "  UPDATE NhanVien " +
-                "SET tenNV = ?, diaChi = ?, namSinh = ?, sdt = ?, CMND = ?, phai = ?, chucVu = ?, ngayVaoLam = ? " +
-                "WHERE maNV = ?";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, tenNV);
-            prepare.setString(2, diaChi);
-            if(namSinh != null){
-                prepare.setDate(3, namSinh);
-            }
-            prepare.setString(4, sdt);
-            prepare.setString(5, CMND);
-            prepare.setString(6, phai);
-            prepare.setString(7, chucVu);
-            if(ngayVaoLam != null){
-                prepare.setDate(8, ngayVaoLam);
-            }
-            prepare.setString(9, maNV);
-            prepare.execute();
-        }catch (Exception ex){
-            ex.printStackTrace();
+    public void taoTuDongTenTaiKhoan(String trangThaiButton, String SDTNhanVien) {
+        if(nhanVienDAO.taoTuDongTenTaiKhoan(trangThaiButton, SDTNhanVien)) {
+            txtTaiKhoan.setText(GetData.taiKhoan);
+            GetData.maNV = txtMaNV.getText();
+            btnThemTK.setMouseTransparent(false);
         }
     }
 
@@ -404,7 +264,7 @@ public class QuanLyNhanVienController implements Initializable {
             NhanVien nhanVienTemp = (NhanVien) nhanVienIterator.next();
             if (nhanVienTemp.getCbXoa().isSelected()) {
                 GetData.trangThai = 0;
-                capNhatTrangThai(GetData.trangThai, nhanVienTemp.getMaNV());
+                nhanVienDAO.capNhatTrangThai(GetData.trangThai, nhanVienTemp.getMaNV());
                 dataListRemove.add(nhanVienTemp);
             }
         }
@@ -419,19 +279,7 @@ public class QuanLyNhanVienController implements Initializable {
         nhanVienObservableList.removeAll(dataListRemove);//remove tất cả những Khach hàng bị xóa trong list đó
     }
 
-    //Cập nhật trạng thái khách hàng đã xóa
-    public void capNhatTrangThai(int trangThai, String maNV){
-        String sql = "  UPDATE NhanVien SET trangThai = ? WHERE maNV = ?";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setInt(1, trangThai);
-            prepare.setString(2, maNV);
-            boolean result = prepare.execute();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
+
 
     //Load thông tin trên bảng lên text field
     @FXML
@@ -466,25 +314,26 @@ public class QuanLyNhanVienController implements Initializable {
         }
     }
 
-    //Tạo tự động tên tài khoản sau khi thêm nhân viên
-    public void taoTuDongTenTaiKhoan(String trangThaiButton, String SDTNhanVien){
-        if(trangThaiButton.equals("btnThemNV")) {
-            String sql = "SELECT CONVERT(VARCHAR(20), REPLACE(maNV, '-', '')) + CONVERT(VARCHAR(10), FORMAT(ngayVaoLam, 'ddMMyyyy', 'en-US'))  AS tenTK, maNV from NhanVien WHERE sdt = ?";
-            try {
-                connect = ConnectDB.connect();
-                prepare = connect.prepareStatement(sql);
-                prepare.setString(1, SDTNhanVien);
-                result = prepare.executeQuery();
-                while (result.next()) {
-                    txtTaiKhoan.setText(result.getString("tenTK"));
-                    GetData.maNV = result.getString("maNV");
-                    btnThemTK.setMouseTransparent(false);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+    //Tạo mã Nhân viên tự động
+    public String taoMaNV() {
+        String maNV = "NV";
+        int rowCount = nhanVienDAO.demSoNhanVien();
+        boolean dup = false;
+        do {
+            if (rowCount > 998){
+                maNV = maNV + (rowCount + 1);
+            } else if (rowCount > 98) {
+                maNV = maNV + "0" + (rowCount + 1);
+            } else if (rowCount > 8) {
+                maNV = maNV + "00" + (rowCount + 1);
+            } else {
+                maNV = maNV + "000" + (rowCount + 1);
             }
-        }
+        } while (dup);
+        return maNV;
     }
+
+
     public void hienFormThemTaiKhoan() throws IOException {
         URL url = new File("target/classes/com/example/nhom10_qlhs/them-tai-khoan-gui.fxml").toURI().toURL();
 
@@ -500,7 +349,7 @@ public class QuanLyNhanVienController implements Initializable {
             txtTaiKhoan.setText("");
         }
     }
-    public void clearAll(){
+    public void clearAll() {
         txtTenNV.setText("");
         txtNamSinh.setValue(null);
         cbxPhai.setValue("Nam");
@@ -512,7 +361,7 @@ public class QuanLyNhanVienController implements Initializable {
         txtTimKiem.setText("");
         tblNhanVien.setItems(null);
     }
-    public void clearTextField(){
+    public void clearTextField() {
         txtTenNV.setText("");
         txtNamSinh.setValue(null);
         cbxPhai.setValue("Nam");
@@ -521,6 +370,84 @@ public class QuanLyNhanVienController implements Initializable {
         cbxChucVu.setValue("Quản lý");
         txtNgayVaoLam.setValue(null);
         txtSDT.setText("");
+    }
+
+    public void validData(MouseEvent event) {
+        if (event.getSource().equals(txtTenNV)) {
+            if(!txtTenNV.getText().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Tên phải có dấu và không được bỏ trống");
+                alert.showAndWait();
+
+                txtTenNV.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtTenNV.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtNamSinh)) {
+//            if(txtNamSinh.getValue() == null) {
+////                Alert alert = new Alert(Alert.AlertType.ERROR);
+////                alert.setTitle("Error");
+//                alert.setHeaderText(null);
+////                alert.setContentText("Năm sinh không được bỏ trống");
+////                alert.showAndWait();
+//
+//                txtNamSinh.setStyle("-fx-border-color: #e04040;");
+//            } else {
+//                txtNamSinh.setStyle("-fx-border-color: #fff;");
+//            }
+        }  else if (event.getSource().equals(txtNgayVaoLam)) {
+//            if(txtNgayVaoLam.getValue() == null) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Error");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Ngày vào làm không được bỏ trống");
+//                alert.showAndWait();
+//
+//                txtNgayVaoLam.setStyle("-fx-border-color: #e04040;");
+//            } else {
+//                txtNgayVaoLam.setStyle("-fx-border-color: #fff;");
+//            }
+        }  else if (event.getSource().equals(txtDiaChi)) {
+            //Kiểm tra Text Địa chỉ
+            if(!txtDiaChi.getText().matches("^[a-zA-Z0-9_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Địa chỉ không được bỏ trống");
+                alert.showAndWait();
+
+                txtDiaChi.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtDiaChi.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtCMND)) {
+            if (!txtCMND.getText().matches("^[0-9]{12}$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Số chứng minh phải gồm 12 chữ số và không được bỏ trống");
+                alert.showAndWait();
+
+                txtCMND.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtCMND.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtSDT)) {
+            //Kiểm tra Text Số điện thoại
+            if(!txtSDT.getText().matches("^\\d{3}[- .]?(\\d{4}){2}$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Số điện thoại phải là số có 11 chữ số và không được bỏ trống");
+                alert.showAndWait();
+
+                txtSDT.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtSDT.setStyle("-fx-border-color:#fff;");
+            }
+        }
     }
 
     @Override
@@ -532,5 +459,6 @@ public class QuanLyNhanVienController implements Initializable {
         radMaNV.setSelected(true);
         txtTaiKhoan.setEditable(false);
         btnThemTK.setMouseTransparent(true);
+        txtMaNV.setText(taoMaNV());
     }
 }

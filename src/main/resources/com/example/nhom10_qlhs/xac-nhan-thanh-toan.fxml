@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="370.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.XacNhanThanhToanController">
    <center>
       <Pane prefHeight="183.0" prefWidth="300.0" BorderPane.alignment="CENTER">
@@ -27,7 +26,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <TextField id="txtTienThoi" fx:id="txtTienKhach" layoutX="212.0" layoutY="47.0" onAction="#tinhTienThoi" prefHeight="28.0" prefWidth="134.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="200000">
+            <TextField id="txtTienThoi" fx:id="txtTienKhach" layoutX="212.0" layoutY="47.0" onKeyTyped="#tinhTienThoi" onMouseExited="#validData" prefHeight="28.0" prefWidth="134.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="200000">
                <font>
                   <Font size="20.0" />
                </font>

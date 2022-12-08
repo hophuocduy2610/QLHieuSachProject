@@ -8,9 +8,12 @@ import com.example.nhom10_qlhs.entities.SachInTable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -38,6 +41,13 @@ public class SachItemController {
 
     @FXML
     private Label lblNamXuatBan;
+
+    @FXML
+    private Label lblVAT;
+
+    @FXML
+    private TextField txtSoLuong;
+
     private MyListener myListener;
     private Sach sach;
 
@@ -69,7 +79,7 @@ public class SachItemController {
                 prepare.setString(1, lblMaSach.getText());
                 result = prepare.executeQuery();
                 if (result.next()){
-                    SachInTable sachInTable = new SachInTable(result.getString("maS"), result.getString("tenSach"), GetData.slSach, result.getDouble("giaBan"));
+                    SachInTable sachInTable = new SachInTable(result.getString("maS"), result.getString("tenSach"), GetData.slSach, result.getDouble("giaBan"), result.getDouble("VAT"));
                     myListener.onActionListener(sachInTable);
                 }
             }catch (Exception exception){
@@ -88,6 +98,11 @@ public class SachItemController {
         lblTenSach.setText(sach.getTenSach());
         lblGiaBan.setText(String.valueOf(sach.getGiaBan()));
         lblNamXuatBan.setText(String.valueOf(sach.getNamXuatBan()));
+        if (sach.getVAT() == null){
+            lblVAT.setText("0");
+        } else{
+            lblVAT.setText(String.valueOf(sach.getVAT()));
+        }
         GetData.slSach = sach.getSoLuong();
     }
 }

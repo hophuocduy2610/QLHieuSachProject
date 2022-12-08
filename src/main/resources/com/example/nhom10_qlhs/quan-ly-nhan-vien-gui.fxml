@@ -40,17 +40,17 @@
                      <children>
                         <Line endX="868.0" endY="-7.62939453125E-6" layoutX="212.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
                         <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="191.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
-                        <Label layoutX="9.0" layoutY="41.0" text="Tên nhân viên:" textFill="WHITE">
+                        <Label layoutX="9.0" layoutY="89.0" text="Tên nhân viên:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="11.0" layoutY="78.0" text="Năm sinh:" textFill="WHITE">
+                        <Label layoutX="11.0" layoutY="125.0" text="Năm sinh:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="13.0" layoutY="148.0" text="Ngày vào làm:" textFill="WHITE">
+                        <Label layoutX="13.0" layoutY="161.0" text="Ngày vào làm:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -70,28 +70,28 @@
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtDiaChi" layoutX="459.0" layoutY="48.0" promptText="2 Nguyễn Văn Bảo, 11, Gò Vấp, TPHCM" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField fx:id="txtSDT" layoutX="896.0" layoutY="50.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField fx:id="txtTenNV" layoutX="148.0" layoutY="32.0" promptText="Nguyễn Hữu Tú" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <Label layoutX="12.0" layoutY="114.0" text="Phái:" textFill="WHITE">
+                        <TextField fx:id="txtDiaChi" layoutX="459.0" layoutY="48.0" onMouseExited="#validData" promptText="2 Nguyễn Văn Bảo, 11, Gò Vấp, TPHCM" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtSDT" layoutX="896.0" layoutY="50.0" onMouseExited="#validData" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtTenNV" layoutX="148.0" layoutY="81.0" onMouseExited="#validData" promptText="Nguyễn Hữu Tú" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label layoutX="378.0" layoutY="159.0" text="Phái:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
                         <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="447.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
-                        <Label layoutX="377.0" layoutY="90.0" text="CMND:" textFill="WHITE">
+                        <Label layoutX="377.0" layoutY="88.0" text="CMND:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtCMND" layoutX="461.0" layoutY="89.0" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtCMND" layoutX="461.0" layoutY="87.0" onMouseExited="#validData" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                         <Label layoutX="776.0" layoutY="89.0" text="Tài khoản:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
                         <TextField fx:id="txtTaiKhoan" layoutX="898.0" layoutY="88.0" promptText="0938123456" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <Label layoutX="377.0" layoutY="124.0" text="Chức vụ:" textFill="WHITE">
+                        <Label layoutX="377.0" layoutY="121.0" text="Chức vụ:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -106,10 +106,16 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <DatePicker fx:id="txtNamSinh" layoutX="149.0" layoutY="70.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <ComboBox fx:id="cbxPhai" layoutX="151.0" layoutY="110.0" prefWidth="150.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <ComboBox fx:id="cbxChucVu" layoutX="461.0" layoutY="125.0" prefWidth="150.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <DatePicker fx:id="txtNgayVaoLam" layoutX="150.0" layoutY="141.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <DatePicker fx:id="txtNamSinh" editable="false" layoutX="149.0" layoutY="117.0" onMouseExited="#validData" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <ComboBox fx:id="cbxPhai" layoutX="461.0" layoutY="155.0" prefWidth="150.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <ComboBox fx:id="cbxChucVu" layoutX="461.0" layoutY="122.0" prefWidth="150.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <DatePicker fx:id="txtNgayVaoLam" editable="false" layoutX="150.0" layoutY="154.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label layoutX="11.0" layoutY="55.0" text="Mã nhân viên:" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtMaNV" editable="false" layoutX="147.0" layoutY="47.0" promptText="NV0001" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
                      </children>
                   </Pane>
                </top>

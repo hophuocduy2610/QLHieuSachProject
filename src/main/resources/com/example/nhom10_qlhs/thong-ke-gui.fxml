@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="660.0" prefWidth="1080.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.ThongKeController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <Pane prefHeight="76.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="65.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="478.0" layoutY="11.0" text="Thống kê" textFill="WHITE">
+                  <Label layoutX="480.0" layoutY="15.0" text="Thống kê" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="27.0" />
                      </font>
@@ -27,21 +35,214 @@
             </Pane>
          </top>
          <center>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <TabPane prefHeight="564.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/component-stylesheet.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
                 <Tab text="Thống kê doanh thu">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
+                     <content>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <top>
+                              <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Pane id="pane-thongke" layoutX="16.0" layoutY="6.0" prefHeight="183.0" prefWidth="242.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                                       <children>
+                                          <Label layoutX="6.0" layoutY="25.0" text="Tháng:" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cbxThang" layoutX="84.0" layoutY="19.0" prefWidth="150.0" />
+                                          <Label layoutX="9.0" layoutY="72.0" text="Năm:" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cbxNam" layoutX="83.0" layoutY="69.0" prefWidth="150.0" />
+                                          <Button fx:id="btnThongKe" layoutX="55.0" layoutY="118.0" mnemonicParsing="false" onAction="#thongKeDoanhThu" prefHeight="38.0" prefWidth="124.0" text="Thống kê" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="17.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </Pane>
+                                    <AnchorPane id="pane-thongke" layoutX="284.0" layoutY="9.0" prefHeight="150.0" prefWidth="240.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                                       <children>
+                                          <Label alignment="CENTER" layoutY="32.0" text="Tổng tiền bán được" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="22.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblTienBanDuoc" alignment="CENTER" layoutX="99.0" layoutY="80.0" text="0 đ" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="22.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane id="pane-thongke" layoutX="555.0" layoutY="10.0" prefHeight="150.0" prefWidth="240.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                                       <children>
+                                          <Label alignment="CENTER" layoutY="29.0" text="Tổng tiền nhập" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="22.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblTongTienNhap" alignment="CENTER" layoutY="74.0" text="0 đ" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="22.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane id="pane-thongke" layoutX="824.0" layoutY="10.0" prefHeight="150.0" prefWidth="240.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                                       <children>
+                                          <Label alignment="CENTER" layoutY="27.0" text="Lợi nhuận thu được" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="22.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblLoiNhuan" alignment="CENTER" layoutY="71.0" text="0 đ" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="22.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </Pane>
+                           </top>
+                           <center>
+                              <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <BarChart fx:id="barChart" layoutX="39.0" layoutY="6.0" prefHeight="353.0" prefWidth="980.0">
+                                       <xAxis>
+                                          <CategoryAxis label="Tháng" side="BOTTOM" fx:id="x" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis label="Doanh thu" side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                 </children>
+                              </Pane>
+                           </center>
+                        </BorderPane>
+                     </content>
                 </Tab>
                 <Tab text="Thống kê hóa đơn">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                           <children>
+                              <AnchorPane id="pane-thongke" layoutX="98.0" layoutY="18.0" prefHeight="127.0" prefWidth="328.0">
+                                 <children>
+                                    <Label layoutX="27.0" layoutY="27.0" text="Thời gian:" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <DatePicker fx:id="dpThoiGianTKHoaDon" editable="false" layoutX="126.0" layoutY="20.0" />
+                                    <Button layoutX="103.0" layoutY="69.0" mnemonicParsing="false" onAction="#thongKeHoaDon" text="Thống kê" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane id="pane-thongke" layoutX="486.0" layoutY="19.0" prefHeight="127.0" prefWidth="211.0">
+                                 <children>
+                                    <Label alignment="CENTER" layoutX="9.0" layoutY="18.0" text="Số hóa đơn đã bán" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblSoHDDaBan" alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="68.0" text="0 hóa đơn" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane id="pane-thongke" layoutX="758.0" layoutY="19.0" prefHeight="127.0" prefWidth="211.0">
+                                 <children>
+                                    <Label alignment="CENTER" layoutX="23.0" layoutY="18.0" text="Tổng doanh thu" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblTongDoanhThuTKHD" alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="65.0" text="0 đ" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <TableView fx:id="tblDSHoaDon" layoutX="90.0" layoutY="192.0" prefHeight="330.0" prefWidth="885.0" stylesheets="@../../../stylesheet/component-stylesheet.css" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0">
+                                 <columns>
+                                    <TableColumn fx:id="colMaHD" prefWidth="190.0" text="Mã HD" />
+                                    <TableColumn fx:id="colNhanVien" prefWidth="200.0" text="Nhân viên" />
+                                    <TableColumn fx:id="colNgayLap" prefWidth="150.0" text="Ngày lập" />
+                                    <TableColumn fx:id="colKhachHang" prefWidth="150.0" text="Khách hàng" />
+                                    <TableColumn fx:id="colTongTien" prefWidth="165.0" text="Tổng tiền" />
+                                 </columns>
+                              </TableView>
+                           </children></AnchorPane>
                   </content>
                 </Tab>
                   <Tab text="Thống kê sách">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane id="pane-thongke" layoutX="100.0" layoutY="19.0" prefHeight="127.0" prefWidth="328.0">
+                                 <children>
+                                    <Label layoutX="27.0" layoutY="27.0" text="Thời gian:" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <DatePicker fx:id="dpThoiGianTKSach" layoutX="126.0" layoutY="20.0" />
+                                    <Button layoutX="103.0" layoutY="69.0" mnemonicParsing="false" onAction="#thongKeSach" text="Thống kê" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane id="pane-thongke" layoutX="485.0" layoutY="19.0" prefHeight="127.0" prefWidth="229.0">
+                                 <children>
+                                    <Label layoutX="10.0" layoutY="18.0" text="Tổng số sách đã bán" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblSoSachDaBan" layoutX="103.0" layoutY="63.0" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane id="pane-thongke" layoutX="768.0" layoutY="19.0" prefHeight="127.0" prefWidth="211.0">
+                                 <children>
+                                    <Label layoutX="23.0" layoutY="18.0" text="Tổng doanh thu" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblTongDoanhThuBanSach" alignment="CENTER" layoutX="50.0" layoutY="63.0" text="0 đ" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <TableView fx:id="tblDSSach" layoutX="98.0" layoutY="191.0" prefHeight="330.0" prefWidth="885.0" stylesheets="@../../../stylesheet/component-stylesheet.css" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
+                                 <columns>
+                                    <TableColumn fx:id="colMaSach" prefWidth="180.0" text="Mã sách" />
+                                    <TableColumn fx:id="colTenSach" prefWidth="245.0" text="Tên sách" />
+                                    <TableColumn fx:id="colSoLuong" prefWidth="100.0" text="Số lượng" />
+                                    <TableColumn fx:id="colGiaBan" prefWidth="120.0" text="Giá bán" />
+                                    <TableColumn fx:id="colNgayBan" prefWidth="130.0" text="Ngày bán" />
+                                    <TableColumn fx:id="colTongTienSach" prefWidth="120.0" text="Tổng tiền" />
+                                 </columns>
+                              </TableView>
+                           </children></AnchorPane>
                      </content>
                   </Tab>
               </tabs>

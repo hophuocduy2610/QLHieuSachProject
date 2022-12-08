@@ -1,24 +1,19 @@
 package com.example.nhom10_qlhs.controller;
 
-import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
 import com.example.nhom10_qlhs.entities.CTHD;
 import com.example.nhom10_qlhs.entities.HoaDon;
-import com.example.nhom10_qlhs.entities.NhanVien;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class QuanLyHoaDonController {
 
@@ -223,7 +218,8 @@ public class QuanLyHoaDonController {
         }
     }
     public void hienThiCTHD(MouseEvent mouseEvent){
-        tblCTHD.setItems(null);
+        ObservableList<CTHD> cthds = FXCollections.observableArrayList();
+        List<CTHD> cthdList = new ArrayList<>();
         HoaDon hd = tblDSHoaDon.getItems().get(tblDSHoaDon.getSelectionModel().getSelectedIndex());
         String sql = "SELECT maSach, Sach.tenSach, CTHoaDon.soLuong, donGia, thanhTien  " +
                 "FROM CTHoaDon, Sach " +
@@ -239,13 +235,10 @@ public class QuanLyHoaDonController {
                         result.getDouble("donGia"),
                         result.getDouble("thanhTien"),
                         result.getString("tenSach"));
-                if(cthdObservableList.size() == 0){
-                    cthdObservableList.addAll(cthd);
-                }else{
-                    cthdObservableList.removeAll(cthd);
-                    cthdObservableList.addAll(cthd);
-                }
-                showCTHD(cthdObservableList);
+                cthdList.add(cthd);
+                cthds.addAll(cthdList);
+                tblCTHD.setItems(null);
+                showCTHD(cthds);
             }
         }catch (Exception ex){
             ex.printStackTrace();

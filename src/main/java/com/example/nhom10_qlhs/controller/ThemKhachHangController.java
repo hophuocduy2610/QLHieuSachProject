@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -103,6 +104,62 @@ public class ThemKhachHangController implements Initializable {
         txtDiaChi.setText("");
         txtEmail.setText("");
         txtSoDT.setText("");
+    }
+
+    public void validData (MouseEvent event) {
+        if (event.getSource().equals(txtTenKH)) {
+            if(!txtTenKH.getText().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Tên phải có dấu và không được bỏ trống");
+                alert.showAndWait();
+
+                txtTenKH.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtTenKH.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtDiaChi)) {
+            //Kiểm tra Text Địa chỉ
+            if(!txtDiaChi.getText().matches("^[a-zA-Z0-9_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Địa chỉ không được bỏ trống");
+                alert.showAndWait();
+
+                txtDiaChi.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtDiaChi.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtEmail)) {
+            //Kiểm tra Text Email
+            if(!txtEmail.getText().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" +
+                    "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Email không được bỏ trống và theo mẫu username@domain.com");
+                alert.showAndWait();
+
+                txtEmail.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtEmail.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtSoDT)) {
+            //Kiểm tra Text Số điện thoại
+            if(!txtSoDT.getText().matches("^\\d{3}[- .]?(\\d{4}){2}$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Số điện thoại phải là số có 11 chữ số và không được bỏ trống");
+                alert.showAndWait();
+
+                txtSoDT.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtSoDT.setStyle("-fx-border-color:#fff;");
+            }
+        }
     }
 
     @Override

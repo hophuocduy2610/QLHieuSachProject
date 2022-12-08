@@ -121,6 +121,33 @@ public class ThemTaiKhoanController implements Initializable {
         txtHienMK.setVisible(false);
     }
 
+    public void validData (MouseEvent event) {
+        if (event.getSource().equals(txtMatKhau)) {
+            if (!txtMatKhau.getText().matches("^([A-Za-z0-9]){8,20}$")) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Mật khẩu không hợp lệ và không được bỏ trống");
+                alert.showAndWait();
+
+                txtMatKhau.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtMatKhau.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtXacNhanMatKhau)) {
+            if (!txtXacNhanMatKhau.getText().matches("^([A-Za-z0-9]){8,20}$")) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Mật khẩu không hợp lệ và không được bỏ trống");
+                alert.showAndWait();
+
+                txtXacNhanMatKhau.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtXacNhanMatKhau.setStyle("-fx-border-color:#fff;");
+            }
+        }
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lblTenTK.setText(GetData.taiKhoan);

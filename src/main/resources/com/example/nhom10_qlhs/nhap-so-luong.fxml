@@ -16,7 +16,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="txtSoLuong" layoutX="25.0" layoutY="43.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <TextField fx:id="txtSoLuong" layoutX="25.0" layoutY="43.0" onMouseExited="#validData" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <Button fx:id="btnOk" layoutX="24.0" layoutY="82.0" mnemonicParsing="false" onAction="#sendSoLuong" prefHeight="25.0" prefWidth="55.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Ok" textFill="WHITE" />
             <Button fx:id="btnHuy" layoutX="130.0" layoutY="82.0" mnemonicParsing="false" onAction="#huyNhapSoLuong" prefHeight="25.0" prefWidth="55.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Hủy" textFill="WHITE" />
          </children>

@@ -55,7 +55,7 @@
 .date-picker > .text-field {
     -fx-background-color:transparent;
     -fx-text-inner-color:#fff;
-    -fx-border-color:#fff;
+    -fx-border-color: #fff;
     -fx-border-width:0px 0px .4px 0px;
     -fx-font-size:13px;
 }
@@ -159,7 +159,7 @@
 .table-view .cell{
   -fx-alignment: CENTER;
   -fx-text-fill: black;
-  -fx-padding: 3px 0 3px 0;
+/*  -fx-padding: 3px 0 3px 0;*/
 }
 .table-row-cell:odd {
     -fx-background-color: #aad0f0;
@@ -248,4 +248,65 @@
 
 #btnShowPassword:hover .icons{
     -fx-fill: rgba(255,255,255, 1);
+}
+/******************************************* Tabpane CSS ************************************************************/
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab .tab-label {
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
+    -fx-alignment: CENTER;
+}
+
+.tab:selected {
+    -fx-background-color: #6dbfed;
+    -fx-font-weight: bold
+}
+
+.tab {
+    -fx-background-color: #2E8BC0;
+    -fx-pref-width: 345;
+    -fx-pref-height: 40;
+}
+
+/******************************************* Barchart CSS ************************************************************/
+
+.chart-plot-background {
+    -fx-background-color: #e2ecfe;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.chart-alternative-row-fill {
+    -fx-fill: #99bcfd;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
+.axis {
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: #fff;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
+
+.axis-label {
+   -fx-text-fill: #fff;
+}
+
+.chart-bar {
+    -fx-bar-fill: #4e93f2;
+}
+
+/******************************************* AnchorPane CSS ************************************************************/
+#pane-thongke {
+   -fx-background-color: rgb(109,191,237,0.7);
+   -fx-background-radius: 10;
 }

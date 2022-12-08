@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,7 +30,7 @@ public class XacNhanThanhToanController implements Initializable {
     @FXML
     private TextField txtTienKhach;
         @FXML
-        public void tinhTienThoi(ActionEvent event){
+        public void tinhTienThoi(KeyEvent event){
             double tienThoi = Double.parseDouble(txtTienKhach.getText()) - Double.parseDouble(lblThanhTien.getText());
             lblTienThoi.setText(String.valueOf(tienThoi));
         }
@@ -39,6 +41,22 @@ public class XacNhanThanhToanController implements Initializable {
         public void huyThanhToan(){
             GetData.trangThaiButton = "";
             btnHuy.getScene().getWindow().hide();
+        }
+
+        public void validData (MouseEvent event) {
+            if (event.getSource().equals(txtTienKhach)) {
+                if(!txtTienKhach.getText().matches("[0-9]{1,13}(\\.[0-9]*)?$")) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Giá nhập phải là số thực lớn hơn 0 và không được bỏ trống");
+                    alert.showAndWait();
+
+                    txtTienKhach.setStyle("-fx-border-color:#e04040;");
+                } else {
+                    txtTienKhach.setStyle("-fx-border-color:#fff;");
+                }
+            }
         }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

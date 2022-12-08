@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 public class ThemSoLuongController {
     @FXML
@@ -35,5 +36,21 @@ public class ThemSoLuongController {
     public void huyNhapSoLuong(ActionEvent event){
         GetData.trangThaiButton = "btnHuy";
         btnHuy.getScene().getWindow().hide();
+    }
+
+    public void validData (MouseEvent event) {
+        if (event.getSource().equals(txtSoLuong)) {
+            if(!txtSoLuong.getText().matches("^[0-9]+$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Số lượng phải là số và không được bỏ trống");
+                alert.showAndWait();
+
+                txtSoLuong.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtSoLuong.setStyle("-fx-border-color:#fff;");
+            }
+        }
     }
 }

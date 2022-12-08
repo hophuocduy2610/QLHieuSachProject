@@ -4,10 +4,14 @@ import javafx.beans.property.ReadOnlyFloatProperty;
 import javafx.beans.property.ReadOnlyFloatWrapper;
 import javafx.scene.control.CheckBox;
 
+import java.util.Date;
+
 public class Sach {
     private String maSach;
     private String tenSach;
+
     private int soLuong;
+    private Date ngayNhap;
     private double giaNhap;
     private String nhaXuatBan;
     private int namXuatBan;
@@ -18,6 +22,8 @@ public class Sach {
     private String hinhAnhSach;
     private CheckBox checkBox;
     private Double thanhTien;
+
+    private Double VAT;
 
     public Sach() {
     }
@@ -35,6 +41,24 @@ public class Sach {
         this.hinhAnhSach = hinhAnhSach;
         this.checkBox = new CheckBox();
     }
+
+    public Sach(String maSach, String tenSach, int soLuong, Date ngayNhap, double giaNhap, String nhaXuatBan, int namXuatBan, String tacGia, String loaiSach, double giaBan, double VAT, String nhaCungCap) {
+        this.maSach = maSach;
+        this.tenSach = tenSach;
+        this.soLuong = soLuong;
+        this.ngayNhap = ngayNhap;
+        this.giaNhap = giaNhap;
+        this.nhaXuatBan = nhaXuatBan;
+        this.namXuatBan = namXuatBan;
+        this.tacGia = tacGia;
+        this.loaiSach = loaiSach;
+        this.nhaCungCap = nhaCungCap;
+        this.giaBan = giaBan;
+        this.VAT = VAT;
+        this.checkBox = new CheckBox();
+    }
+
+
 
     public String getMaSach() {
         return maSach;
@@ -140,10 +164,19 @@ public class Sach {
         this.thanhTien = thanhTien;
     }
 
+    public Double getVAT() {
+        return VAT;
+    }
+
+    public void setVAT(Double VAT) {
+        this.VAT = VAT;
+    }
+
     @Override
     public String toString() {
         return "Sach{" +
-                "tenSach='" + tenSach + '\'' +
+                "maSach='" + maSach + '\'' +
+                ", tenSach='" + tenSach + '\'' +
                 ", soLuong=" + soLuong +
                 ", giaNhap=" + giaNhap +
                 ", nhaXuatBan='" + nhaXuatBan + '\'' +
@@ -153,6 +186,9 @@ public class Sach {
                 ", nhaCungCap='" + nhaCungCap + '\'' +
                 ", giaBan=" + giaBan +
                 ", hinhAnhSach='" + hinhAnhSach + '\'' +
+                ", checkBox=" + checkBox +
+                ", thanhTien=" + thanhTien +
+                ", VAT=" + VAT +
                 '}';
     }
 }

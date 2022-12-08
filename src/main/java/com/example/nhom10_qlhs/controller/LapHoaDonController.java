@@ -3,16 +3,24 @@ package com.example.nhom10_qlhs.controller;
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.MyListener;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
-import com.example.nhom10_qlhs.entities.CTHD;
-import com.example.nhom10_qlhs.entities.HoaDon;
-import com.example.nhom10_qlhs.entities.Sach;
-import com.example.nhom10_qlhs.entities.SachInTable;
+import com.example.nhom10_qlhs.dao.HoaDonDAO;
+import com.example.nhom10_qlhs.dao.SachDAO;
+import com.example.nhom10_qlhs.entities.*;
+import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.adapter.JavaBeanIntegerProperty;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WritableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +30,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,7 +84,7 @@ public class LapHoaDonController implements Initializable {
     private TableColumn<SachInTable, String> colMaSach;
 
     @FXML
-    private TableColumn<SachInTable, Integer> colSoLuong;
+    private TableColumn<SachInTable, Number> colSoLuong;
 
     @FXML
     private TableColumn<SachInTable, String> colTenSach;
@@ -87,13 +96,20 @@ public class LapHoaDonController implements Initializable {
     private TableColumn<SachInTable, String> colXoa;
     @FXML
     private TextField txtMaSach;
+
+    @FXML
+    private Label lblSoHD;
     List<Sach> saches = new ArrayList<>();
     ObservableList<SachInTable> sachObservableList = FXCollections.observableArrayList();
+
+    private SachDAO sachDAO = new SachDAO();
+    private HoaDonDAO hoaDonDAO = new HoaDonDAO();
+    private int soLuong;
+
     private MyListener myListener;
 
     public Connection connect;
     private PreparedStatement prepare;
-    private Statement statement;
     private ResultSet result;
 
     //Tìm thông tin khách hàng
@@ -175,44 +191,94 @@ public class LapHoaDonController implements Initializable {
         }
     }
 
-    //Lấy danh sách tất cả sách
-    public List<Sach> getDSSach(){
-        Sach sach;
-        List<Sach> sachList = new ArrayList<>();
-        String sql = "SELECT * FROM Sach";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-            while(result.next()){
-                sach = new Sach();
-                sach.setMaSach(result.getString("maS"));
-                sach.setTenSach(result.getString("tenSach"));
-                sach.setSoLuong(result.getInt("soLuong"));
-                sach.setGiaNhap(result.getDouble("giaNhap"));
-                sach.setNamXuatBan(result.getInt("namXuatBan"));
-                sach.setLoaiSach(result.getString("loaiSach"));
-                sach.setGiaBan(result.getDouble("giaBan"));
-                sach.setHinhAnhSach(result.getString("hinhAnhSach"));
-                sachList.add(sach);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return sachList;
-    }
+
 
     //Hiển thị sách lên bảng hóa đơn
     public void showBooks(SachInTable sach){
-        sachObservableList.add(sach);
+        int flag = 0;
+        sachObservableList = tblHoaDon.getItems();
+        tblHoaDon.setEditable(true);
+        if(sachObservableList.size() > 0){
+            for (int i = 0; i < sachObservableList.size(); i++){
+                int num = sachObservableList.size();
+                String ma = sachObservableList.get(i).getMaSach();
+                String maS = sach.getMaSach();
+                if(ma.equals(maS)){
+                    soLuong = sachObservableList.get(i).getSoLuong();
+                    Double donGia = sachObservableList.get(i).getDonGia();
+                    soLuong = soLuong + sach.getSoLuong();
+                    sachObservableList.get(i).setSoLuong(soLuong);
+                    if (sach.getVAT() == 0)
+                    {
+                        sachObservableList.get(i).setThanhTien(soLuong * donGia);
+                    } else if (sach.getVAT() > 0) {
+                        sachObservableList.get(i).setThanhTien((soLuong * donGia)*(1 + sach.getVAT()));
+                    }
+                    flag = 1;
+                }
+            }
+        if(flag == 0) {
+            sachObservableList.add(sach);
+        }
+        } else if (sachObservableList.size() == 0){
+            sachObservableList.add(sach);
+        }
         colMaSach.setCellValueFactory(new PropertyValueFactory<SachInTable, String>("maSach"));
         colTenSach.setCellValueFactory(new PropertyValueFactory<SachInTable, String>("tenSach"));
-        colSoLuong.setCellValueFactory(new PropertyValueFactory<SachInTable, Integer>("soLuong"));
+
+        final JavaBeanIntegerPropertyBuilder quantityBuilder = JavaBeanIntegerPropertyBuilder.create().beanClass(SachInTable.class).name("soLuong");
+        colSoLuong.setCellValueFactory(param -> {
+            try {
+                return quantityBuilder.bean(param.getValue()).build();
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Callback<TableColumn<SachInTable, Number>, TableCell<SachInTable, Number>> cellFactory = param -> {
+            //Tạo ra TableCell để chưa button
+            final TableCell<SachInTable, Number> quantityCell = new TableCell<SachInTable, Number>() {
+                private final Spinner<Integer> spinner = new Spinner(0, Integer.MAX_VALUE, 0, 1);
+                private boolean ignoreUpdate; // flag preventing updates triggered from ui/initialisation
+
+                {
+                    spinner.valueProperty().addListener((o, oldValue, newValue) -> {
+                        if (!ignoreUpdate) {
+                            ignoreUpdate = true;
+                            WritableValue<Number> property = (WritableValue<Number>) getTableColumn().getCellObservableValue(getTableRow().getItem());
+                            property.setValue(newValue);
+                            ignoreUpdate = false;
+                        }
+                    });
+                }
+                @Override
+                protected void updateItem(Number item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty || item == null) {
+                        setGraphic(null);
+                    } else {
+                        ignoreUpdate = true;
+                        spinner.getValueFactory().setValue(item.intValue());
+                        setGraphic(spinner);
+                        ignoreUpdate = false;
+                        spinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+                            if(tblHoaDon.getSelectionModel().getSelectedIndex() != -1 ){
+                                System.out.println(tblHoaDon.getSelectionModel().getSelectedIndex());
+                            }
+                        });
+                    }
+                }
+            };
+            return quantityCell;
+        };
+
+        colSoLuong.setCellFactory(cellFactory);
         colDonGia.setCellValueFactory(new PropertyValueFactory<SachInTable, Double>("donGia"));
         colThanhTien.setCellValueFactory(new PropertyValueFactory<SachInTable, Double>("thanhTien"));
         colXoa.setCellValueFactory(new PropertyValueFactory<SachInTable, String>("checkBox"));
-        tblHoaDon.getItems();
         tblHoaDon.setItems(sachObservableList);
+        tblHoaDon.refresh();
     }
 
     //Xóa chi tiết hóa đơn
@@ -245,6 +311,34 @@ public class LapHoaDonController implements Initializable {
         txtSDTKH.setText("");
         tblHoaDon.setItems(null);
     }
+    //Tạo số hóa đơn tự động
+    public String taoSoHD() {
+
+        String maHoaDon = "";
+        DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+        maHoaDon = "HD" + dateFormat.format(GetData.ngayBan);
+        int rowCount = hoaDonDAO.demSoHoaDon();
+        boolean dup = false;
+        do {
+            if (rowCount > 999998) {
+                maHoaDon = maHoaDon + (rowCount + 1);
+            }else if (rowCount > 99998) {
+                maHoaDon = maHoaDon + "0" + (rowCount + 1);
+            } else if (rowCount > 9998) {
+                maHoaDon = maHoaDon + "00" + (rowCount + 1);
+            } else if (rowCount > 998){
+                maHoaDon = maHoaDon + "000" + (rowCount + 1);
+            } else if (rowCount > 98) {
+                maHoaDon = maHoaDon + "0000" + (rowCount + 1);
+            } else if (rowCount > 8) {
+                maHoaDon = maHoaDon + "00000" + (rowCount + 1);
+            } else {
+                maHoaDon = maHoaDon + "000000" + (rowCount + 1);
+            }
+        } while (dup);
+        System.out.println("Mã HD: " + maHoaDon);
+        return maHoaDon;
+    }
 
     public void hienThiXacNhanThanhToan() throws IOException {
         tinhTongThanhTien();
@@ -258,10 +352,8 @@ public class LapHoaDonController implements Initializable {
         stage.setScene(scene);
         stage.showAndWait();
         if(GetData.trangThaiButton.equals("dathanhtoan")) {
-            System.out.println("Ngày bán trước khi thêm hóa đơn: " + GetData.ngayBan);
             HoaDon hd = new HoaDon(null, lblMaNV.getText(), GetData.ngayBan, lblMaKH.getText(), GetData.tongThanhTien);
             themHoaDon(hd);
-            System.out.println("Ngày bán sau khi thêm hóa đơn: " + GetData.ngayBan);
             themCTHD(tblHoaDon, lblMaNV.getText(), GetData.ngayBan, lblMaKH.getText(), GetData.tongThanhTien);
             capNhatSoLuong(tblHoaDon);
         }else {
@@ -287,7 +379,6 @@ public class LapHoaDonController implements Initializable {
             prepare = connect.prepareStatement(sql);
             prepare.setString(1, maNV);
             prepare.setDate(2, ngayBan);
-            System.out.println("Ngày bán ở themCTHD method: " + ngayBan);
             prepare.setString(3, maKH);
             prepare.setDouble(4, tongThanhTien);
             result = prepare.executeQuery();
@@ -329,16 +420,17 @@ public class LapHoaDonController implements Initializable {
     }
     public void themHoaDon(HoaDon hd){
         GetData.trangThai = 1;
-        String sql = "  INSERT INTO HoaDon (maNV, ngayLap, maKhachHang, tongTien, trangThai) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "  INSERT INTO HoaDon (maHoaDon, maNV, ngayLap, maKhachHang, tongTien, trangThai) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             connect = ConnectDB.connect();
             prepare = connect.prepareStatement(sql);
-            prepare.setString(1, hd.getMaNV());
-            prepare.setDate(2, hd.getNgayLap());
-            prepare.setString(3, hd.getMaKhachHang());
-            prepare.setDouble(4, hd.getTongThanhTien());
-            prepare.setDouble(5, GetData.trangThai);
+            prepare.setString(1, lblSoHD.getText());
+            prepare.setString(2, hd.getMaNV());
+            prepare.setDate(3, hd.getNgayLap());
+            prepare.setString(4, hd.getMaKhachHang());
+            prepare.setDouble(5, hd.getTongThanhTien());
+            prepare.setDouble(6, GetData.trangThai);
             prepare.execute();//Thực thi truy vấn sql
         }catch (Exception ex){
             ex.printStackTrace();
@@ -393,7 +485,7 @@ public class LapHoaDonController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loadNgayBan();
         loadThongTinNhanVien();
-        saches = getDSSach();
+        saches = sachDAO.getDSSach();
         //Sau khi SachItemController truyền dữ liệu sách vào hàm onActionLisener thì myListener sẽ nhận được dữ liệu
         myListener = new MyListener() {
             @Override
@@ -417,13 +509,14 @@ public class LapHoaDonController implements Initializable {
         } catch (Exception ex){
             ex.printStackTrace();
         }
+        //Lấy ra ngày hiện tại
         try{
-            ZoneId z = ZoneId.of( "America/Montreal" );
+            ZoneId z = ZoneId.of( "Asia/Saigon" );
             LocalDate today = LocalDate.now( z );
             GetData.ngayBan = Date.valueOf(today);
         }catch (Exception ex){
             ex.printStackTrace();
         }
-
+        lblSoHD.setText(taoSoHD());
     }
 }

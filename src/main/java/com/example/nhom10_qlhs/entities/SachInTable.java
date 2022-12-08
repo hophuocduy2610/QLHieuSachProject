@@ -7,18 +7,25 @@ public class SachInTable {
     private String tenSach;
     private int soLuong;
     private Double donGia;
+    private Double VAT;
     private Double thanhTien;
     private CheckBox checkBox;
 
     public SachInTable() {
     }
 
-    public SachInTable(String maSach, String tenSach, int soLuong, Double donGia) {
+    public SachInTable(String maSach, String tenSach, int soLuong, Double donGia, Double VAT) {
         this.maSach = maSach;
         this.tenSach = tenSach;
         this.soLuong = soLuong;
         this.donGia = donGia;
-        this.thanhTien = soLuong*donGia;
+        if(VAT == 0){
+            this.thanhTien = soLuong*donGia;
+        } else if (VAT > 0){
+            this.thanhTien = soLuong*donGia *(1+VAT);
+        }
+
+        this.VAT = VAT;
         this.checkBox = new CheckBox();
     }
 
@@ -60,6 +67,14 @@ public class SachInTable {
 
     public void setThanhTien(Double thanhTien) {
         this.thanhTien = thanhTien;
+    }
+
+    public Double getVAT() {
+        return VAT;
+    }
+
+    public void setVAT(Double VAT) {
+        this.VAT = VAT;
     }
 
     public CheckBox getCheckBox() {

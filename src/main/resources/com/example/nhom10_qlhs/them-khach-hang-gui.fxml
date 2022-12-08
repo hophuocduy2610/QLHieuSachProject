@@ -59,9 +59,9 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="txtDiaChi" layoutX="266.0" layoutY="185.0" promptText="1 Quang Trung, 11, Gò Vấp, TPHCM" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-            <TextField fx:id="txtEmail" layoutX="266.0" layoutY="278.0" promptText="man@gmail.com" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-            <TextField fx:id="txtTenKH" layoutX="267.0" layoutY="15.0" promptText="Nguyễn Văn Phúc" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <TextField fx:id="txtDiaChi" layoutX="266.0" layoutY="185.0" onMouseExited="#validData" promptText="1 Quang Trung, 11, Gò Vấp, TPHCM" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <TextField fx:id="txtEmail" layoutX="266.0" layoutY="278.0" onMouseExited="#validData" promptText="man@gmail.com" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <TextField fx:id="txtTenKH" layoutX="267.0" layoutY="15.0" onMouseExited="#validData" promptText="Nguyễn Văn Phúc" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <Label layoutX="118.0" layoutY="133.0" text="Phái:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
@@ -72,7 +72,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="txtSoDT" layoutX="265.0" layoutY="337.0" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <TextField fx:id="txtSoDT" layoutX="265.0" layoutY="337.0" onMouseExited="#validData" promptText="0123456789" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <ComboBox fx:id="cbxPhai" layoutX="267.0" layoutY="120.0" prefHeight="30.0" prefWidth="161.0" promptText="Nam" styleClass="combo-box" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <DatePicker fx:id="txtNamSinh" layoutX="267.0" layoutY="67.0" styleClass="date-picker" stylesheets="@../../../stylesheet/component-stylesheet.css" />
          </children>

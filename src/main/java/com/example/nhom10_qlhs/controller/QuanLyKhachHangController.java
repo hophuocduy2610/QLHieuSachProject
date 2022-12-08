@@ -1,7 +1,7 @@
 package com.example.nhom10_qlhs.controller;
 
 import com.example.nhom10_qlhs.GetData;
-import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import com.example.nhom10_qlhs.dao.KhachHangDAO;
 import com.example.nhom10_qlhs.entities.KhachHang;
 
 import javafx.collections.FXCollections;
@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -24,7 +25,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.sql.Date;
-import java.time.ZoneId;
 import java.util.*;
 public class QuanLyKhachHangController implements Initializable {
     @FXML
@@ -38,9 +38,6 @@ public class QuanLyKhachHangController implements Initializable {
 
     @FXML
     private TextField txtEmail;
-
-    @FXML
-    private Label lblMaKH;
 
     @FXML
     private DatePicker txtNamSinh;
@@ -88,87 +85,13 @@ public class QuanLyKhachHangController implements Initializable {
 
     @FXML
     private RadioButton radTenKH;
-    private KhachHang khachHang;
 
-    public Connection connect;
-    private PreparedStatement prepare;
-    private Statement statement;
-    private ResultSet result;
+    @FXML
+    private TextField txtMaKH;
 
-    //Lấy danh sách khách hàng theo Mã
-    public List<KhachHang> getDSKhachHangTheoMa(String maKH){
-        List<KhachHang> khachHangList = new ArrayList<>();
-        String sql = "SELECT * FROM KhachHang WHERE maKH = ? AND trangThai = 1";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, maKH);
-            result = prepare.executeQuery();
-            while(result.next()){
-                khachHang = new KhachHang(result.getString("maKH"),
-                        result.getString("tenKH"),
-                        result.getString("diaChi"),
-                        result.getString("sdt"),
-                        result.getString("email"),
-                        result.getString("phai"),
-                        result.getDate("namSinh"));
-                khachHangList.add(khachHang);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return khachHangList;
-    }
+    private KhachHangDAO khachHangDAO = new KhachHangDAO();
 
-    //Lấy danh sách khách hàng theo tên
-    public List<KhachHang> getDSKhachHangTheoTen(String tenKH){
-        List<KhachHang> khachHangList = new ArrayList<>();
-        String sql = "SELECT * FROM KhachHang WHERE tenKH = ? AND trangThai = 1";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, tenKH);
-            result = prepare.executeQuery();
-            while(result.next()){
-                khachHang = new KhachHang(result.getString("maKH"),
-                        result.getString("tenKH"),
-                        result.getString("diaChi"),
-                        result.getString("sdt"),
-                        result.getString("email"),
-                        result.getString("phai"),
-                        result.getDate("namSinh"));
-                khachHangList.add(khachHang);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return khachHangList;
-    }
 
-    //Lấy danh sách khách hàng theo SDT
-    public List<KhachHang> getDSKhachHangTheoSDT(String sdtKH){
-        List<KhachHang> khachHangList = new ArrayList<>();
-        String sql = "SELECT * FROM KhachHang WHERE sdt = ? AND trangThai = 1";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, sdtKH);
-            result = prepare.executeQuery();
-            while(result.next()){
-                khachHang = new KhachHang(result.getString("maKH"),
-                        result.getString("tenKH"),
-                        result.getString("diaChi"),
-                        result.getString("sdt"),
-                        result.getString("email"),
-                        result.getString("phai"),
-                        result.getDate("namSinh"));
-                khachHangList.add(khachHang);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return khachHangList;
-    }
 
     //Hiển thị khách hàng lên bảng
     public void showKhachHangs(ObservableList<KhachHang> khachHangList) {
@@ -201,15 +124,15 @@ public class QuanLyKhachHangController implements Initializable {
                         editButton.setOnAction(event -> {
                             KhachHang kh = khachHangObservableList.get(tblKhachHang.getSelectionModel().getSelectedIndex());
                             if(txtNamSinh.getValue() != null){
-                                capNhatThongTinKhachHang(kh.getMaKH(), txtTenKH.getText(),
+                                khachHangDAO.capNhatThongTinKhachHang(kh.getMaKH(), txtTenKH.getText(),
                                         Date.valueOf(txtNamSinh.getValue()), cbxPhai.getValue(),
                                         txtDiaChi.getText(), txtEmail.getText(), txtSoDT.getText());
                             }else{
-                                capNhatThongTinKhachHang(kh.getMaKH(), txtTenKH.getText(),
+                                khachHangDAO.capNhatThongTinKhachHang(kh.getMaKH(), txtTenKH.getText(),
                                         kh.getNamSinh(), cbxPhai.getValue(),
                                         txtDiaChi.getText(), txtEmail.getText(), txtSoDT.getText());
                             }
-                            khachHangObservableList.setAll(getDSKhachHangTheoTen(txtTenKH.getText()));
+                            khachHangObservableList.setAll(khachHangDAO.getDSKhachHangTheoTen(txtTenKH.getText()));
                             clearTextField();
                         });
                         setGraphic(editButton);
@@ -229,7 +152,7 @@ public class QuanLyKhachHangController implements Initializable {
         String searchKey = txtTimKiem.getText().toLowerCase();//Lấy dữ liệu tìm kiếm và chuyển về chữ thường
         List<KhachHang> khachHangList;
             if (radMaKH.isSelected()){//nếu radio maKH được chọn thì
-                khachHangList = getDSKhachHangTheoMa(searchKey);//lấy danh sách khách hàng theo mã
+                khachHangList = khachHangDAO.getDSKhachHangTheoMa(searchKey);//lấy danh sách khách hàng theo mã
                 if(!khachHangList.isEmpty()){//Nếu danh sách không rỗng thì
                     khachHangObservableList.setAll(khachHangList);//Đưa list khách hàng vô khachHangObservableList
                     showKhachHangs(khachHangObservableList);//Hiển thị dữ liệu lên bảng
@@ -242,7 +165,7 @@ public class QuanLyKhachHangController implements Initializable {
                 }
                 //Mấy câu if sau tương tự như radioMa
             }else if (radTenKH.isSelected()){
-                khachHangList = getDSKhachHangTheoTen(searchKey);
+                khachHangList = khachHangDAO.getDSKhachHangTheoTen(searchKey);
                 if(!khachHangList.isEmpty()){
                     khachHangObservableList.setAll(khachHangList);
                     showKhachHangs(khachHangObservableList);
@@ -254,7 +177,7 @@ public class QuanLyKhachHangController implements Initializable {
                     alert.showAndWait();
                 }
             } else if (radSDT.isSelected()) {
-                khachHangList = getDSKhachHangTheoSDT(searchKey);
+                khachHangList = khachHangDAO.getDSKhachHangTheoSDT(searchKey);
                 if(!khachHangList.isEmpty()){
                     khachHangObservableList.setAll(khachHangList);
                     showKhachHangs(khachHangObservableList);
@@ -295,83 +218,24 @@ public class QuanLyKhachHangController implements Initializable {
     //Thêm một khách hàng mới
     public void themKhachHang(){
         GetData.trangThai = 1; //set trạng thái cho khách hàng để dùng trong lúc xóa
-        String sql = "  INSERT INTO KhachHang (tenKH, diaChi, sdt, email, phai, namSinh, trangThai) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql); // đưa chuỗi sql vô 1 biến prepare để đưa giá trị cần trong câu query
-            //Gán giá trị vào từng dấu chấm hỏi trong câu query sql thứ tự tăng dần từ trái sang phải
-            prepare.setString(1, txtTenKH.getText());
-            prepare.setString(2, txtDiaChi.getText());
-            prepare.setString(3, txtSoDT.getText());
-            prepare.setString(4, txtEmail.getText());
-            prepare.setString(5, cbxPhai.getValue());
-            prepare.setString(6, txtNamSinh.getValue().toString());
-            prepare.setInt(7, GetData.trangThai);
-            boolean result = prepare.execute();//Thực thi truy vấn sql
+        boolean rs = khachHangDAO.themKhachHang(txtMaKH.getText(), txtTenKH.getText(), txtDiaChi.getText(), txtSoDT.getText(), txtEmail.getText(), cbxPhai.getValue(), txtNamSinh.getValue().toString(), GetData.trangThai);
 
-            if(!result){ //Nếu thực thi thành công thì xuất thông báo
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Thêm thành công");
-                alert.showAndWait();
-                clearAll();
-            }else { //Sai thì xuất lỗi
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Thêm không thành công");
-                alert.showAndWait();
-            }
-        }catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Thêm không thành công");
-            alert.showAndWait();
-        }
+       if(rs) {
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert.setTitle("Message");
+           alert.setHeaderText(null);
+           alert.setContentText("Thêm thành công");
+           alert.showAndWait();
+       } else {
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setTitle("Error");
+           alert.setHeaderText(null);
+           alert.setContentText("Thêm không thành công");
+           alert.showAndWait();
+       }
     }
 
-    //Cập nhật trạng thái khách hàng đã xóa
-    public void capNhatTrangThai(int trangThai, String maKH){//Sau khi đưa trạng thái và maKH vào đây thì
-        String sql = "  UPDATE KhachHang SET trangThai = ? WHERE maKH = ?";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);//đưa câu truy vấn vô hàm prepare
-            //set dữ liệu vào từng dấu chấm hỏi ở câu sql trên
-            prepare.setInt(1, trangThai);
-            prepare.setString(2, maKH);
-            boolean result = prepare.execute();//thực thi truy vấn
-            //Sau khi làm xong hàm này thì sẽ đưa khachHangTemp vô list bị xóa
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
 
-    //Cập nhật thông tin khách hàng
-    public void capNhatThongTinKhachHang(String maKH,String tenKH, Date namSinh, String phai, String diaChi, String email, String sdt){
-        String sql = "  UPDATE KhachHang " +
-                "SET tenKH = ?, namSinh = ?, phai = ?, diaChi = ?, email = ?, sdt = ? " +
-                "WHERE maKH = ?";
-        try {
-            connect = ConnectDB.connect();
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1, tenKH);
-            if(namSinh != null){
-                prepare.setDate(2, namSinh);
-            }
-            prepare.setString(3, phai);
-            prepare.setString(4, diaChi);
-            prepare.setString(5, email);
-            prepare.setString(6, sdt);
-            prepare.setString(7, maKH);
-            prepare.execute();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
     //Xóa khách hàng, xóa này thì t chuyển trạng thái của khách hàng và khi truy vấn thì sẽ không gọi được thằng này lên
     @FXML
     public void xoaKhachHang(ActionEvent event) {//Khi click chuột vào button xóa thì chạy hàm này
@@ -382,7 +246,7 @@ public class QuanLyKhachHangController implements Initializable {
             KhachHang khachHangTemp = (KhachHang) khachHangItem.next();//Lấy giá trị tại vị trí next đó đưa vào biến tạm KhachHang
             if (khachHangTemp.getCbxXoa().isSelected()) {//Nếu CheckBox được chọn thì
                 GetData.trangThai = 0;//chuyển trạng thái về 0
-                capNhatTrangThai(GetData.trangThai, khachHangTemp.getMaKH());//đưa vô hàm capNhatTrangThai
+                khachHangDAO.capNhatTrangThai(GetData.trangThai, khachHangTemp.getMaKH());//đưa vô hàm capNhatTrangThai
                 dataListRemove.add(khachHangTemp);//Đưa khách hàng đã bị xóa vào danh sách bị xóa
             }
         }
@@ -395,6 +259,32 @@ public class QuanLyKhachHangController implements Initializable {
             alert.showAndWait();
         }
         khachHangObservableList.removeAll(dataListRemove);//remove tất cả những Khach hàng bị xóa trong list đó
+    }
+
+    //Tạo số khách hàng tự động
+    public String taoMaKH() {
+
+        String maKH = "KH";
+        int rowCount = khachHangDAO.demSoKhachHang();
+        boolean dup = false;
+        do {
+            if (rowCount > 999998) {
+                maKH = maKH + (rowCount + 1);
+            }else if (rowCount > 99998) {
+                maKH = maKH + "0" + (rowCount + 1);
+            } else if (rowCount > 9998) {
+                maKH = maKH + "00" + (rowCount + 1);
+            } else if (rowCount > 998){
+                maKH = maKH + "000" + (rowCount + 1);
+            } else if (rowCount > 98) {
+                maKH = maKH + "0000" + (rowCount + 1);
+            } else if (rowCount > 8) {
+                maKH = maKH + "00000" + (rowCount + 1);
+            } else {
+                maKH = maKH + "000000" + (rowCount + 1);
+            }
+        } while (dup);
+        return maKH;
     }
 
     //Load thông tin trên bảng lên text field
@@ -410,20 +300,8 @@ public class QuanLyKhachHangController implements Initializable {
         txtSoDT.setText(kh.getSdt());
     }
 
-    //Xóa dữ liệu trên các text field và set dữ liệu table về null
-    public void clearAll(){
-        lblMaKH.setText("");
-        txtTenKH.setText("");
-        txtNamSinh.setValue(null);
-        cbxPhai.setValue("Nam");
-        txtDiaChi.setText("");
-        txtEmail.setText("");
-        txtSoDT.setText("");
-        tblKhachHang.setItems(null);
-        txtTimKiem.setText("");
-    }
     public void clearTextField(){
-        lblMaKH.setText("");
+        txtMaKH.setText("");
         txtTenKH.setText("");
         txtNamSinh.setValue(null);
         cbxPhai.setValue("Nam");
@@ -431,9 +309,86 @@ public class QuanLyKhachHangController implements Initializable {
         txtEmail.setText("");
         txtSoDT.setText("");
     }
+
+    //Validation Data
+    public void validata(MouseEvent event) {
+        //Kiểm tra text Tên khách hàng
+        if (event.getSource().equals(txtTenKH))
+        if(!txtTenKH.getText().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên phải có dấu và không được bỏ trống");
+            alert.showAndWait();
+
+            txtTenKH.setStyle("-fx-border-color:#e04040;");
+        } else {
+            txtTenKH.setStyle("-fx-border-color:#fff;");
+        } else if (event.getSource().equals(txtNamSinh)) {
+            //Kiểm tra Text Năm sinh
+            if(txtNamSinh.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Năm sinh không được bỏ trống");
+                alert.showAndWait();
+
+                txtNamSinh.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtNamSinh.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtDiaChi)) {
+            //Kiểm tra Text Địa chỉ
+            if(!txtDiaChi.getText().matches("^[a-zA-Z0-9_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Địa chỉ không được bỏ trống");
+                alert.showAndWait();
+
+                txtDiaChi.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtDiaChi.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtEmail)) {
+            //Kiểm tra Text Email
+            if(!txtEmail.getText().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" +
+                    "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Email không được bỏ trống và theo mẫu username@domain.com");
+                alert.showAndWait();
+
+                txtEmail.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtEmail.setStyle("-fx-border-color:#fff;");
+            }
+        } else if (event.getSource().equals(txtSoDT)) {
+            //Kiểm tra Text Số điện thoại
+            if(!txtSoDT.getText().matches("^\\d{3}[- .]?(\\d{4}){2}$")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Số điện thoại phải là số có 11 chữ số và không được bỏ trống");
+                alert.showAndWait();
+
+                txtSoDT.setStyle("-fx-border-color:#e04040;");
+            } else {
+                txtSoDT.setStyle("-fx-border-color:#fff;");
+            }
+        }
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cbxPhai.setItems(FXCollections.observableArrayList("Nam", "Nữ", "Khác"));
         radMaKH.setSelected(true);
+        txtMaKH.setText(taoMaKH());
+        List<KhachHang> khachHangs = khachHangDAO.getAllKhachHang();
+        ObservableList<KhachHang> khachHangObservableListTemp = FXCollections.observableArrayList();
+        khachHangObservableListTemp.addAll(khachHangs);
+        showKhachHangs(khachHangObservableListTemp);
     }
 }

@@ -12,9 +12,7 @@ public class GetData {
     public static String chucVu;
     public static String sdtKH;
     public static String diaChi;
-    public static String maKH;
     public static String tenKH;
-    public static String maSach;
     public static int slSach;
     public static String trangThaiButton;
 
@@ -24,4 +22,6 @@ public class GetData {
     public static  double tongThanhTien;
     public static String maHD;
     public static Date ngayBan;
+
+    public static String linkAnhSach;
 }
