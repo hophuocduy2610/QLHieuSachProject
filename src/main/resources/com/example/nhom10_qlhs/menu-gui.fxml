@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -138,4 +139,25 @@
          </children>
       </VBox>
    </left>
+   <top>
+      <Pane id="header-pane" prefHeight="27.0" prefWidth="1280.0" stylesheets="@../../../stylesheet/component-stylesheet.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="btnExit" layoutX="1233.0" layoutY="2.0" mnemonicParsing="false" onAction="#exit" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
+               </graphic>
+            </Button>
+            <Button id="btnMinimize" layoutX="1182.0" layoutY="2.0" mnemonicParsing="false" onAction="#minimize" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="MINUS" />
+               </graphic>
+            </Button>
+            <Button id="btnQuestion" layoutX="1135.0" layoutY="2.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="QUESTION" text="" />
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </top>
 </BorderPane>

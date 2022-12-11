@@ -43,12 +43,12 @@
 
 #btnExit {
     -fx-background-color: transparent;
-    -fx-background-radius: 0;
+    -fx-background-radius: 3;
 }
 
 #btnExit:hover {
     -fx-background-color: red;
-    -fx-background-radius: 0;
+    -fx-background-radius: 3;
 }
 
 #btnMinimize {
@@ -56,6 +56,15 @@
     -fx-background-radius: 0;
 }
 
+#btnQuestion {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5000;
+}
+
+#btnQuestion:hover {
+    -fx-background-color: #60A3D9;
+    -fx-background-radius: 5000;
+}
 /********************************* DatePicker CSS ***************************************/
 * {
 	-fx-primary-color: #007acc;
@@ -333,4 +342,7 @@
 }
 .progress-bar {
    -fx-accent: #4e93f2;
+}
+#header-pane {
+  -fx-background-color: rgba(141,145,141,0.5)
 }

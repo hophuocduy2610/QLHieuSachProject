@@ -4,6 +4,8 @@ import com.example.nhom10_qlhs.FxmlLoader;
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
 import com.example.nhom10_qlhs.dao.TaiKhoanDAO;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,6 +39,10 @@ public class DangNhapController implements Initializable{
     @FXML
     private TextField txtTaiKhoan;
 
+
+    @FXML
+    private BorderPane dangNhapBorderPane;
+
     private TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
 
     private Alert alert;
@@ -54,7 +60,8 @@ public class DangNhapController implements Initializable{
                 BorderPane menu = fxmlLoader.getBorderPane("menu-gui");
                 BorderPane view = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
                 menu.setCenter(view);
-                Scene scene = new Scene(menu);
+                Scene scene = new Scene(menu, 1280, 720);
+                stage.initStyle(StageStyle.DECORATED.UNDECORATED);
                 stage.setScene(scene);
                 stage.show();
             } else {
@@ -64,7 +71,8 @@ public class DangNhapController implements Initializable{
                 BorderPane menu = fxmlLoader.getBorderPane("menu-gui-nhanvien");
                 BorderPane view = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
                 menu.setCenter(view);
-                Scene scene = new Scene(menu);
+                Scene scene = new Scene(menu, 1280, 720);
+                stage.initStyle(StageStyle.DECORATED.UNDECORATED);
                 stage.setScene(scene);
                 stage.show();
             }
@@ -106,6 +114,19 @@ public class DangNhapController implements Initializable{
                 txtHienMatKhau.setStyle("-fx-border-color:#fff;");
             }
         }
+    }
+
+    //Exit
+    public void exit(ActionEvent event) {
+        System.exit(0);
+    }
+
+    //Minimize
+    public void minimize(ActionEvent event) {
+        Stage stage = (Stage) dangNhapBorderPane.getScene().getWindow();
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+
+        stage.setIconified(true);
     }
 
     //Hiển thị mật khẩu

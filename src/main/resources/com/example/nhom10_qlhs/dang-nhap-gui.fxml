@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.DangNhapController">
+<BorderPane fx:id="dangNhapBorderPane" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.DangNhapController">
    <left>
       <AnchorPane prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
@@ -54,14 +54,14 @@
                   <FontAwesomeIcon fill="#ffffff4d" glyphName="EYE" styleClass="icons" />
                </graphic>
             </Button>
-            <Button id="btnExit" layoutX="354.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+            <Button id="btnExit" layoutX="354.0" mnemonicParsing="false" onAction="#exit" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
                <graphic>
-                  <FontAwesomeIcon glyphName="CLOSE" />
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
                </graphic>
             </Button>
-            <Button layoutX="308.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="46.0">
+            <Button id="btnMinimize" layoutX="308.0" mnemonicParsing="false" onAction="#minimize" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
                <graphic>
-                  <FontAwesomeIcon glyphName="MINUS" />
+                  <FontAwesomeIcon fill="WHITE" glyphName="MINUS" />
                </graphic>
             </Button>
          </children>

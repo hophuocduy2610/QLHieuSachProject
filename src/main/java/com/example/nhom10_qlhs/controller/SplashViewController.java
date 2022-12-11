@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class SplashViewController implements Initializable {
                         borderPane = loader.load();
                         Scene scene = new Scene(borderPane);
                         Stage stage = new Stage();
+                        stage.initStyle(StageStyle.UNDECORATED);
                         stage.setScene(scene);
                         stage.show();
                         splashBorderPane.getScene().getWindow().hide();

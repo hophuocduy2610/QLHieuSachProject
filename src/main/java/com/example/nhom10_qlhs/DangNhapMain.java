@@ -18,7 +18,7 @@ public class DangNhapMain extends Application {
 //        FXMLLoader fxmlLoader = new FXMLLoader(DangNhapMain.class.getResource("menu-gui.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load(), 700, 450);
         Scene scene = new Scene(fxmlLoader.load());
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }

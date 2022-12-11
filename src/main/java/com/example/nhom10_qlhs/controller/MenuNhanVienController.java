@@ -82,7 +82,18 @@ public class MenuNhanVienController implements Initializable{
         lblTenTaiKhoan.setText(GetData.taiKhoan);
         lblChucVu.setText(GetData.chucVu);
     }
+    //Exit
+    public void exit(ActionEvent event) {
+        System.exit(0);
+    }
 
+    //Minimize
+    public void minimize(ActionEvent event) {
+        Stage stage = (Stage) menuPane.getScene().getWindow();
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+
+        stage.setIconified(true);
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadTaiKhoanChucVu();
