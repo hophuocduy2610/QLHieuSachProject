@@ -151,6 +151,7 @@ public class QuanLyNhanVienController implements Initializable {
                         //Tạo action cho button edit
                         final Button editButton = new Button("Edit",imgView);
                         editButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                        //Cập nhật Nhân viên (Xử lí sự kiện cập nhật)
                         editButton.setOnAction(event -> {
                             NhanVien nv = nhanVienObservableList.get(tblNhanVien.getSelectionModel().getSelectedIndex());
 
@@ -177,11 +178,11 @@ public class QuanLyNhanVienController implements Initializable {
     //Tìm kiếm nhân viên
     public void timKiemNhanVien(){
         String searchKey = txtTimKiem.getText().toLowerCase();//Lấy dữ liệu tìm kiếm và chuyển về chữ thường
-        List<NhanVien> khachHangList;
+        List<NhanVien> nhanVienList;
         if (radMaNV.isSelected()){//nếu radio maNV được chọn thì
-            khachHangList = nhanVienDAO.getDSNhanVienTheoMa(searchKey);//lấy danh sách khách hàng theo mã
-            if(!khachHangList.isEmpty()){//Nếu danh sách không rỗng thì
-                nhanVienObservableList.setAll(khachHangList);//Đưa list khách hàng vô khachHangObservableList
+            nhanVienList = nhanVienDAO.getDSNhanVienTheoMa(searchKey);//lấy danh sách khách hàng theo mã
+            if(!nhanVienList.isEmpty()){//Nếu danh sách không rỗng thì
+                nhanVienObservableList.setAll(nhanVienList);//Đưa list khách hàng vô khachHangObservableList
                 showNhanViens(nhanVienObservableList);//Hiển thị dữ liệu lên bảng
             }else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -192,9 +193,9 @@ public class QuanLyNhanVienController implements Initializable {
             }
             //Mấy câu if sau tương tự như radioMa
         }else if (radTenNV.isSelected()){
-            khachHangList = nhanVienDAO.getDSNhanVienTheoTen(searchKey);
-            if(!khachHangList.isEmpty()){
-                nhanVienObservableList.setAll(khachHangList);
+            nhanVienList = nhanVienDAO.getDSNhanVienTheoTen(searchKey);
+            if(!nhanVienList.isEmpty()){
+                nhanVienObservableList.setAll(nhanVienList);
                 showNhanViens(nhanVienObservableList);
             }else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -204,9 +205,9 @@ public class QuanLyNhanVienController implements Initializable {
                 alert.showAndWait();
             }
         } else if (radSdtNV.isSelected()) {
-            khachHangList = nhanVienDAO.getDSNhanVienTheoSDT(searchKey);
-            if(!khachHangList.isEmpty()){
-                nhanVienObservableList.setAll(khachHangList);
+            nhanVienList = nhanVienDAO.getDSNhanVienTheoSDT(searchKey);
+            if(!nhanVienList.isEmpty()){
+                nhanVienObservableList.setAll(nhanVienList);
                 showNhanViens(nhanVienObservableList);
             }else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -361,6 +362,7 @@ public class QuanLyNhanVienController implements Initializable {
         txtTimKiem.setText("");
         tblNhanVien.setItems(null);
     }
+    //Làm mới
     public void clearTextField() {
         txtTenNV.setText("");
         txtNamSinh.setValue(null);

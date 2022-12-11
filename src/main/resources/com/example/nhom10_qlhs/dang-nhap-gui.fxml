@@ -54,6 +54,16 @@
                   <FontAwesomeIcon fill="#ffffff4d" glyphName="EYE" styleClass="icons" />
                </graphic>
             </Button>
+            <Button id="btnExit" layoutX="354.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+               <graphic>
+                  <FontAwesomeIcon glyphName="CLOSE" />
+               </graphic>
+            </Button>
+            <Button layoutX="308.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="46.0">
+               <graphic>
+                  <FontAwesomeIcon glyphName="MINUS" />
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </right>

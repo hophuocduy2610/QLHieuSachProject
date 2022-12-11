@@ -46,15 +46,29 @@ public class DangNhapController implements Initializable{
         if (result) {
             //Ẩn form đăng nhập
             btnDangNhap.getScene().getWindow().hide();
-            //Hiển thị màn hình chính
-            Stage stage = new Stage();
-            FxmlLoader fxmlLoader = new FxmlLoader();
-            BorderPane menu = fxmlLoader.getBorderPane("menu-gui");
-            BorderPane view = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
-            menu.setCenter(view);
-            Scene scene = new Scene(menu);
-            stage.setScene(scene);
-            stage.show();
+
+            if (GetData.chucVu.equals("Quản lý")) {
+                //Hiển thị màn hình chính
+                Stage stage = new Stage();
+                FxmlLoader fxmlLoader = new FxmlLoader();
+                BorderPane menu = fxmlLoader.getBorderPane("menu-gui");
+                BorderPane view = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
+                menu.setCenter(view);
+                Scene scene = new Scene(menu);
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                //Hiển thị màn hình chính
+                Stage stage = new Stage();
+                FxmlLoader fxmlLoader = new FxmlLoader();
+                BorderPane menu = fxmlLoader.getBorderPane("menu-gui-nhanvien");
+                BorderPane view = fxmlLoader.getBorderPane("man-hinh-chinh-gui");
+                menu.setCenter(view);
+                Scene scene = new Scene(menu);
+                stage.setScene(scene);
+                stage.show();
+            }
+
         } else {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");

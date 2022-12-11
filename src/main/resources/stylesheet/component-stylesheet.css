@@ -37,8 +37,23 @@
     -fx-background-color:transparent;
     -fx-background-radius:8;
 }
-.btnThem:hover{
+.btnThem:hover {
     -fx-background-color:#60A3D9;
+}
+
+#btnExit {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+}
+
+#btnExit:hover {
+    -fx-background-color: red;
+    -fx-background-radius: 0;
+}
+
+#btnMinimize {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
 }
 
 /********************************* DatePicker CSS ***************************************/
@@ -297,6 +312,7 @@
     -fx-minor-tick-length: 10;
 }
 
+
 .axis-label {
    -fx-text-fill: #fff;
 }
@@ -309,4 +325,12 @@
 #pane-thongke {
    -fx-background-color: rgb(109,191,237,0.7);
    -fx-background-radius: 10;
+}
+
+/******************************************* ProgressBar CSS ************************************************************/
+.progress-bar > .track {
+   -fx-background-radius:0;
+}
+.progress-bar {
+   -fx-accent: #4e93f2;
 }

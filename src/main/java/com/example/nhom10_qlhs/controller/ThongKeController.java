@@ -258,8 +258,10 @@ public class ThongKeController implements Initializable {
 
            loadHoaDonVaoBang(hoaDons);
 
+           //Lấy số hóa đơn từ list
            lblSoHDDaBan.setText(hoaDonList.size() + " hóa đơn");
 
+           //Tính tổng thành tiền
            for (HoaDon hoaDon : hoaDonList) {
                tongTien += hoaDon.getTongThanhTien();
                lblTongDoanhThuTKHD.setText(tongTien + " đ");
