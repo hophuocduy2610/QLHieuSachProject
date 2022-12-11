@@ -27,7 +27,7 @@
       <AnchorPane prefHeight="450.0" prefWidth="400.0" style="-fx-background-color: #145DA0;" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="txtHienMatKhau" layoutX="170.0" layoutY="225.0" onMouseExited="#validData" prefHeight="27.0" prefWidth="171.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-            <PasswordField fx:id="txtMatKhau" layoutX="170.0" layoutY="225.0" onMouseExited="#validData" prefHeight="27.0" prefWidth="171.0" promptText="matkhau" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <PasswordField fx:id="txtMatKhau" layoutX="170.0" layoutY="225.0" onKeyTyped="#validData" prefHeight="27.0" prefWidth="171.0" promptText="matkhau" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <Label layoutX="133.0" layoutY="86.0" text="Đăng nhập" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="26.0" />
@@ -48,7 +48,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <TextField fx:id="txtTaiKhoan" layoutX="170.0" layoutY="164.0" onMouseExited="#validData" prefHeight="27.0" prefWidth="171.0" promptText="taikhoan" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+            <TextField fx:id="txtTaiKhoan" layoutX="170.0" layoutY="164.0" onKeyTyped="#validData" prefHeight="27.0" prefWidth="171.0" promptText="taikhoan" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <Button id="btnShowPassword" layoutX="313.0" layoutY="227.0" mnemonicParsing="false" onMousePressed="#showPasswordMatKhau" onMouseReleased="#tatShowPasswordMatKhau" stylesheets="@../../../stylesheet/component-stylesheet.css">
                <graphic>
                   <FontAwesomeIcon fill="#ffffff4d" glyphName="EYE" styleClass="icons" />
@@ -64,6 +64,16 @@
                   <FontAwesomeIcon fill="WHITE" glyphName="MINUS" />
                </graphic>
             </Button>
+            <Label fx:id="errTaiKhoan" layoutX="170.0" layoutY="195.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="errMatKhau" layoutX="170.0" layoutY="255.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </right>

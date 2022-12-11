@@ -2,26 +2,19 @@ package com.example.nhom10_qlhs.controller;
 
 import com.example.nhom10_qlhs.FxmlLoader;
 import com.example.nhom10_qlhs.GetData;
-import com.example.nhom10_qlhs.connectdb.ConnectDB;
 import com.example.nhom10_qlhs.dao.TaiKhoanDAO;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 public class DangNhapController implements Initializable{
@@ -43,12 +36,33 @@ public class DangNhapController implements Initializable{
     @FXML
     private BorderPane dangNhapBorderPane;
 
+    @FXML
+    private Label errMatKhau;
+
+    @FXML
+    private Label errTaiKhoan;
+
     private TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
 
     private Alert alert;
 
     public void login() {
         boolean result = taiKhoanDAO.timTaiKhoan(txtTaiKhoan.getText(), txtMatKhau.getText());
+        if(errTaiKhoan.getText() != ""){
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên tài khoản không hợp lệ, vui lòng nhập lại");
+            alert.showAndWait();
+            return;
+        } else if (errMatKhau.getText() != "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Mật khẩu không hợp lệ, vui lòng nhập lại");
+            alert.showAndWait();
+            return;
+        }
         if (result) {
             //Ẩn form đăng nhập
             btnDangNhap.getScene().getWindow().hide();
@@ -86,30 +100,22 @@ public class DangNhapController implements Initializable{
         }
     }
 
-    public void validData(MouseEvent event) {
+    public void validData(KeyEvent event) {
         if(event.getSource().equals(txtTaiKhoan)){
             if (!txtTaiKhoan.getText().matches("^([A-Za-z0-9]){8,20}$")) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Tên tài khoản không hợp lệ và không được bỏ trống");
-                alert.showAndWait();
-
+                errTaiKhoan.setText("* Tên tài khoản phải lớn hơn 8 kí tự");
                 txtTaiKhoan.setStyle("-fx-border-color:#e04040;");
             } else {
+                errTaiKhoan.setText("");
                 txtTaiKhoan.setStyle("-fx-border-color:#fff;");
             }
         } else {
             if (!txtMatKhau.getText().matches("^([A-Za-z0-9]){8,20}$")) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Mật khẩu không hợp lệ và không được bỏ trống");
-                alert.showAndWait();
-
+                errMatKhau.setText("* Mật khẩu phải lớn hơn 8 kí tự");
                 txtMatKhau.setStyle("-fx-border-color:#e04040;");
                 txtHienMatKhau.setStyle("-fx-border-color:#e04040;");
             } else {
+                errMatKhau.setText("");
                 txtMatKhau.setStyle("-fx-border-color:#fff;");
                 txtHienMatKhau.setStyle("-fx-border-color:#fff;");
             }
