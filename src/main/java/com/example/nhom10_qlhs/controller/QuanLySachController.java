@@ -25,6 +25,7 @@ import javafx.util.Callback;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -126,16 +127,16 @@ public class QuanLySachController implements Initializable {
     @FXML
     private TextField txtMaS;
 
+    @FXML
+    private Label lblError;
+
     private SachDAO sachDAO = new SachDAO();
     private NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
     private LoaiSDAO loaiSDAO = new LoaiSDAO();
-    public Connection connect;
-    private PreparedStatement prepare;
-    private Statement statement;
-    private ResultSet result;
-    private Sach sach;
-    private Alert alert;
+
     private ObservableList<Sach> sachObservableList = FXCollections.observableArrayList();
+
+    Alert alert;
 
 
 
@@ -243,6 +244,94 @@ public class QuanLySachController implements Initializable {
 
     //Thêm một sách mới
     public void themSach(){
+
+        if (datePickerNgayNhap.getValue() == null) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Ngày nhập không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtSoLuong.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Số lượng không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtTacGia.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên tác giả không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtTenSach.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên sách không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtGiaNhap.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Giá nhập không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtNamXuatBan.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Năm xuất bản không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (imvAnhSach.getImage() == null) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Ảnh sách còn trống");
+            alert.showAndWait();
+            return;
+        }
+
+        if(LocalDate.now().compareTo(datePickerNgayNhap.getValue()) < 0) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Ngày nhập không được trước ngày hiện tại");
+            alert.showAndWait();
+            return;
+        }
+
+        if (Integer.valueOf(txtSoLuong.getText()) < 0) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Số lượng phải là số lớn hơn 0");
+            alert.showAndWait();
+            return;
+        }
+
+        if (Double.valueOf(txtGiaNhap.getText()) < 0) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Giá nhập phải là số thực lớn hơn 0");
+            alert.showAndWait();
+            return;
+        }
+
+        if (lblError.getText() != null) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Thông tin nhập vẫn còn lỗi, vui lòng kiểm tra lại thông tin vừa nhập");
+            alert.showAndWait();
+            return;
+        }
+
         GetData.trangThai = 1;
         GetData.trangThaiButton = "btnThemNV";
 
@@ -251,13 +340,13 @@ public class QuanLySachController implements Initializable {
                 Double.valueOf(txtGiaBan.getText()), GetData.linkAnhSach, GetData.trangThai);
 
             if(result){ //Nếu thực thi thành công thì xuất thông báo
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Message");
                 alert.setHeaderText(null);
                 alert.setContentText("Thêm thành công");
                 alert.showAndWait();
             }else { //Sai thì xuất lỗi
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
                 alert.setContentText("Thêm không thành công");
@@ -369,65 +458,45 @@ public class QuanLySachController implements Initializable {
         } while (dup);
         return maSach;
     }
-    public void validData (MouseEvent event) {
+    public void validData (KeyEvent event) {
         if (event.getSource().equals(txtSoLuong)) {
             if(!txtSoLuong.getText().matches("^[0-9]+$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Số lượng phải là số và không được bỏ trống");
-                alert.showAndWait();
-
+                lblError.setText("Số lượng phải là số");
                 txtSoLuong.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtSoLuong.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtTacGia)) {
             if(!txtTacGia.getText().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Tên tác giả không hợp lệ và không được bỏ trống");
-                alert.showAndWait();
-
+                lblError.setText("Tên tác giả không chứa kí tự đặc biệt và số");
                 txtTacGia.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtTacGia.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtTenSach)) {
             if(!txtTenSach.getText().matches("^[a-zA-Z0-9_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Tên sách không hợp lệ và không được bỏ trống");
-                alert.showAndWait();
-
-                txtTenSach.setStyle("-fx-border-color:#e04040;");
+                lblError.setText("Tên sách không chứa kí tự đặc biệt");
+               txtTenSach.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtTenSach.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtGiaNhap)) {
             if(!txtGiaNhap.getText().matches("[0-9]{1,13}(\\.[0-9]*)?$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Giá nhập phải là số thực lớn hơn 0 và không được bỏ trống");
-                alert.showAndWait();
-
+                lblError.setText("Giá nhập phải là số thực lớn hơn 0");
                 txtGiaNhap.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtGiaNhap.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtNamXuatBan)) {
             if(!txtNamXuatBan.getText().matches("^[0-9]{4}$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Năm xuất bản phải là số có 4 chữ số và không được bỏ trống");
-                alert.showAndWait();
-
+                lblError.setText("Năm xuất bản phải là số có 4 chữ số");
                 txtNamXuatBan.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtNamXuatBan.setStyle("-fx-border-color:#fff;");
             }
         }

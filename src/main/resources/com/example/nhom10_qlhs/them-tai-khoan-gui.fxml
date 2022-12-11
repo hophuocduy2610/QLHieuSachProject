@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="500.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.ThemTaiKhoanController">
+<BorderPane fx:id="pnThemTK" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="500.0" style="-fx-background-color: #0c4ca3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nhom10_qlhs.controller.ThemTaiKhoanController">
    <top>
       <Pane prefHeight="71.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
@@ -18,6 +18,16 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Button id="btnExit" layoutX="454.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
+               </graphic>
+            </Button>
+            <Button id="btnMinimize" layoutX="407.0" mnemonicParsing="false" onAction="#minimize" prefHeight="15.0" prefWidth="46.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="MINUS" />
+               </graphic>
+            </Button>
          </children>
       </Pane>
    </top>
@@ -36,7 +46,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="87.0" layoutY="121.0" text="Nhập lại mật khẩu:" textFill="WHITE">
+            <Label layoutX="87.0" layoutY="129.0" text="Nhập lại mật khẩu:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -46,18 +56,18 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Label layoutX="87.0" layoutY="173.0" text="Loại tài khoản:" textFill="WHITE">
+            <Label layoutX="87.0" layoutY="188.0" text="Loại tài khoản:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <PasswordField fx:id="txtXacNhanMatKhau" layoutX="250.0" layoutY="119.0" onMouseExited="#validData" prefHeight="30.0" prefWidth="164.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" text="matkhau" />
+            <PasswordField fx:id="txtXacNhanMatKhau" layoutX="250.0" layoutY="127.0" onKeyTyped="#validData" prefHeight="30.0" prefWidth="164.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" text="matkhau" />
             <Button id="btnShowPassword" layoutX="385.0" layoutY="71.0" mnemonicParsing="false" onMousePressed="#showPasswordMatKhau" onMouseReleased="#tatShowPasswordMatKhau" stylesheets="@../../../stylesheet/component-stylesheet.css">
                <graphic>
                   <FontAwesomeIcon fill="#ffffff4d" glyphName="EYE" styleClass="icons" />
                </graphic>
             </Button>
-            <Button id="btnShowPassword" layoutX="385.0" layoutY="124.0" mnemonicParsing="false" onMousePressed="#showPasswordXacNhanMatKhau" onMouseReleased="#tatShowPasswordXacNhanMatKhau" stylesheets="@../../../stylesheet/component-stylesheet.css">
+            <Button id="btnShowPassword" layoutX="385.0" layoutY="132.0" mnemonicParsing="false" onMousePressed="#showPasswordXacNhanMatKhau" onMouseReleased="#tatShowPasswordXacNhanMatKhau" stylesheets="@../../../stylesheet/component-stylesheet.css">
                <graphic>
                   <FontAwesomeIcon fill="#ffffff4d" glyphName="EYE" styleClass="icons" />
                </graphic>
@@ -67,12 +77,22 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="lblLoaiTK" layoutX="250.0" layoutY="175.0" textFill="WHITE">
+            <Label fx:id="lblLoaiTK" layoutX="250.0" layoutY="190.0" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <PasswordField fx:id="txtMatKhau" cache="true" layoutX="250.0" layoutY="66.0" onMouseExited="#validData" prefHeight="30.0" prefWidth="164.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" text="matkhau" />
+            <PasswordField fx:id="txtMatKhau" cache="true" layoutX="250.0" layoutY="66.0" onKeyTyped="#validData" prefHeight="30.0" prefWidth="164.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" text="matkhau" />
+            <Label fx:id="errMatKhau" layoutX="251.0" layoutY="101.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="errNhapLaiMatKhau" layoutX="251.0" layoutY="163.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </center>

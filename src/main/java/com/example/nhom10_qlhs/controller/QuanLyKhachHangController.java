@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.BorderPane;
@@ -89,9 +90,12 @@ public class QuanLyKhachHangController implements Initializable {
     @FXML
     private TextField txtMaKH;
 
+    @FXML
+    private Label lblError;
+
     private KhachHangDAO khachHangDAO = new KhachHangDAO();
 
-
+    Alert alert;
 
     //Hiển thị khách hàng lên bảng
     public void showKhachHangs(ObservableList<KhachHang> khachHangList) {
@@ -217,17 +221,64 @@ public class QuanLyKhachHangController implements Initializable {
 
     //Thêm một khách hàng mới
     public void themKhachHang(){
+
+        if(txtTenKH.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên khách hàng không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtNamSinh.getValue() == null) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Năm sinh không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtDiaChi.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Địa chỉ không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtEmail.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Email không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtSoDT.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Số điện thoại không được bỏ trống");
+            alert.showAndWait();
+            return;
+        }
+
+        if(lblError.getText() != "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Thông tin nhập vẫn còn lỗi, vui lòng kiểm tra lại thông tin vừa nhập");
+            alert.showAndWait();
+            return;
+        }
+
         GetData.trangThai = 1; //set trạng thái cho khách hàng để dùng trong lúc xóa
         boolean rs = khachHangDAO.themKhachHang(txtMaKH.getText(), txtTenKH.getText(), txtDiaChi.getText(), txtSoDT.getText(), txtEmail.getText(), cbxPhai.getValue(), txtNamSinh.getValue().toString(), GetData.trangThai);
 
        if(rs) {
-           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert = new Alert(Alert.AlertType.INFORMATION);
            alert.setTitle("Message");
            alert.setHeaderText(null);
            alert.setContentText("Thêm thành công");
            alert.showAndWait();
        } else {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert = new Alert(Alert.AlertType.ERROR);
            alert.setTitle("Error");
            alert.setHeaderText(null);
            alert.setContentText("Thêm không thành công");
@@ -311,70 +362,33 @@ public class QuanLyKhachHangController implements Initializable {
     }
 
     //Validation Data
-    public void validata(MouseEvent event) {
+    public void validata(KeyEvent event) {
         //Kiểm tra text Tên khách hàng
-        if (event.getSource().equals(txtTenKH))
-        if(!txtTenKH.getText().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Tên phải có dấu và không được bỏ trống");
-            alert.showAndWait();
-
-            txtTenKH.setStyle("-fx-border-color:#e04040;");
-        } else {
-            txtTenKH.setStyle("-fx-border-color:#fff;");
-        } else if (event.getSource().equals(txtNamSinh)) {
-            //Kiểm tra Text Năm sinh
-            if(txtNamSinh.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Năm sinh không được bỏ trống");
-                alert.showAndWait();
-
-                txtNamSinh.setStyle("-fx-border-color:#e04040;");
+        if (event.getSource().equals(txtTenKH)) {
+            if(!txtTenKH.getText().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
+                lblError.setText("Tên phải không được chứa số và kí tự đặc biệt");
+                txtTenKH.setStyle("-fx-border-color:#e04040;");
             } else {
-                txtNamSinh.setStyle("-fx-border-color:#fff;");
-            }
-        } else if (event.getSource().equals(txtDiaChi)) {
-            //Kiểm tra Text Địa chỉ
-            if(!txtDiaChi.getText().matches("^[a-zA-Z0-9_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Địa chỉ không được bỏ trống");
-                alert.showAndWait();
-
-                txtDiaChi.setStyle("-fx-border-color:#e04040;");
-            } else {
-                txtDiaChi.setStyle("-fx-border-color:#fff;");
+                lblError.setText("");
+                txtTenKH.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtEmail)) {
             //Kiểm tra Text Email
             if(!txtEmail.getText().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" +
                     "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Email không được bỏ trống và theo mẫu username@domain.com");
-                alert.showAndWait();
-
+               lblError.setText("Email theo mẫu username@domain.com");
                 txtEmail.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtEmail.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtSoDT)) {
             //Kiểm tra Text Số điện thoại
             if(!txtSoDT.getText().matches("^\\d{3}[- .]?(\\d{4}){2}$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Số điện thoại phải là số có 11 chữ số và không được bỏ trống");
-                alert.showAndWait();
-
+               lblError.setText("Số điện thoại phải là số có 11 chữ số");
                 txtSoDT.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtSoDT.setStyle("-fx-border-color:#fff;");
             }
         }

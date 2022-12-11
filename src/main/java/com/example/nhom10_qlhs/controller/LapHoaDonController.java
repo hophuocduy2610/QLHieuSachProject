@@ -30,6 +30,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.File;
@@ -180,6 +181,7 @@ public class LapHoaDonController implements Initializable {
         BorderPane borderPane = loader.load();
         Scene scene = new Scene(borderPane);
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.setScene(scene);
         stage.showAndWait();
         //Sau khi form thêm khách hàng close, set text vào textField SDT và hiển thị tên khách hàng
@@ -349,6 +351,7 @@ public class LapHoaDonController implements Initializable {
         BorderPane borderPane = loader.load();
         Scene scene = new Scene(borderPane);
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.setScene(scene);
         stage.showAndWait();
         if(GetData.trangThaiButton.equals("dathanhtoan")) {

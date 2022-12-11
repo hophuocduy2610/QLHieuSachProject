@@ -15,15 +15,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -112,14 +115,14 @@ public class QuanLyNhanVienController implements Initializable {
     @FXML
     private TextField txtMaNV;
 
+    @FXML
+    private Label lblError;
+
+
     private NhanVien nhanVien;
     private ObservableList<NhanVien> nhanVienObservableList = FXCollections.observableArrayList();
 
     private NhanVienDAO nhanVienDAO = new NhanVienDAO();
-    public Connection connect;
-    private PreparedStatement prepare;
-    private Statement statement;
-    private ResultSet result;
 
     //Hiển thị nhân viên lên bảng
     public void showNhanViens(ObservableList<NhanVien> nhanViens) {
@@ -227,6 +230,76 @@ public class QuanLyNhanVienController implements Initializable {
 
     //Thêm một nhân viên mới
     public void themNhanVien(){
+        //Kiểm tra rỗng
+        if(txtTenNV.getText() == "") {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên nhân viên không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtNamSinh.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Năm sinh không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtNgayVaoLam.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Ngày vào làm không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtDiaChi.getText() == "") {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Địa chỉ không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtCMND.getText() == "") {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("CMND không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtSDT.getText() == "") {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Số điện thoại không được bỏ trống");
+            alert.showAndWait();
+            return;
+        }
+
+        if(lblError.getText() != "") {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Thông tin nhập vẫn còn lỗi, vui lòng kiểm tra lại thông tin vừa nhập");
+            alert.showAndWait();
+            return;
+        }
+
+        if(LocalDate.now().getYear() - txtNamSinh.getValue().getYear() < 15) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Số tuổi của nhân viên phải lớn hơn 15, vui lòng kiểm tra lại năm sinh");
+            alert.showAndWait();
+            return;
+        }
+        if(LocalDate.now().compareTo(txtNgayVaoLam.getValue()) < 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Ngày vào làm phải không được trước ngày hiện tại");
+            alert.showAndWait();
+            return;
+        }
         boolean result = nhanVienDAO.themNhanVien(txtMaNV.getText(), txtTenNV.getText(), txtDiaChi.getText(), txtSDT.getText(), Date.valueOf(txtNgayVaoLam.getValue()), cbxPhai.getValue(), Date.valueOf(txtNamSinh.getValue()), cbxChucVu.getValue(), txtCMND.getText());
         if(result){ //Nếu thực thi thành công thì xuất thông báo
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -237,6 +310,7 @@ public class QuanLyNhanVienController implements Initializable {
                 taoTuDongTenTaiKhoan(GetData.trangThaiButton, txtSDT.getText());
                 GetData.taiKhoan = txtTaiKhoan.getText();
                 GetData.chucVu = cbxChucVu.getValue();
+                GetData.maNV = txtMaNV.getText();
                 clearTextField();
             }else { //Sai thì xuất lỗi
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -306,6 +380,7 @@ public class QuanLyNhanVienController implements Initializable {
         BorderPane borderPane = loader.load();
         Scene scene = new Scene(borderPane);
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.setScene(scene);
         stage.showAndWait();
 
@@ -343,6 +418,7 @@ public class QuanLyNhanVienController implements Initializable {
         BorderPane borderPane = loader.load();
         Scene scene = new Scene(borderPane);
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.setScene(scene);
         stage.showAndWait();
 
@@ -374,79 +450,30 @@ public class QuanLyNhanVienController implements Initializable {
         txtSDT.setText("");
     }
 
-    public void validData(MouseEvent event) {
+    public void validData(KeyEvent event) {
         if (event.getSource().equals(txtTenNV)) {
             if(!txtTenNV.getText().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Tên phải có dấu và không được bỏ trống");
-                alert.showAndWait();
-
+                lblError.setText("Tên nhân viên không được chứa số và kí tự đặc biệt");
                 txtTenNV.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtTenNV.setStyle("-fx-border-color:#fff;");
-            }
-        } else if (event.getSource().equals(txtNamSinh)) {
-//            if(txtNamSinh.getValue() == null) {
-////                Alert alert = new Alert(Alert.AlertType.ERROR);
-////                alert.setTitle("Error");
-//                alert.setHeaderText(null);
-////                alert.setContentText("Năm sinh không được bỏ trống");
-////                alert.showAndWait();
-//
-//                txtNamSinh.setStyle("-fx-border-color: #e04040;");
-//            } else {
-//                txtNamSinh.setStyle("-fx-border-color: #fff;");
-//            }
-        }  else if (event.getSource().equals(txtNgayVaoLam)) {
-//            if(txtNgayVaoLam.getValue() == null) {
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setTitle("Error");
-//                alert.setHeaderText(null);
-//                alert.setContentText("Ngày vào làm không được bỏ trống");
-//                alert.showAndWait();
-//
-//                txtNgayVaoLam.setStyle("-fx-border-color: #e04040;");
-//            } else {
-//                txtNgayVaoLam.setStyle("-fx-border-color: #fff;");
-//            }
-        }  else if (event.getSource().equals(txtDiaChi)) {
-            //Kiểm tra Text Địa chỉ
-            if(!txtDiaChi.getText().matches("^[a-zA-Z0-9_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\ ]+$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Địa chỉ không được bỏ trống");
-                alert.showAndWait();
-
-                txtDiaChi.setStyle("-fx-border-color:#e04040;");
-            } else {
-                txtDiaChi.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtCMND)) {
             if (!txtCMND.getText().matches("^[0-9]{12}$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Số chứng minh phải gồm 12 chữ số và không được bỏ trống");
-                alert.showAndWait();
-
+                lblError.setText("Số chứng minh phải gồm 12 chữ số");
                 txtCMND.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtCMND.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtSDT)) {
             //Kiểm tra Text Số điện thoại
             if(!txtSDT.getText().matches("^\\d{3}[- .]?(\\d{4}){2}$")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Số điện thoại phải là số có 11 chữ số và không được bỏ trống");
-                alert.showAndWait();
-
+                lblError.setText("Số điện thoại phải là số có 11 chữ số");
                 txtSDT.setStyle("-fx-border-color:#e04040;");
             } else {
+                lblError.setText("");
                 txtSDT.setStyle("-fx-border-color:#fff;");
             }
         }

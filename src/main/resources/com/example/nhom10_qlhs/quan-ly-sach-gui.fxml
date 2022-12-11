@@ -37,31 +37,31 @@
          <center>
             <BorderPane prefHeight="553.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                <top>
-                  <Pane prefHeight="231.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="259.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                      <children>
                         <Line endX="868.0" endY="-7.62939453125E-6" layoutX="212.0" layoutY="-13.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
-                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="235.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
-                        <Label layoutX="335.0" layoutY="-3.0" text="Tên sách:" textFill="WHITE">
+                        <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="259.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
+                        <Label layoutX="335.0" layoutY="25.0" text="Tên sách:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="9.0" layoutY="80.0" text="Ngày nhập:" textFill="WHITE">
+                        <Label layoutX="9.0" layoutY="88.0" text="Ngày nhập:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="336.0" layoutY="76.0" text="Giá bán:" textFill="WHITE">
+                        <Label layoutX="336.0" layoutY="104.0" text="Giá bán:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="335.0" layoutY="35.0" text="Giá nhập:" textFill="WHITE">
+                        <Label layoutX="335.0" layoutY="63.0" text="Giá nhập:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="336.0" layoutY="118.0" text="Nhà xuất bản:" textFill="WHITE">
+                        <Label layoutX="336.0" layoutY="146.0" text="Nhà xuất bản:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -71,66 +71,71 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="120.0" text="Số lượng:" textFill="WHITE">
+                        <Label layoutX="10.0" layoutY="128.0" text="Số lượng:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="337.0" layoutY="160.0" text="Năm xuất bản:" textFill="WHITE">
+                        <Label layoutX="337.0" layoutY="188.0" text="Năm xuất bản:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label layoutX="12.0" layoutY="198.0" text="Tác giả:" textFill="WHITE">
+                        <Label layoutX="12.0" layoutY="206.0" text="Tác giả:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtGiaNhap" layoutX="468.0" layoutY="28.0" onKeyTyped="#hienGiaBan" onMouseExited="#validData" promptText="100000" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField fx:id="txtGiaBan" editable="false" layoutX="468.0" layoutY="70.0" promptText="150000" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField fx:id="txtSoLuong" layoutX="106.0" layoutY="114.0" onMouseExited="#validData" promptText="10" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField fx:id="txtTenSach" layoutX="466.0" layoutY="-10.0" onMouseExited="#validData" promptText="Đắc nhân tâm" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField fx:id="txtNamXuatBan" layoutX="469.0" layoutY="152.0" onMouseExited="#validData" promptText="2022" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <TextField fx:id="txtTacGia" layoutX="105.0" layoutY="195.0" onMouseExited="#validData" promptText="Dale Carnegie" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <Label layoutX="668.0" layoutY="90.0" text="Hình ảnh:" textFill="WHITE">
+                        <TextField fx:id="txtGiaNhap" layoutX="468.0" layoutY="56.0" onKeyReleased="#validData" onKeyTyped="#hienGiaBan" promptText="100000" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtGiaBan" editable="false" layoutX="468.0" layoutY="98.0" promptText="150000" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtSoLuong" layoutX="106.0" layoutY="122.0" onKeyTyped="#validData" promptText="10" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtTenSach" layoutX="466.0" layoutY="18.0" onKeyTyped="#validData" promptText="Đắc nhân tâm" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtNamXuatBan" layoutX="469.0" layoutY="180.0" onKeyTyped="#validData" promptText="2022" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtTacGia" layoutX="105.0" layoutY="203.0" onKeyTyped="#validData" promptText="Dale Carnegie" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label layoutX="668.0" layoutY="118.0" text="Hình ảnh:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="imvAnhSach" fitHeight="200.0" fitWidth="200.0" layoutX="769.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="btnThemAnh" layoutX="979.0" layoutY="88.0" mnemonicParsing="false" onAction="#importAnhSach" prefHeight="32.0" prefWidth="92.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm ảnh" textFill="WHITE">
+                        <ImageView fx:id="imvAnhSach" fitHeight="200.0" fitWidth="200.0" layoutX="769.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="btnThemAnh" layoutX="979.0" layoutY="116.0" mnemonicParsing="false" onAction="#importAnhSach" prefHeight="32.0" prefWidth="92.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thêm ảnh" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Label layoutX="10.0" layoutY="162.0" text="Loại sách:" textFill="WHITE">
+                        <Label layoutX="10.0" layoutY="170.0" text="Loại sách:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
                         <Line endX="868.0" endY="-7.62939453125E-6" layoutX="211.0" layoutY="447.0" startX="-212.00001525878906" startY="-7.62939453125E-6" stroke="WHITE" />
-                        <DatePicker fx:id="datePickerNgayNhap" editable="false" layoutX="105.0" layoutY="78.0" promptText="9/30/2022" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <ComboBox fx:id="cbxLoaiSach" layoutX="105.0" layoutY="157.0" prefHeight="28.0" prefWidth="162.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <ComboBox fx:id="cbxNhaXuatBan" layoutX="469.0" layoutY="111.0" prefWidth="160.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <Label layoutX="339.0" layoutY="199.0" text="Nhà cung cấp:" textFill="WHITE">
+                        <DatePicker fx:id="datePickerNgayNhap" editable="false" layoutX="105.0" layoutY="86.0" promptText="9/30/2022" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <ComboBox fx:id="cbxLoaiSach" layoutX="105.0" layoutY="165.0" prefHeight="28.0" prefWidth="162.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <ComboBox fx:id="cbxNhaXuatBan" layoutX="469.0" layoutY="139.0" prefWidth="160.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label layoutX="339.0" layoutY="227.0" text="Nhà cung cấp:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbxNCC" layoutX="469.0" layoutY="193.0" prefHeight="28.0" prefWidth="162.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
-                        <Label layoutX="10.0" layoutY="43.0" text="Mã sách:" textFill="WHITE">
+                        <ComboBox fx:id="cbxNCC" layoutX="469.0" layoutY="221.0" prefHeight="28.0" prefWidth="162.0" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label layoutX="10.0" layoutY="51.0" text="Mã sách:" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtMaS" editable="false" layoutX="108.0" layoutY="36.0" promptText="S000001" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <TextField fx:id="txtMaS" editable="false" layoutX="108.0" layoutY="44.0" promptText="S000001" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
+                        <Label fx:id="lblError" layoutX="397.0" layoutY="-3.0" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </top>
                <right>
                   <Pane prefHeight="256.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView fx:id="tblSach" layoutX="1.0" layoutY="6.0" prefHeight="221.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
+                        <TableView fx:id="tblSach" layoutX="1.0" layoutY="6.0" prefHeight="179.0" prefWidth="1080.0" stylesheets="@../../../stylesheet/component-stylesheet.css">
                            <columns>
                               <TableColumn fx:id="colXoa" prefWidth="30.0" text="Xóa" />
                               <TableColumn fx:id="colMaSach" prefWidth="68.888916015625" text="Mã sách" />

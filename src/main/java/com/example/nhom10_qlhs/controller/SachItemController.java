@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,6 +66,7 @@ public class SachItemController {
         BorderPane borderPane = loader.load();
         Scene scene = new Scene(borderPane);
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.setScene(scene);
         stage.showAndWait();
 

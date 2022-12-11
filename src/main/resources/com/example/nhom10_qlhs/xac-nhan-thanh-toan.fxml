@@ -16,27 +16,27 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="39.0" layoutY="51.0" text="Tiền khách đưa:" textFill="WHITE">
+            <Label layoutX="39.0" layoutY="61.0" text="Tiền khách đưa:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="41.0" layoutY="93.0" text="Tiền thối:" textFill="WHITE">
+            <Label layoutX="41.0" layoutY="109.0" text="Tiền thối:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <TextField id="txtTienThoi" fx:id="txtTienKhach" layoutX="212.0" layoutY="47.0" onKeyTyped="#tinhTienThoi" onMouseExited="#validData" prefHeight="28.0" prefWidth="134.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="200000">
+            <TextField id="txtTienThoi" fx:id="txtTienKhach" layoutX="212.0" layoutY="45.0" onKeyReleased="#validData" onKeyTyped="#tinhTienThoi" prefHeight="38.0" prefWidth="83.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="0">
                <font>
                   <Font size="20.0" />
                </font>
             </TextField>
-            <Button fx:id="btnThanhToan" layoutX="203.0" layoutY="143.0" mnemonicParsing="false" onAction="#thanhToan" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thanh toán" textFill="WHITE">
+            <Button fx:id="btnThanhToan" layoutX="203.0" layoutY="153.0" mnemonicParsing="false" onAction="#thanhToan" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Thanh toán" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Button>
-            <Button fx:id="btnHuy" layoutX="51.0" layoutY="143.0" mnemonicParsing="false" onAction="#huyThanhToan" prefHeight="25.0" prefWidth="80.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Hủy" textFill="WHITE">
+            <Button fx:id="btnHuy" layoutX="51.0" layoutY="153.0" mnemonicParsing="false" onAction="#huyThanhToan" prefHeight="25.0" prefWidth="80.0" stylesheets="@../../../stylesheet/component-stylesheet.css" text="Hủy" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -46,9 +46,14 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="lblTienThoi" layoutX="212.0" layoutY="93.0" text="100000đ" textFill="WHITE">
+            <Label fx:id="lblTienThoi" layoutX="212.0" layoutY="109.0" text="100000đ" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="errTienKhachDua" layoutX="212.0" layoutY="89.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Label>
          </children>

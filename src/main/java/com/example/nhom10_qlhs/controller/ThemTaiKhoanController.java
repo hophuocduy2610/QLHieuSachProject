@@ -2,11 +2,16 @@ package com.example.nhom10_qlhs.controller;
 
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import com.example.nhom10_qlhs.dao.TaiKhoanDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 
 import java.net.URL;
@@ -41,58 +46,63 @@ public class ThemTaiKhoanController implements Initializable {
     @FXML
     private TextField txtHienMatKhau;
 
-    public Connection connect;
-    private PreparedStatement prepare;
-    private Statement statement;
-    private ResultSet result;
+
+    @FXML
+    private Label errMatKhau;
+
+    @FXML
+    private Label errNhapLaiMatKhau;
+
+    @FXML
+    private BorderPane pnThemTK;
     private Alert alert;
+
+    TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
 
     //Tạo tài khoản sau khi thêm nhân viên
     public void taoTaiKhoan() {
         GetData.trangThai = 1;
-        if(!(txtMatKhau.getText() == "" || txtXacNhanMatKhau.getText() == "")){
-            if(txtXacNhanMatKhau.getText().equals(txtMatKhau.getText().toLowerCase())){
-                String sql = "  INSERT INTO TaiKhoan (maTaiKhoan, tenTaiKhoan, matKhau, loaiTK, trangThai) " +
-                        "VALUES (?, ?, ?, ?, ?)";
-                try {
-                    connect = ConnectDB.connect();
-                    prepare = connect.prepareStatement(sql);
-                    prepare.setString(1, GetData.maNV);
-                    prepare.setString(2, lblTenTK.getText());
-                    prepare.setString(3, txtMatKhau.getText());
-                    prepare.setString(4, lblLoaiTK.getText());
-                    prepare.setInt(5, GetData.trangThai);
-                    boolean result = prepare.execute();
-                    if(!result){
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Tạo tài khoản thành công");
-                        alert.showAndWait();
-                    }
-                    btnTao.getScene().getWindow().hide();
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Tạo tài khoản không thành công");
-                    alert.showAndWait();
-                }
-            }else{
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Xác nhận mật khẩu không trùng khớp, vui lòng kiểm tra lại mật khẩu");
-                alert.showAndWait();
-            }
-        }else{
+        boolean result = taiKhoanDAO.themTaiKhoan(GetData.maNV,lblTenTK.getText(), txtMatKhau.getText(), lblLoaiTK.getText(), GetData.trangThai);
+        if(txtMatKhau.getText() == "") {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Vui lòng nhập đầy đủ thông tin");
+            alert.setContentText("Mật khẩu không được bỏ trống");
+            alert.showAndWait();
+            return;
+        } else if (txtXacNhanMatKhau.getText() == "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Xác nhận mật khẩu không được bỏ trống");
+            alert.showAndWait();
+            return;
+        }
+
+        if(errMatKhau.getText() != "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Mật khẩu không hợp lệ");
+            alert.showAndWait();
+            return;
+        } else if (errNhapLaiMatKhau.getText() != "") {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Xác nhận mật khẩu không hợp lệ");
+            alert.showAndWait();
+            return;
+        }
+
+        if(result){
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Tạo tài khoản thành công");
             alert.showAndWait();
         }
+        btnTao.getScene().getWindow().hide();
         GetData.trangThai = 0;
         GetData.taiKhoan = "";
         GetData.chucVu = "";
@@ -121,32 +131,37 @@ public class ThemTaiKhoanController implements Initializable {
         txtHienMK.setVisible(false);
     }
 
-    public void validData (MouseEvent event) {
+    public void validData (KeyEvent event) {
         if (event.getSource().equals(txtMatKhau)) {
             if (!txtMatKhau.getText().matches("^([A-Za-z0-9]){8,20}$")) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Mật khẩu không hợp lệ và không được bỏ trống");
-                alert.showAndWait();
-
+                errMatKhau.setText("Mật khẩu không hợp lệ và không được bỏ trống");
                 txtMatKhau.setStyle("-fx-border-color:#e04040;");
             } else {
+                errMatKhau.setText("");
                 txtMatKhau.setStyle("-fx-border-color:#fff;");
             }
         } else if (event.getSource().equals(txtXacNhanMatKhau)) {
-            if (!txtXacNhanMatKhau.getText().matches("^([A-Za-z0-9]){8,20}$")) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Mật khẩu không hợp lệ và không được bỏ trống");
-                alert.showAndWait();
-
+            if (!txtXacNhanMatKhau.getText().equals(txtMatKhau.getText())) {
+                errNhapLaiMatKhau.setText("Mật khẩu chưa trùng khớp");
                 txtXacNhanMatKhau.setStyle("-fx-border-color:#e04040;");
             } else {
+                errNhapLaiMatKhau.setText("");
                 txtXacNhanMatKhau.setStyle("-fx-border-color:#fff;");
             }
         }
+    }
+
+    //Exit
+    public void exit(ActionEvent event) {
+        pnThemTK.getScene().getWindow().hide();
+    }
+
+    //Minimize
+    public void minimize(ActionEvent event) {
+        Stage stage = (Stage) pnThemTK.getScene().getWindow();
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+
+        stage.setIconified(true);
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

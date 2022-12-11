@@ -2,6 +2,7 @@ package com.example.nhom10_qlhs.dao;
 
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,5 +34,27 @@ public class TaiKhoanDAO {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    public boolean themTaiKhoan(String maTaiKhoan, String tenTaiKhoan, String matKhau, String loaiTK, int trangThai) {
+        String sql = "  INSERT INTO TaiKhoan (maTaiKhoan, tenTaiKhoan, matKhau, loaiTK, trangThai) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, maTaiKhoan);
+            prepare.setString(2, tenTaiKhoan);
+            prepare.setString(3, matKhau);
+            prepare.setString(4, loaiTK);
+            prepare.setInt(5, trangThai);
+            boolean result = prepare.execute();
+            if (!result) {
+               return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
 }

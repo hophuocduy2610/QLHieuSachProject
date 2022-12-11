@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -78,6 +79,7 @@ public class MenuController implements Initializable{
                 FxmlLoader fxmlLoader = new FxmlLoader();
                 BorderPane view = fxmlLoader.getBorderPane("dang-nhap-gui");
                 Scene scene = new Scene(view);
+                stage.initStyle(StageStyle.DECORATED.UNDECORATED);
                 stage.setScene(scene);
                 stage.show();
                 btnDangXuat.getScene().getWindow().hide();
