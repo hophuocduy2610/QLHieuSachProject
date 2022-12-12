@@ -1,6 +1,5 @@
 package com.example.nhom10_qlhs.dao;
 
-import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
 import com.example.nhom10_qlhs.entities.Sach;
 import javafx.collections.FXCollections;
@@ -10,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class SachDAO {
@@ -36,9 +35,14 @@ public class SachDAO {
                 sach.setTenSach(result.getString("tenSach"));
                 sach.setSoLuong(result.getInt("soLuong"));
                 sach.setGiaNhap(result.getDouble("giaNhap"));
+                sach.setNhaXuatBan(result.getString("nhaXuatBan"));
                 sach.setNamXuatBan(result.getInt("namXuatBan"));
+                sach.setTacGia(result.getString("tacGia"));
                 sach.setLoaiSach(result.getString("loaiSach"));
+                sach.setNhaCungCap(result.getString("nhaCungCap"));
+                sach.setNgayNhap(result.getDate("ngayNhap"));
                 sach.setGiaBan(result.getDouble("giaBan"));
+                sach.setVAT(result.getDouble("VAT"));
                 sach.setHinhAnhSach(result.getString("hinhAnhSach"));
                 sachList.add(sach);
             }
@@ -62,18 +66,19 @@ public class SachDAO {
             prepare.setString(1, maSach);
             result = prepare.executeQuery();
             while(result.next()){
-                sach = new Sach(result.getString("maS"),
-                        result.getString("tenSach"),
-                        result.getInt("soLuong"),
-                        result.getDate("ngayNhap"),
-                        result.getDouble("giaNhap"),
-                        result.getString("tenNXB"),
-                        result.getInt("namXuatBan"),
-                        result.getString("tenTG"),
-                        result.getString("tenLoai"),
-                        result.getDouble("giaBan"),
-                        result.getDouble("VAT"),
-                        result.getString("tenNCC"));
+                sach = new Sach();
+                sach.setMaSach(result.getString("maS"));
+                sach.setTenSach(result.getString("tenSach"));
+                sach.setSoLuong(result.getInt("soLuong"));
+                sach.setGiaNhap(result.getDouble("giaNhap"));
+                sach.setNhaXuatBan(result.getString("tenNXB"));
+                sach.setNamXuatBan(result.getInt("namXuatBan"));
+                sach.setTacGia(result.getString("tenTG"));
+                sach.setLoaiSach(result.getString("tenLoai"));
+                sach.setNhaCungCap(result.getString("tenNCC"));
+                sach.setNgayNhap(result.getDate("ngayNhap"));
+                sach.setGiaBan(result.getDouble("giaBan"));
+                sach.setVAT(result.getDouble("VAT"));
                 sachList.add(sach);
             }
         }catch (Exception ex){
@@ -96,18 +101,19 @@ public class SachDAO {
             prepare.setString(1, tenSach);
             result = prepare.executeQuery();
             while(result.next()){
-                sach = new Sach(result.getString("maS"),
-                        result.getString("tenSach"),
-                        result.getInt("soLuong"),
-                        result.getDate("ngayNhap"),
-                        result.getDouble("giaNhap"),
-                        result.getString("tenNXB"),
-                        result.getInt("namXuatBan"),
-                        result.getString("tenTG"),
-                        result.getString("tenLoai"),
-                        result.getDouble("giaBan"),
-                        result.getDouble("VAT"),
-                        result.getString("tenNCC"));
+                sach = new Sach();
+                sach.setMaSach(result.getString("maS"));
+                sach.setTenSach(result.getString("tenSach"));
+                sach.setSoLuong(result.getInt("soLuong"));
+                sach.setGiaNhap(result.getDouble("giaNhap"));
+                sach.setNhaXuatBan(result.getString("tenNXB"));
+                sach.setNamXuatBan(result.getInt("namXuatBan"));
+                sach.setTacGia(result.getString("tenTG"));
+                sach.setLoaiSach(result.getString("tenLoai"));
+                sach.setNhaCungCap(result.getString("tenNCC"));
+                sach.setNgayNhap(result.getDate("ngayNhap"));
+                sach.setGiaBan(result.getDouble("giaBan"));
+                sach.setVAT(result.getDouble("VAT"));
                 sachList.add(sach);
             }
         }catch (Exception ex){
@@ -130,18 +136,19 @@ public class SachDAO {
             prepare.setString(1, tenTG);
             result = prepare.executeQuery();
             while(result.next()){
-                sach = new Sach(result.getString("maS"),
-                        result.getString("tenSach"),
-                        result.getInt("soLuong"),
-                        result.getDate("ngayNhap"),
-                        result.getDouble("giaNhap"),
-                        result.getString("tenNXB"),
-                        result.getInt("namXuatBan"),
-                        result.getString("tenTG"),
-                        result.getString("tenLoai"),
-                        result.getDouble("giaBan"),
-                        result.getDouble("VAT"),
-                        result.getString("tenNCC"));
+                sach = new Sach();
+                sach.setMaSach(result.getString("maS"));
+                sach.setTenSach(result.getString("tenSach"));
+                sach.setSoLuong(result.getInt("soLuong"));
+                sach.setGiaNhap(result.getDouble("giaNhap"));
+                sach.setNhaXuatBan(result.getString("tenNXB"));
+                sach.setNamXuatBan(result.getInt("namXuatBan"));
+                sach.setTacGia(result.getString("tenTG"));
+                sach.setLoaiSach(result.getString("tenLoai"));
+                sach.setNhaCungCap(result.getString("tenNCC"));
+                sach.setNgayNhap(result.getDate("ngayNhap"));
+                sach.setGiaBan(result.getDouble("giaBan"));
+                sach.setVAT(result.getDouble("VAT"));
                 sachList.add(sach);
             }
         }catch (Exception ex){
@@ -150,11 +157,11 @@ public class SachDAO {
         return sachList;
     }
 
-    public boolean themSach(String maS, String tenSach, int soLuong, double giaNhap, String nhaXuatBan, int namXuatBan, String tacGia, String loaiSach, String nhaCungCap,  double giaBan, String hinhAnhSach, int trangThai) {
+    public boolean themSach(String maS, String tenSach, int soLuong, double giaNhap, String nhaXuatBan, int namXuatBan, String tacGia, String loaiSach, String nhaCungCap, Date ngayNhap, double giaBan, double VAT, String hinhAnhSach, int trangThai) {
         String sql = "  INSERT INTO Sach (maS, tenSach, soLuong, " +
                 "giaNhap, nhaXuatBan, namXuatBan, tacGia, " +
-                "loaiSach, nhaCungCap, giaBan, hinhAnhSach, trangThai) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "loaiSach, nhaCungCap, ngayNhap, giaBan, VAT, hinhAnhSach, trangThai) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             connect = ConnectDB.connect();
             prepare = connect.prepareStatement(sql);
@@ -167,9 +174,11 @@ public class SachDAO {
             prepare.setString(7, tacGia);
             prepare.setString(8, loaiSach);
             prepare.setString(9, nhaCungCap);
-            prepare.setDouble(10, giaBan);
-            prepare.setString(11, hinhAnhSach);
-            prepare.setInt(12, trangThai);
+            prepare.setDate(10, ngayNhap);
+            prepare.setDouble(11, giaBan);
+            prepare.setDouble(12, VAT);
+            prepare.setString(13, hinhAnhSach);
+            prepare.setInt(14, trangThai);
             boolean result = prepare.execute();//Thực thi truy vấn sql
 
             if (!result) { //Nếu thực thi thành công thì xuất thông báo

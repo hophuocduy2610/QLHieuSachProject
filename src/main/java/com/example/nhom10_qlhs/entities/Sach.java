@@ -1,10 +1,8 @@
 package com.example.nhom10_qlhs.entities;
 
-import javafx.beans.property.ReadOnlyFloatProperty;
-import javafx.beans.property.ReadOnlyFloatWrapper;
 import javafx.scene.control.CheckBox;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Sach {
     private String maSach;
@@ -26,6 +24,7 @@ public class Sach {
     private Double VAT;
 
     public Sach() {
+        this.checkBox = new CheckBox();
     }
 
     public Sach(String tenSach, int soLuong, double giaNhap, String nhaXuatBan, int namXuatBan, String tacGia, String loaiSach, String nhaCungCap, double giaBan, String hinhAnhSach) {
@@ -42,7 +41,7 @@ public class Sach {
         this.checkBox = new CheckBox();
     }
 
-    public Sach(String maSach, String tenSach, int soLuong, Date ngayNhap, double giaNhap, String nhaXuatBan, int namXuatBan, String tacGia, String loaiSach, double giaBan, double VAT, String nhaCungCap) {
+    public Sach(String maSach, String tenSach, int soLuong, double giaNhap, String nhaXuatBan, int namXuatBan, String tacGia, String loaiSach, String nhaCungCap, Date ngayNhap, double giaBan, double VAT, String hinhAnhSach) {
         this.maSach = maSach;
         this.tenSach = tenSach;
         this.soLuong = soLuong;
@@ -55,6 +54,7 @@ public class Sach {
         this.nhaCungCap = nhaCungCap;
         this.giaBan = giaBan;
         this.VAT = VAT;
+        this.hinhAnhSach = hinhAnhSach;
         this.checkBox = new CheckBox();
     }
 
@@ -170,6 +170,14 @@ public class Sach {
 
     public void setVAT(Double VAT) {
         this.VAT = VAT;
+    }
+
+    public Date getNgayNhap() {
+        return ngayNhap;
+    }
+
+    public void setNgayNhap(Date ngayNhap) {
+        this.ngayNhap = ngayNhap;
     }
 
     @Override

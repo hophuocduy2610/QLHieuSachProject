@@ -29,4 +29,38 @@ public class LoaiSDAO {
         }
         return loaiSachList;
     }
+
+    public String getMaLoaiSachTheoTenLoai(String tenLoai) {
+        String maLoaiS = "";
+        String sql = "SELECT maLoai FROM LoaiS WHERE tenLoai = ?";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, tenLoai);
+            result = prepare.executeQuery();
+            while (result.next()){
+                maLoaiS = result.getString("maLoai");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return maLoaiS;
+    }
+
+    public String getTenLoaiSachTheoMaLoai(String maLoai) {
+        String tenLoaiS = "";
+        String sql = "SELECT tenLoai FROM LoaiS WHERE maLoai = ?";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, maLoai);
+            result = prepare.executeQuery();
+            while (result.next()){
+                tenLoaiS = result.getString("tenLoai");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return tenLoaiS;
+    }
 }

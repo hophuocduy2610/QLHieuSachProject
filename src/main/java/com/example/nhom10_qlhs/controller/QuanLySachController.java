@@ -1,11 +1,7 @@
 package com.example.nhom10_qlhs.controller;
 
 import com.example.nhom10_qlhs.GetData;
-import com.example.nhom10_qlhs.connectdb.ConnectDB;
-import com.example.nhom10_qlhs.dao.LoaiSDAO;
-import com.example.nhom10_qlhs.dao.NhaCungCapDAO;
-import com.example.nhom10_qlhs.dao.SachDAO;
-import com.example.nhom10_qlhs.entities.NhaXuatBan;
+import com.example.nhom10_qlhs.dao.*;
 import com.example.nhom10_qlhs.entities.NhanVien;
 import com.example.nhom10_qlhs.entities.Sach;
 import javafx.collections.FXCollections;
@@ -26,6 +22,7 @@ import java.io.File;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +37,9 @@ public class QuanLySachController implements Initializable {
 
     @FXML
     private ComboBox<String> cbxNhaXuatBan;
+
+    @FXML
+    private ComboBox<Double> cbxVAT;
 
     @FXML
     private ComboBox<String> cbxNCC;
@@ -109,6 +109,10 @@ public class QuanLySachController implements Initializable {
     @FXML
     private TableColumn<Sach,String> colXoa;
 
+
+    @FXML
+    private TableColumn<Sach, Double> colVAT;
+
     @FXML
     private TableView<Sach> tblSach;
 
@@ -130,9 +134,15 @@ public class QuanLySachController implements Initializable {
     @FXML
     private Label lblError;
 
+
     private SachDAO sachDAO = new SachDAO();
     private NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
     private LoaiSDAO loaiSDAO = new LoaiSDAO();
+
+    private NhaXuatBanDAO nhaXuatBanDAO = new NhaXuatBanDAO();
+
+    private TacGiaDAO tacGiaDAO = new TacGiaDAO();
+
 
     private ObservableList<Sach> sachObservableList = FXCollections.observableArrayList();
 
@@ -144,7 +154,7 @@ public class QuanLySachController implements Initializable {
     public void showSachs(ObservableList<Sach> saches) {
         colMaSach.setCellValueFactory(new PropertyValueFactory<Sach, String>("maSach"));
         colTenSach.setCellValueFactory(new PropertyValueFactory<Sach, String>("tenSach"));
-        //colNgayNhap.setCellValueFactory(new PropertyValueFactory<Sach, Date>("namSinh"));
+        colNgayNhap.setCellValueFactory(new PropertyValueFactory<Sach, Date>("ngayNhap"));
         colSoLuong.setCellValueFactory(new PropertyValueFactory<Sach, Integer>("soLuong"));
         colNhaXuatBan.setCellValueFactory(new PropertyValueFactory<Sach, String>("nhaXuatBan"));
         colNhaCungCap.setCellValueFactory(new PropertyValueFactory<Sach, String>("nhaCungCap"));
@@ -153,6 +163,7 @@ public class QuanLySachController implements Initializable {
         colNamXuatBan.setCellValueFactory(new PropertyValueFactory<Sach, Integer>("namXuatBan"));
         colGiaNhap.setCellValueFactory(new PropertyValueFactory<Sach, Double>("giaNhap"));
         colGiaBan.setCellValueFactory(new PropertyValueFactory<Sach, Double>("giaBan"));
+        colVAT.setCellValueFactory(new PropertyValueFactory<Sach, Double>("VAT"));
         colXoa.setCellValueFactory(new PropertyValueFactory<Sach, String>("checkBox"));
         //Phần callback này để tạo ra button edit
         Callback<TableColumn<Sach, String>, TableCell<Sach, String>> cellFactory = param -> {
@@ -173,12 +184,14 @@ public class QuanLySachController implements Initializable {
                         final Button editButton = new Button("Edit",imgView);
                         editButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
                         editButton.setOnAction(event -> {
-                            Sach nv = sachObservableList.get(tblSach.getSelectionModel().getSelectedIndex());
-                            sachDAO.capNhatThongTinSach(nv.getMaSach(), txtTenSach.getText(),
+                            Sach sach = sachObservableList.get(tblSach.getSelectionModel().getSelectedIndex());
+                            sachDAO.capNhatThongTinSach(sach.getMaSach(), txtTenSach.getText(),
                                    Integer.parseInt(txtSoLuong.getText()), cbxNhaXuatBan.getValue(),
                                     cbxNCC.getValue(), txtTacGia.getText(),
                                     cbxLoaiSach.getValue(), Integer.parseInt(txtNamXuatBan.getText()),
                                     Double.parseDouble(txtGiaNhap.getText()), Double.parseDouble(txtGiaBan.getText()));
+                            sachObservableList.setAll(sachDAO.getDSSachTheoTenSach(txtTenSach.getText()));
+                            clearAll();
                         });
                         setGraphic(editButton);
                         setText(null);
@@ -323,7 +336,7 @@ public class QuanLySachController implements Initializable {
             return;
         }
 
-        if (lblError.getText() != null) {
+        if (lblError.getText() != "") {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -334,10 +347,13 @@ public class QuanLySachController implements Initializable {
 
         GetData.trangThai = 1;
         GetData.trangThaiButton = "btnThemNV";
-
-        boolean result = sachDAO.themSach(txtMaS.getText(), txtTenSach.getText(), Integer.valueOf(txtSoLuong.getText()), Double.valueOf(txtGiaNhap.getText()), cbxNhaXuatBan.getValue(),
-                Integer.valueOf(txtNamXuatBan.getText()), txtTacGia.getText(), cbxLoaiSach.getValue(), cbxNCC.getValue(),
-                Double.valueOf(txtGiaBan.getText()), GetData.linkAnhSach, GetData.trangThai);
+        String loaiS = loaiSDAO.getMaLoaiSachTheoTenLoai(cbxLoaiSach.getValue());
+        String nhaXuatBan = nhaXuatBanDAO.getMaNXBTheoTenNXB(cbxNhaXuatBan.getValue());
+        String nhaCungCap = nhaCungCapDAO.getMaNCCTheoTen(cbxNCC.getValue());
+        String tacGia = tacGiaDAO.getMaTGTheoTenTG(txtTacGia.getText());
+        boolean result = sachDAO.themSach(txtMaS.getText(), txtTenSach.getText(), Integer.valueOf(txtSoLuong.getText()), Double.valueOf(txtGiaNhap.getText()), nhaXuatBan,
+                Integer.valueOf(txtNamXuatBan.getText()), tacGia, loaiS, nhaCungCap, Date.valueOf(datePickerNgayNhap.getValue()),
+                Double.valueOf(txtGiaBan.getText()), cbxVAT.getValue(), GetData.linkAnhSach, GetData.trangThai);
 
             if(result){ //Nếu thực thi thành công thì xuất thông báo
                 alert = new Alert(Alert.AlertType.INFORMATION);
@@ -345,6 +361,13 @@ public class QuanLySachController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Thêm thành công");
                 alert.showAndWait();
+                Sach sach = new Sach(txtMaS.getText(), txtTenSach.getText(), Integer.valueOf(txtSoLuong.getText()), Double.valueOf(txtGiaNhap.getText()), cbxNhaXuatBan.getValue(),
+                        Integer.valueOf(txtNamXuatBan.getText()), txtTacGia.getText(), cbxLoaiSach.getValue(), cbxNCC.getValue(), Date.valueOf(datePickerNgayNhap.getValue()),
+                        Double.valueOf(txtGiaBan.getText()), cbxVAT.getValue(),GetData.linkAnhSach);
+                sachObservableList.setAll(sach);
+                txtMaS.setText(taoMaSach());
+                showSachs(sachObservableList);
+                clearAll();
             }else { //Sai thì xuất lỗi
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -398,18 +421,37 @@ public class QuanLySachController implements Initializable {
         txtTenSach.setText("");
         datePickerNgayNhap.setValue(null);
         txtSoLuong.setText("");
-        cbxLoaiSach.setValue(null);
+        cbxLoaiSach.getSelectionModel().selectFirst();
         txtTacGia.setText("");
         txtGiaNhap.setText("");
         txtGiaBan.setText("");
-        cbxNhaXuatBan.setValue(null);
+        cbxNhaXuatBan.getSelectionModel().selectFirst();
         txtNamXuatBan.setText("");
         txtTimKiem.setText("");
         txtNamXuatBan.setText("");
         radMaSach.setSelected(true);
-        tblSach.setItems(null);
+        cbxVAT.getSelectionModel().selectFirst();
+        imvAnhSach.setImage(null);
+        showSachsLenBang();
     }
+    //Load thông tin trên bảng lên text field
+    @FXML
+    public void loadHangDuocChonLenTextField(MouseEvent mouseEvent){
+        //Lấy dòng khách hàng được chọn trong bảng và đưa lên text field để thực thi chỉnh sửa
+        Sach sach = tblSach.getItems().get(tblSach.getSelectionModel().getSelectedIndex());
+        datePickerNgayNhap.setValue(sach.getNgayNhap().toLocalDate());
+        txtSoLuong.setText(String.valueOf(sach.getSoLuong()));
+        cbxLoaiSach.setValue(loaiSDAO.getTenLoaiSachTheoMaLoai(sach.getLoaiSach()));
+        txtTacGia.setText(tacGiaDAO.getTenTGTheoMaTG(sach.getTacGia()));
+        cbxVAT.setValue(sach.getVAT());
+        txtTenSach.setText(sach.getTenSach());
+        txtGiaNhap.setText(String.valueOf(sach.getGiaNhap()));
+        txtGiaBan.setText(String.valueOf(sach.getGiaBan()));
+        cbxNhaXuatBan.setValue(nhaXuatBanDAO.getTenNXBTheoMaNXB(sach.getNhaXuatBan()));
+        txtNamXuatBan.setText(String.valueOf(sach.getNamXuatBan()));
+        cbxNCC.setValue(nhaCungCapDAO.getTenNCCTheoMa(sach.getNhaCungCap()));
 
+    }
     //Load nhà xuất bản
     public void loadNhaXuatBan(){
         cbxNhaXuatBan.setItems(sachDAO.getNhaXuatBan());
@@ -425,7 +467,13 @@ public class QuanLySachController implements Initializable {
     }
 
     public Double tinhGiaBan(Double giaNhap){
-        return ((giaNhap) / (100-50))*100;
+        Double giaBan = 0.0;
+        if (cbxVAT.getValue() == 0.0) {
+            giaBan = ((giaNhap) / (100-50))*100;
+        } else if (cbxVAT.getValue() == 0.05) {
+            giaBan = (((giaNhap) / (100-50))*100)*1.05;
+        }
+        return giaBan;
     }
 
     public void hienGiaBan(KeyEvent keyEvent){
@@ -501,11 +549,29 @@ public class QuanLySachController implements Initializable {
             }
         }
     }
+
+    public void showSachsLenBang() {
+        List<Sach> saches = sachDAO.getDSSach();
+        sachObservableList.setAll(saches);
+        showSachs(sachObservableList);
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<Double> vats = FXCollections.observableArrayList();
+        List vatList = new ArrayList();
+        vatList.add(0.0);
+        vatList.add(0.05);
+        vats.addAll(vatList);
+        cbxVAT.setItems(vats);
+        cbxVAT.getSelectionModel().selectFirst();
         loadNhaXuatBan();
         loadLoaiSach();
         loadNhaCungCap();
+        cbxLoaiSach.getSelectionModel().selectFirst();
+        cbxNCC.getSelectionModel().selectFirst();
+        cbxNhaXuatBan.getSelectionModel().selectFirst();
         txtMaS.setText(taoMaSach());
+        radMaSach.setSelected(true);
+        showSachsLenBang();
     }
 }

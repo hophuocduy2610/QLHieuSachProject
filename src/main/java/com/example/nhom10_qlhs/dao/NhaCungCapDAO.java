@@ -29,4 +29,37 @@ public class NhaCungCapDAO {
         }
         return nccList;
     }
+
+    public String getMaNCCTheoTen(String tenNCC) {
+        String maNCC = "";
+        String sql = "SELECT maNCC FROM NhaCungCap WHERE tenNCC = ?";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, tenNCC);
+            result = prepare.executeQuery();
+            while (result.next()){
+                maNCC = result.getString("maNCC");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return maNCC;
+    }
+    public String getTenNCCTheoMa(String maNCC) {
+        String tenNCC = "";
+        String sql = "SELECT tenNCC FROM NhaCungCap WHERE maNCC = ?";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1, maNCC);
+            result = prepare.executeQuery();
+            while (result.next()){
+                tenNCC = result.getString("tenNCC");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return tenNCC;
+    }
 }

@@ -2,6 +2,9 @@ package com.example.nhom10_qlhs.controller;
 
 import com.example.nhom10_qlhs.GetData;
 import com.example.nhom10_qlhs.connectdb.ConnectDB;
+import com.example.nhom10_qlhs.dao.LoaiSDAO;
+import com.example.nhom10_qlhs.dao.NhaCungCapDAO;
+import com.example.nhom10_qlhs.dao.NhaXuatBanDAO;
 import com.example.nhom10_qlhs.dao.NhanVienDAO;
 import com.example.nhom10_qlhs.entities.KhachHang;
 import com.example.nhom10_qlhs.entities.NhanVien;
@@ -309,7 +312,9 @@ public class QuanLyNhanVienController implements Initializable {
                 GetData.taiKhoan = txtTaiKhoan.getText();
                 GetData.chucVu = cbxChucVu.getValue();
                 GetData.maNV = txtMaNV.getText();
-                NhanVien nhanVienTemp = new NhanVien(txtMaNV.getText(), txtTenNV.getText(), txtDiaChi.getText(), Date.valueOf(txtNamSinh.getValue()), txtSDT.getText(), txtCMND.getText(), cbxPhai.getValue(), cbxChucVu.getValue(), Date.valueOf(txtNgayVaoLam.getValue()));
+
+                NhanVien nhanVienTemp = new NhanVien(txtMaNV.getText(), txtTenNV.getText(), txtDiaChi.getText(),
+                        Date.valueOf(txtNamSinh.getValue()), txtSDT.getText(), txtCMND.getText(), cbxPhai.getValue(), cbxChucVu.getValue(), Date.valueOf(txtNgayVaoLam.getValue()));
                 nhanVienObservableList.setAll(nhanVienTemp);
                 showNhanViens(nhanVienObservableList);
                 txtMaNV.setText(taoMaNV());
@@ -483,7 +488,6 @@ public class QuanLyNhanVienController implements Initializable {
 
     public void showNhanVienTheoNamVaoLamLenBang() {
         List<NhanVien> nhanViens = nhanVienDAO.getDSNhanVienTheoNam(LocalDate.now().getYear());
-//        ObservableList<NhanVien> nhanVienObservableListTemp = FXCollections.observableArrayList();
         nhanVienObservableList.setAll(nhanViens);
         showNhanViens(nhanVienObservableList);
     }
