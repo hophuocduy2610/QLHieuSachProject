@@ -101,21 +101,21 @@ public class DiaChiController {
             alert.setContentText("Đường không hợp lệ");
             alert.showAndWait();
             return;
-        } else if (txtPhuong.getText() != "") {
+        } else if (errPhuong.getText() != "") {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Phường không hợp lệ");
             alert.showAndWait();
             return;
-        } else if (txtQuan.getText() != "") {
+        } else if (errQuan.getText() != "") {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("Quận không hợp lệ");
             alert.showAndWait();
             return;
-        } else if (txtThanhPho.getText() != "") {
+        } else if (errThanhPho.getText() != "") {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);

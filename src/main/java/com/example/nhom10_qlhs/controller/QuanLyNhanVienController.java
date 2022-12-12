@@ -118,8 +118,6 @@ public class QuanLyNhanVienController implements Initializable {
     @FXML
     private Label lblError;
 
-
-    private NhanVien nhanVien;
     private ObservableList<NhanVien> nhanVienObservableList = FXCollections.observableArrayList();
 
     private NhanVienDAO nhanVienDAO = new NhanVienDAO();
@@ -311,6 +309,9 @@ public class QuanLyNhanVienController implements Initializable {
                 GetData.taiKhoan = txtTaiKhoan.getText();
                 GetData.chucVu = cbxChucVu.getValue();
                 GetData.maNV = txtMaNV.getText();
+                NhanVien nhanVienTemp = new NhanVien(txtMaNV.getText(), txtTenNV.getText(), txtDiaChi.getText(), Date.valueOf(txtNamSinh.getValue()), txtSDT.getText(), txtCMND.getText(), cbxPhai.getValue(), cbxChucVu.getValue(), Date.valueOf(txtNgayVaoLam.getValue()));
+                nhanVienObservableList.setAll(nhanVienTemp);
+                showNhanViens(nhanVienObservableList);
                 clearTextField();
             }else { //Sai thì xuất lỗi
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -436,7 +437,7 @@ public class QuanLyNhanVienController implements Initializable {
         txtNgayVaoLam.setValue(null);
         txtSDT.setText("");
         txtTimKiem.setText("");
-        tblNhanVien.setItems(null);
+        showNhanVienTheoNamVaoLamLenBang();
     }
     //Làm mới
     public void clearTextField() {
@@ -479,6 +480,12 @@ public class QuanLyNhanVienController implements Initializable {
         }
     }
 
+    public void showNhanVienTheoNamVaoLamLenBang() {
+        List<NhanVien> nhanViens = nhanVienDAO.getDSNhanVienTheoNam(LocalDate.now().getYear());
+//        ObservableList<NhanVien> nhanVienObservableListTemp = FXCollections.observableArrayList();
+        nhanVienObservableList.setAll(nhanViens);
+        showNhanViens(nhanVienObservableList);
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cbxPhai.setItems(FXCollections.observableArrayList("Nam", "Nữ", "Khác"));
@@ -489,5 +496,6 @@ public class QuanLyNhanVienController implements Initializable {
         txtTaiKhoan.setEditable(false);
         btnThemTK.setMouseTransparent(true);
         txtMaNV.setText(taoMaNV());
+        showNhanVienTheoNamVaoLamLenBang();
     }
 }

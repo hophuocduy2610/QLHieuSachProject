@@ -98,6 +98,33 @@ public class NhanVienDAO {
         return nhanVienList;
     }
 
+    //Lấy danh sách nhân viên theo năm hiện tại
+    public List<NhanVien> getDSNhanVienTheoNam(int year){
+        List<NhanVien> nhanVienList = new ArrayList<>();
+        String sql = "SELECT * FROM NhanVien WHERE YEAR(ngayVaoLam) = ? AND trangThai = 1";
+        try {
+            connect = ConnectDB.connect();
+            prepare = connect.prepareStatement(sql);
+            prepare.setString(1,String.valueOf(year));
+            result = prepare.executeQuery();
+            while(result.next()){
+                nhanVien = new NhanVien(result.getString("maNV"),
+                        result.getString("tenNV"),
+                        result.getString("diaChi"),
+                        result.getDate("namSinh"),
+                        result.getString("sdt"),
+                        result.getString("CMND"),
+                        result.getString("phai"),
+                        result.getString("chucVu"),
+                        result.getDate("ngayVaoLam"));
+                nhanVienList.add(nhanVien);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return nhanVienList;
+    }
+
     //Thêm một nhân viên mới
     public boolean themNhanVien(String maNV, String tenNV, String diaChi, String sdt, Date ngayVaoLam, String phai, Date namSinh, String chucVu, String CMND) {
         GetData.trangThai = 1; //set trạng thái cho nhân viên để dùng trong lúc xóa
@@ -201,7 +228,6 @@ public class NhanVienDAO {
             connect = ConnectDB.connect();
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
-            boolean rs = result.next();
             if (result.next()) {
                 soNV = result.getInt(1);
             }
