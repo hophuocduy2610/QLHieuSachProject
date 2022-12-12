@@ -34,6 +34,7 @@
    <center>
       <Pane prefHeight="251.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
+            <PasswordField fx:id="txtXacNhanMatKhau" layoutX="250.0" layoutY="126.0" onKeyTyped="#validData" prefHeight="30.0" prefWidth="164.0" promptText="nhập lại mật khẩu" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <PasswordField fx:id="txtMatKhau" cache="true" layoutX="250.0" layoutY="66.0" onKeyTyped="#validData" prefHeight="30.0" prefWidth="164.0" promptText="mật khẩu" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <TextField fx:id="txtHienMK" layoutX="250.0" layoutY="119.0" prefHeight="30.0" prefWidth="164.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" visible="false" />
             <TextField fx:id="txtHienMatKhau" layoutX="250.0" layoutY="66.0" prefHeight="30.0" prefWidth="164.0" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" visible="false" />
@@ -62,7 +63,6 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <PasswordField fx:id="txtXacNhanMatKhau" layoutX="250.0" layoutY="127.0" onKeyTyped="#validData" prefHeight="30.0" prefWidth="164.0" promptText="nhập lại mật khẩu" styleClass="textfield" stylesheets="@../../../stylesheet/component-stylesheet.css" />
             <Button id="btnShowPassword" layoutX="385.0" layoutY="71.0" mnemonicParsing="false" onMousePressed="#showPasswordMatKhau" onMouseReleased="#tatShowPasswordMatKhau" stylesheets="@../../../stylesheet/component-stylesheet.css">
                <graphic>
                   <FontAwesomeIcon fill="#ffffff4d" glyphName="EYE" styleClass="icons" />

@@ -277,6 +277,10 @@ public class QuanLyKhachHangController implements Initializable {
            alert.setHeaderText(null);
            alert.setContentText("Thêm thành công");
            alert.showAndWait();
+           KhachHang khachHang = new KhachHang(txtMaKH.getText(), txtTenKH.getText(), txtDiaChi.getText(), txtSoDT.getText(), txtEmail.getText(), cbxPhai.getValue(), Date.valueOf(txtNamSinh.getValue()));
+           khachHangObservableList.setAll(khachHang);
+           txtMaKH.setText(taoMaKH());
+           clearTextField();
        } else {
            alert = new Alert(Alert.AlertType.ERROR);
            alert.setTitle("Error");
@@ -352,13 +356,13 @@ public class QuanLyKhachHangController implements Initializable {
     }
 
     public void clearTextField(){
-        txtMaKH.setText("");
         txtTenKH.setText("");
         txtNamSinh.setValue(null);
         cbxPhai.setValue("Nam");
         txtDiaChi.setText("");
         txtEmail.setText("");
         txtSoDT.setText("");
+        showKhachHangsLenBang();
     }
 
     //Validation Data
@@ -394,15 +398,16 @@ public class QuanLyKhachHangController implements Initializable {
         }
     }
 
-
+    public void showKhachHangsLenBang() {
+        List<KhachHang> khachHangs = khachHangDAO.getAllKhachHang();
+        khachHangObservableList.setAll(khachHangs);
+        showKhachHangs(khachHangObservableList);
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cbxPhai.setItems(FXCollections.observableArrayList("Nam", "Nữ", "Khác"));
         radMaKH.setSelected(true);
         txtMaKH.setText(taoMaKH());
-        List<KhachHang> khachHangs = khachHangDAO.getAllKhachHang();
-        ObservableList<KhachHang> khachHangObservableListTemp = FXCollections.observableArrayList();
-        khachHangObservableListTemp.addAll(khachHangs);
-        showKhachHangs(khachHangObservableListTemp);
+        showKhachHangsLenBang();
     }
 }

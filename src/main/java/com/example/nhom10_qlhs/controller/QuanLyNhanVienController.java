@@ -312,6 +312,7 @@ public class QuanLyNhanVienController implements Initializable {
                 NhanVien nhanVienTemp = new NhanVien(txtMaNV.getText(), txtTenNV.getText(), txtDiaChi.getText(), Date.valueOf(txtNamSinh.getValue()), txtSDT.getText(), txtCMND.getText(), cbxPhai.getValue(), cbxChucVu.getValue(), Date.valueOf(txtNgayVaoLam.getValue()));
                 nhanVienObservableList.setAll(nhanVienTemp);
                 showNhanViens(nhanVienObservableList);
+                txtMaNV.setText(taoMaNV());
                 clearTextField();
             }else { //Sai thì xuất lỗi
                 Alert alert = new Alert(Alert.AlertType.ERROR);

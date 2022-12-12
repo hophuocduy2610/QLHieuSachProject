@@ -123,19 +123,19 @@ public class KhachHangDAO {
             connect = ConnectDB.connect();
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
-            boolean rs = result.next();
             if (result.next()) {
                 soKH = result.getInt(1);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        System.out.println(soKH);
         return soKH;
     }
 
     public Boolean themKhachHang(String maKH, String tenKH, String diaChi, String sdt, String email, String phai, String namSinh, int trangThai){
         String sql = "  INSERT INTO KhachHang (maKH, tenKH, diaChi, sdt, email, phai, namSinh, trangThai) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             connect = ConnectDB.connect();
             prepare = connect.prepareStatement(sql); // đưa chuỗi sql vô 1 biến prepare để đưa giá trị cần trong câu query
